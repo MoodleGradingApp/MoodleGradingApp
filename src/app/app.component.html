@@ -1,11 +1,40 @@
-<p>Developed by: Emily Costa and Michael Sisko</p>
-<h2>Grading Assistant</h2>
-<hr>
-<label for="assignment">Assignment: </label>
-<input type="text" id="assignment" name="assignment" placeholder="Ex. Homework #1">
-<label for="max-pts">&nbsp;&nbsp;&nbsp;&nbsp;Max Points: </label>
-<input type="number" id="max-pts" name="max-pts" min=0 size=3 placeholder="0">
-<hr>
-<label for="Student">Student Name: </label>
+<div class="panel panel-default" id="outer-card">
+    <p>Developed by: Emily Costa and Michael Sisko</p>
+    <h2>Grading Assistant</h2>
+    <hr>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <label for="assignment">Assignment:&nbsp;</label>
+                <input type="text" id="assignment" name="assignment" placeholder="Ex. Homework #1">
+                <div>
+                    <label for="max-pts">Max Points:&nbsp;&nbsp;&nbsp;</label>
+                    <input type="number" id="max-pts" name="max-pts" min=0 size=3 placeholder="0">
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary">Previous Student</button>
+                    <button type="button" class="btn btn-primary">Next Student</button>
+                    <button type="button" class="btn btn-primary">Import Table</button>
+                    <button type="button" class="btn btn-primary">Export Table</button>
+                    <button type="button" class="btn btn-primary">Stats</button>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <label for="Student">Student Name: </label>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+                <div class="text-right">
+                    <button type="button" class="btn btn-primary">Add Option</button>
+                </div>
+                <br>
+            </div>
 
-<br>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

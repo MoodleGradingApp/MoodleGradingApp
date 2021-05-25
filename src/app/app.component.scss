@@ -1,3 +1,24 @@
-max-pts {
-    width: 50px;
+input {
+    padding: 1pt;
+}
+
+#outer-card {
+    border-color: white;
+}
+
+.panel {
+    padding: 10px;
+    border-radius: 0px;
+    margin: 0px;
+}
+
+.btn {
+    margin: 5px;
+    border: 1px;
+    border-radius: 3px;
+    background-color: maroon;
+}
+
+label {
+    margin-bottom: 10px;
 }
