@@ -1,18 +1,30 @@
-<div class="panel panel-default" id="outer-card">
-    <p>Developed by: Emily Costa and Michael Sisko</p>
+<!-- 
+-- Authors: Michael Sisko and Emily Costa
+-- 
+-- Citation(s):
+--      Auto-sizing Text-box: https://stackoverflow.com/questions/2803880/ by Martin Prestone
+-->
+
+<div class="panel panel-default hide-outline" id="outer-card">
+    <p>Developed by: Michael Sisko and Emily Costa</p>
     <h2>Grading Assistant</h2>
     <hr>
     <div class="row">
-        <div class="col-lg-6">
+        <div class="col fixed-panel" id="main-left-panel">
             <div class="panel panel-default">
-                <label for="assignment">Assignment:&nbsp;</label>
-                <input type="text" id="assignment" name="assignment" placeholder="Ex. Homework #1">
-                <div>
-                    <label for="max-pts">Max Points:&nbsp;&nbsp;&nbsp;</label>
-                    <input type="number" id="max-pts" name="max-pts" min=0 size=3 placeholder="0">
+                <div class="panel panel-default hide-outline tight" id="item-info">
+                    <div id="assignment">
+                        <label for="assignment">Assignment:&nbsp;</label>
+                        <input class="input-box" type="text" id="assignment" name="assignment" placeholder="Ex. Homework #1">       
+                    </div>
+                    <div id="max-pts">
+                        <label for="max-pts">Max Points:&nbsp;</label>
+                        <input class="input-box" type="number" name="max-pts" min=0 size=3>
+                    </div>
                 </div>
-                <div>
-                    <button type="button" class="btn btn-primary">Previous Student</button>
+                <br>
+                <div class="panel panel-default hide-outline tight make-even" id="main-btn-set">
+                    <button type="button" class="btn btn-primary">Prev Student</button>
                     <button type="button" class="btn btn-primary">Next Student</button>
                     <button type="button" class="btn btn-primary">Import Table</button>
                     <button type="button" class="btn btn-primary">Export Table</button>
@@ -20,18 +32,40 @@
                 </div>
             </div>
             <div class="panel panel-default">
-                <label for="Student">Student Name: </label>
-                <div class="text-right">
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
-                <div class="text-right">
-                    <button type="button" class="btn btn-primary">Add Option</button>
+                <div class="panel panel-default hide-outline tight">
+                    <label for="Student">Student Name: </label>
+                    <button type="button" class="btn btn-primary feedback-btn">Save Progress</button>
                 </div>
                 <br>
+                <table>
+                    <col style="width: 20px">
+                    <col style="width: 100%">
+                    <col style="width: 60px">
+                    <tr>
+                      <th></th>
+                      <th>Feedback</th>
+                      <th>Deduction</th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <input class="feedback-items" type="checkbox">
+                      </td>
+                      <td>
+                        <!-- See code citation in header -->
+                        <textarea class="input-box" name="text" oninput='this.style.height = "";this.style.height = this.scrollHeight + 2 + "px"' placeholder="Say something constructive..."></textarea>
+                      </td>
+                      <td>
+                        <input class="feedback-items input-box" type="number" name="deduction" min=0 size=3>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <button type="button" class="btn btn-primary feedback-btn">Add Option</button>
+                <br><br>
             </div>
 
         </div>
-        <div class="col-lg-6">
+        <div class="col fixed-panel" id="main-right-panel">
             <div class="panel panel-default">
                 <br>
             </div>

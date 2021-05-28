@@ -1,24 +1,81 @@
-input {
-    padding: 1pt;
-}
-
-#outer-card {
-    border-color: white;
-}
-
 .panel {
     padding: 10px;
     border-radius: 0px;
     margin: 0px;
+    box-shadow: none;
 }
 
 .btn {
     margin: 5px;
-    border: 1px;
-    border-radius: 3px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     background-color: maroon;
 }
 
-label {
-    margin-bottom: 10px;
+.col {
+    margin: 0px;
+    padding: 0px;
+}
+
+#main-left-panel {
+    padding-left: 10px;
+    width: 45%;
+}
+
+#main-right-panel {
+    padding-right: 10px;
+    width: 45%;
+}
+
+#assignment, #max-pts {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.hide-outline {
+    border: none;
+    box-shadow: none;
+}
+
+.tight {
+    margin: 0px;
+    padding: 0px;
+}
+
+#main-btn-set {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feedback-btn {
+    float: right;
+}
+
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+td, th {
+    // border: 1px solid black;
+    text-align: left;
+    padding: 3px;
+}
+
+textarea {
+    width: 100%;
+    resize: none;
+}
+
+.input-box {
+    height: 15pt;
+    border-radius: 5px;
+    background: #eee;
+    border: 1px solid #ddd;
+    padding-left: 3px;
+}
+
+::placeholder {
+    font-style: italic;
 }
