@@ -3,6 +3,7 @@
 -- 
 -- Citation(s):
 --      Auto-sizing Text-box: https://stackoverflow.com/questions/2803880/ by Martin Prestone
+-- 
 -->
 
 <div class="panel panel-default hide-outline" id="outer-card">
@@ -19,11 +20,10 @@
                     </div>
                     <div id="max-pts">
                         <label for="max-pts">Max Points:&nbsp;</label>
-                        <input class="input-box" type="number" name="max-pts" min=0 size=3>
+                        <input class="input-box" type="number" name="max-pts" min=0 size=3 placeholder=100>
                     </div>
                 </div>
-                <br>
-                <div class="panel panel-default hide-outline tight make-even" id="main-btn-set">
+                <div class="panel panel-default hide-outline tight" id="main-btn-set">
                     <button type="button" class="btn btn-primary">Prev Student</button>
                     <button type="button" class="btn btn-primary">Next Student</button>
                     <button type="button" class="btn btn-primary">Import Table</button>
@@ -34,41 +34,50 @@
             <div class="panel panel-default">
                 <div class="panel panel-default hide-outline tight">
                     <label for="Student">Student Name: </label>
-                    <button type="button" class="btn btn-primary feedback-btn">Save Progress</button>
+                    <button type="button" id="save-btn" class="btn btn-primary feedback-btn">Save Progress</button>
                 </div>
                 <br>
-                <table>
-                    <col style="width: 20px">
-                    <col style="width: 100%">
-                    <col style="width: 60px">
-                    <tr>
-                      <th></th>
-                      <th>Feedback</th>
-                      <th>Deduction</th>
-                    </tr>
-                    <tr>
-                      <td>
-                        <input class="feedback-items" type="checkbox">
-                      </td>
-                      <td>
-                        <!-- See code citation in header -->
-                        <textarea class="input-box" name="text" oninput='this.style.height = "";this.style.height = this.scrollHeight + 2 + "px"' placeholder="Say something constructive..."></textarea>
-                      </td>
-                      <td>
-                        <input class="feedback-items input-box" type="number" name="deduction" min=0 size=3>
-                      </td>
-                    </tr>
-                  </table>
-                  <br>
-                  <button type="button" class="btn btn-primary feedback-btn">Add Option</button>
+                <form [formGroup]="feedbackForm">
+                    <table>
+                        <col style="width: 20px">
+                        <col style="width: 100%">
+                        <col style="width: 60px">
+                        <col style="width: 30px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Feedback</th>
+                                <th>Deduction</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody formArrayName="feedbackArray" *ngFor="let feedback of feedbackControls; let i = index">
+                            <tr [formGroupName]="i">
+                                <td formControlName="selected">
+                                    <input id="selected" type="checkbox">
+                                </td>
+                                <td formControlName="feedback">
+                                    <!-- Dynamic textbox citation in header -->
+                                    <textarea class="input-box" name="text" oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' placeholder="Say something constructive..."></textarea>
+                                </td>
+                                <td formControlName="deduction">
+                                    <input class="input-box" type="number" name="deduction" min=0 size=3 placeholder=0>
+                                </td>
+                                <td formControlName="trashButton">
+                                    <button class="btn btn-primary" type="button" id="trash-btn" name="trashButton" (click)="removeFeedback(i)" size=2>X</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+                <br>
+                <button type="button" class="btn btn-primary feedback-btn" (click)="addFeedback()">Add Feedback</button>
                 <br><br>
             </div>
 
         </div>
-        <div class="col fixed-panel" id="main-right-panel">
-            <div class="panel panel-default">
-                <br>
-            </div>
+        <div class="panel panel-default" id="main-right-panel">
+
         </div>
     </div>
 </div>
