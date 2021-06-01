@@ -6,7 +6,8 @@
     margin: 0px;
     box-shadow: none;
     background-color: #2E3036;
-    color: #fefeff
+    color: #fefeff;
+    padding: 15px;
 }
 .col {
     margin: 0px;
@@ -36,13 +37,16 @@
     min-height: 100vh;
     max-height: 100vh;
 }
-
 // Button styling:
 .btn {
     margin: 5px;
     border: none;
     border-radius: 5px;
     background-color: #778AD5;
+    font-size: 12px;
+}
+.btn:hover {
+    border: solid 1px white;
 }
 #main-btn-set {
     display: flex;
@@ -79,12 +83,13 @@ th {
 
 // Input styling:
 .input-box {
-    height: 15pt;
+    height: 18pt;
     border-radius: 5px;
+    border: solid 1px rgb(140, 140, 140);
     background: #212225;
-    border: none;
     padding-left: 3px;
     -moz-appearance: textfield;
+    font-size: 14px;
 }
 textarea {
     width: 100%;
@@ -103,4 +108,5 @@ textarea {
 // General styling
 p, h2, label {
     color: #ddd;
+    font-size: 14px;
 }
