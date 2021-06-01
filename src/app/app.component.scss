@@ -57,7 +57,7 @@
     float: right;
 }
 #trash-btn {
-    margin-left: 0px;
+    margin-left: 10px;
     padding: 7px;
     padding-top: 2px;
     padding-bottom: 2px;
@@ -70,7 +70,7 @@
 // Table formatting:
 table {
     table-layout: fixed;
-    width: 100%;
+    width: 95%;
 }
 td, th {
     // border: 1px solid black;
@@ -81,7 +81,8 @@ th {
     color: #B9BABE;
 }
 #deduction {
-    margin-right: 5px;
+    max-width: 50px;
+    margin-right: 10px;
 }
 
 // Input styling:
@@ -113,3 +114,4 @@ p, h2, label {
     color: #ddd;
     font-size: 14px;
 }
+
