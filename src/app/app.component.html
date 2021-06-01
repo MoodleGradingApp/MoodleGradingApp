@@ -46,7 +46,7 @@
                         <col style="width: 20px">
                         <col style="width: 100%">
                         <col style="width: 60px">
-                        <col style="width: 30px">
+                        <col style="width: 20px">
                         <thead>
                             <tr>
                                 <th></th>
@@ -65,7 +65,7 @@
                                     <textarea class="input-box" name="text" oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' placeholder="Say something constructive..."></textarea>
                                 </td>
                                 <td formControlName="deduction">
-                                    <input class="input-box" type="number" name="deduction" min=0 size=3 placeholder=0>
+                                    <input id="deduction" class="input-box" type="number" name="deduction" min=0 size=3 placeholder=0>
                                 </td>
                                 <td formControlName="trashButton">
                                     <button class="btn btn-primary" type="button" id="trash-btn" name="trashButton" (click)="removeFeedback(i)" size=2>X</button>

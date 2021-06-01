@@ -80,12 +80,15 @@ td, th {
 th {
     color: #B9BABE;
 }
+#deduction {
+    margin-right: 5px;
+}
 
 // Input styling:
 .input-box {
     height: 18pt;
     border-radius: 5px;
-    border: solid 1px rgb(140, 140, 140);
+    border: none;
     background: #212225;
     padding-left: 3px;
     -moz-appearance: textfield;
