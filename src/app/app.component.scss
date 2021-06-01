@@ -32,7 +32,7 @@
     padding: 0px;
 }
 #outer-card {
-    overflow: hidden;
+    overflow-y: scroll;
     min-height: 100vh;
     max-height: 100vh;
 }
@@ -98,10 +98,6 @@ textarea {
 ::placeholder {
     font-style: italic;
     color: #686A70;
-}
-#selected {
-    color: red;
-    cursor: pointer;
 }
 
 // General styling

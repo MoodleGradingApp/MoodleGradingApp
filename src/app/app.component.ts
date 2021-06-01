@@ -4,16 +4,16 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 
 export class AppComponent {
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
-
+  
   constructor(private fb: FormBuilder) {
     this.feedbackForm = this.fb.group({
-       feedbackArray: this.fb.array([ this.createFeedback() ])
+       feedbackArray: this.fb.array([ this.createFeedback() ]),
     });
   }
 
