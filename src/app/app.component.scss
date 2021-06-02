@@ -46,8 +46,8 @@
     background-color: #778AD5;
     font-size: 12px;
 }
-.btn:hover {
-    border: solid 1px white;
+.btn:hover, .input-box:hover {
+    border: solid 1px #bbb;
 }
 #main-btn-set {
     display: flex;
@@ -75,7 +75,7 @@ table {
     margin-right: 10px;
 }
 td, th {
-    // border: 1px solid black;
+    // border: 1px solid white;
     text-align: left;
     padding: 3px;
 }
