@@ -37,6 +37,7 @@
     min-height: 100vh;
     max-height: 100vh;
 }
+
 // Button styling:
 .btn {
     margin: 5px;
@@ -70,7 +71,8 @@
 // Table formatting:
 table {
     table-layout: fixed;
-    width: 95%;
+    width: 100%;
+    margin-right: 10px;
 }
 td, th {
     // border: 1px solid black;
