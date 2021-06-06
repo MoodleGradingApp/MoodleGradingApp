@@ -12,7 +12,7 @@
 
 <div class="panel panel-default hide-outline" id="outer-card">
     <p>Developed by: Michael Sisko and Emily Costa</p>
-    <h2>Grading Assistant</h2>
+    <h1>Grading Assistant</h1>
     <hr>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
@@ -20,11 +20,26 @@
                 <div class="panel panel-default hide-outline tight" id="item-info">
                     <div id="assignment">
                         <label for="assignment">Assignment:&nbsp;</label>
-                        <input class="input-box" type="text" id="assignment" name="assignment" placeholder="Ex. Homework #1">
+                        <input 
+                        class="input-box" 
+                        type="text" 
+                        id="assignment" 
+                        name="assignment" 
+                        placeholder="Ex. Homework #1"
+                        data-testid="nameInput"
+                        >
                     </div>
                     <div id="max-pts">
                         <label for="max-pts">Max Points:&nbsp;</label>
-                        <input class="input-box" type="number" name="max-pts" min=0 size=3 placeholder=100>
+                        <input 
+                        class="input-box" 
+                        type="number" 
+                        name="max-pts" 
+                        min=0 
+                        size=3 
+                        placeholder=100
+                        data-testid="maxPointsInput"
+                        >
                     </div>
                 </div>
                 <div class="panel panel-default hide-outline tight" id="main-btn-set">
@@ -62,20 +77,45 @@
                                 </td>
                                 <td formControlName="feedback">
                                     <!-- Dynamic textbox citation in header -->
-                                    <textarea class="input-box" name="text" oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' placeholder="Say something constructive..."></textarea>
+                                    <textarea 
+                                    class="input-box" 
+                                    name="text" 
+                                    oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' 
+                                    placeholder="Say something constructive..."
+                                    data-testid="feedbackInput"></textarea>
                                 </td>
                                 <td formControlName="deduction">
-                                    <input id="deduction" class="input-box" type="number" name="deduction" min=0 size=3 placeholder=0>
+                                    <input 
+                                    id="deduction" 
+                                    class="input-box" 
+                                    type="number" 
+                                    name="deduction" 
+                                    min=0 
+                                    size=3 
+                                    placeholder=0 
+                                    data-testid="deductionInput">
                                 </td>
                                 <td formControlName="trashButton">
-                                    <button class="btn btn-primary" type="button" id="trash-btn" name="trashButton" (click)="removeFeedback(i)" size=2>X</button>
+                                    <button 
+                                    class="btn btn-primary" 
+                                    type="button" id="trash-btn" 
+                                    name="trashButton" 
+                                    (click)="removeFeedback(i)" 
+                                    size=2
+                                    data-testid="trashBtn"
+                                    >X</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </form>
                 <br>
-                <button type="button" class="btn btn-primary feedback-btn" (click)="addFeedback()">Add Feedback</button>
+                <button 
+                type="button" 
+                class="btn btn-primary feedback-btn" 
+                (click)="addFeedback()"
+                data-testid="addFeedbackBtn"
+                >Add Feedback</button>
                 <br><br>
             </div>
         </div>
