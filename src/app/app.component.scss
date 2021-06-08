@@ -46,9 +46,6 @@
     background-color: #778AD5;
     font-size: 12px;
 }
-// .btn:hover, .input-box:hover {
-//     border: solid 1px #bbb;
-// }
 #main-btn-set {
     display: flex;
     flex-wrap: wrap;
@@ -58,10 +55,8 @@
     float: right;
 }
 #trash-btn {
-    margin-left: 10px;
-    padding: 7px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+    float: left;
+    margin-top: 0px;
     background-color: #EA6A62
 }
 #save-btn {
@@ -74,18 +69,23 @@ table {
     width: 100%;
     margin-right: 10px;
 }
-td, th {
-    // border: 1px solid white;
+th {
     text-align: left;
     padding: 3px;
 }
 th {
     color: #B9BABE;
 }
-#deduction {
-    max-width: 50px;
-    margin-right: 10px;
+tr {
+    display: flex;
+    min-width: 45vw;
+    // border: 1px solid white;
 }
+li {
+    list-style: none;
+    padding: 3px;
+}
+
 
 // Input styling:
 .input-box {
@@ -98,7 +98,6 @@ th {
     font-size: 14px;
 }
 textarea {
-    width: 100%;
     resize: none;
 }
 #assignment, #max-pts {

@@ -23,9 +23,7 @@ export class AppComponent {
 
   createFeedback(): FormGroup {
     return this.fb.group({
-      selected: false,
       feedback: '',
-      deduction: 0,
     });
   }
 

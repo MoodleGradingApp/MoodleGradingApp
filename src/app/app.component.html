@@ -58,24 +58,22 @@
                 <br>
                 <form [formGroup]="feedbackForm">
                     <table>
-                        <col style="width: 20px">
-                        <col style="width: 100%">
-                        <col style="width: 50px">
-                        <col style="width: 40px">
+                        <col>
+                        <col>
+                        <col>
+                        <col>
                         <thead>
-                            <tr>
-                                <th></th>
+                            <thead>
                                 <th>Feedback</th>
                                 <th>Deduction</th>
-                                <th></th>
-                            </tr>
+                            </thead>
                         </thead>
                         <tbody formArrayName="feedbackArray" *ngFor="let feedback of feedbackControls; let i = index">
                             <tr [formGroupName]="i">
-                                <td formControlName="selected">
+                                <li>
                                     <input id="selected" type="checkbox">
-                                </td>
-                                <td formControlName="feedback">
+                                </li>
+                                <li>
                                     <!-- Dynamic textbox citation in header -->
                                     <textarea 
                                     class="input-box" 
@@ -83,8 +81,8 @@
                                     oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' 
                                     placeholder="Say something constructive..."
                                     data-testid="feedbackInput"></textarea>
-                                </td>
-                                <td formControlName="deduction">
+                                </li>
+                                <li>
                                     <input 
                                     id="deduction" 
                                     class="input-box" 
@@ -94,8 +92,8 @@
                                     size=3 
                                     placeholder=0 
                                     data-testid="deductionInput">
-                                </td>
-                                <td formControlName="trashButton">
+                                </li>
+                                <li>
                                     <button 
                                     class="btn btn-primary" 
                                     type="button" id="trash-btn" 
@@ -104,7 +102,7 @@
                                     size=2
                                     data-testid="trashBtn"
                                     >X</button>
-                                </td>
+                                </li>
                             </tr>
                         </tbody>
                     </table>
