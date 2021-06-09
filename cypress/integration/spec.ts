@@ -23,22 +23,16 @@ it('Add Feedback', () => {
   cy.get('[data-testid=deductionInput]').type('5');
 
   // Press 'Add Feedback' button for new input line
-  // TEMPORARY loop because doesn't add until clicked 4 times
-  for( let n = 0; n < 4; n++) {
-    cy.get('[data-testid=addFeedbackBtn]').click();
-  }
+  cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
 it('Delete Feedback', () => {
   // Delete all feedback
   //cy.get('[data-testid="trashBtn"]').click({ multiple: true });
 
-  // TEMPORARY spread to expand the feedback array
   // Press delete buttoms from the bottom up 
-  cy.get('[data-testid="trashBtn"]').spread((first, second, third, fourth, fifth) => {
-    fifth.click();
-    fourth.click();
-    third.click();
+  cy.get('[data-testid="trashBtn"]').spread((first, second) => {
+    second.click();
   })
 });
 
