@@ -72,11 +72,9 @@ table {
 th {
     text-align: left;
     padding: 3px;
-}
-th {
     color: #B9BABE;
 }
-tr {
+tr, thead {
     display: flex;
     min-width: 45vw;
     // border: 1px solid white;
@@ -115,13 +113,8 @@ textarea {
     font-style: italic;
     color: #686A70;
 }
-
-.input-box.feedback {
-    //border: solid 1px red;
-    width: 100%;
-}
-
-.input-box.deduction {
+.feedback {
+    // border: solid 1px red;
     width: 100%;
 }
 
@@ -130,4 +123,11 @@ p, h2, label {
     color: #ddd;
     font-size: 14px;
 }
-
+#feedback-head {
+    text-align: left;
+    width: 100%;
+}
+#deduction-head {
+    margin-right: calc(2vw + 10px);
+    text-align: left;
+}

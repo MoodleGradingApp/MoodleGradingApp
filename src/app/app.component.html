@@ -64,8 +64,15 @@
                         <col>
                         <thead>
                             <thead>
-                                <th>Feedback</th>
-                                <th>Deduction</th>
+
+                                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+                                <li id="feedback-head">
+                                    <th>Feedback</th>
+                                </li>
+                                <li id="deduction-head">
+                                    <th>Deduction</th>
+                                </li>
+                                <li></li>
                             </thead>
                         </thead>
                         <tbody formArrayName="feedbackArray" *ngFor="let feedback of feedbackControls; let i = index">
