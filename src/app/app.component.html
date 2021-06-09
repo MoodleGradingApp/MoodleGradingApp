@@ -73,19 +73,19 @@
                                 <li>
                                     <input id="selected" type="checkbox">
                                 </li>
-                                <li>
+                                <li class="feedback-column">
                                     <!-- Dynamic textbox citation in header -->
                                     <textarea 
-                                    class="input-box" 
+                                    class="input-box feedback" 
                                     name="text" 
                                     oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' 
                                     placeholder="Say something constructive..."
                                     data-testid="feedbackInput"></textarea>
                                 </li>
-                                <li>
+                                <li class="deduction-column">
                                     <input 
                                     id="deduction" 
-                                    class="input-box" 
+                                    class="input-box deduction" 
                                     type="number" 
                                     name="deduction" 
                                     min=0 

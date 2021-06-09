@@ -84,8 +84,14 @@ tr {
 li {
     list-style: none;
     padding: 3px;
+    // border: 1px solid green;
 }
-
+.feedback-column {
+    width: 100%;
+}
+.deduction-column {
+    width: 15%;
+}
 
 // Input styling:
 .input-box {
@@ -108,6 +114,15 @@ textarea {
 ::placeholder {
     font-style: italic;
     color: #686A70;
+}
+
+.input-box.feedback {
+    //border: solid 1px red;
+    width: 100%;
+}
+
+.input-box.deduction {
+    width: 100%;
 }
 
 // General styling
