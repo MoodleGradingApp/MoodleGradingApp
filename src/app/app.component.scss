@@ -77,15 +77,15 @@ th {
 tr, thead {
     display: flex;
     min-width: 45vw;
-    // border: 1px solid white;
+    border: 1px solid white;
 }
 li {
     list-style: none;
     padding: 3px;
-    // border: 1px solid green;
+    border: 1px solid green;
 }
 .feedback-column {
-    width: 100%;
+    width: 90%;
 }
 .deduction-column {
     width: 15%;
@@ -116,6 +116,10 @@ textarea {
 .feedback {
     // border: solid 1px red;
     width: 100%;
+}
+
+.input-box.deduction {
+    width: 100%
 }
 
 // General styling

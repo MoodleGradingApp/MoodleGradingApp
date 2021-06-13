@@ -27,12 +27,9 @@ it('Add Feedback', () => {
 });
 
 it('Delete Feedback', () => {
-  // Delete all feedback
-  //cy.get('[data-testid="trashBtn"]').click({ multiple: true });
-
   // Press delete buttoms from the bottom up 
   cy.get('[data-testid="trashBtn"]').spread((first, second) => {
-    second.click();
+    first.click();
   })
 });
 
@@ -52,9 +49,9 @@ it('Add Feedback', () => {
   cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
-it('Delete the first feedback option', () => {
-  cy.get('[data-testid="trashBtn"]').spread((first) => {
-    first.click();
-  })
+it('Upload CSV file', () => {
+  // Upload a CSV file from fixture file
+  // Resource: https://www.npmjs.com/package/cypress-file-upload
+  const yourFixturePath = 'Grades.csv';
+  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
 });
-

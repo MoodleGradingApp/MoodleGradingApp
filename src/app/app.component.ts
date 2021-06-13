@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,9 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 export class AppComponent {
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
+
+  csvRecords: any[] = [];
+  header: boolean = false;
   
   constructor(private fb: FormBuilder) {
     this.feedbackForm = this.fb.group({
@@ -35,4 +39,6 @@ export class AppComponent {
     this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
     this.feedbackArray.push(this.createFeedback());
   }
+
+  
 }

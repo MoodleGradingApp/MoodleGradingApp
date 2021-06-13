@@ -1,3 +1,4 @@
+import 'cypress-file-upload';
 // ***********************************************
 // This example namespace declaration will help
 // with Intellisense and code completion in your
