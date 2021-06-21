@@ -52,7 +52,6 @@
                         #fileImportInput 
                         name="File Upload" 
                         id="csvFileUpload" 
-                        (change)="fileChangeListener($event)"
                         accept=".csv" 
                         data-testid="importCSV"/>
                       
@@ -143,7 +142,7 @@
             </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">
-
+            <app-csv-parser></app-csv-parser>
         </div>
     </div>
 </div>

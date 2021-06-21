@@ -10,7 +10,8 @@ import { CsvParserComponent } from './csv-parser/csv-parser.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CsvParserComponent,
   ],
   imports: [
     BrowserModule,
@@ -18,7 +19,6 @@ import { CsvParserComponent } from './csv-parser/csv-parser.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    CsvParserComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
