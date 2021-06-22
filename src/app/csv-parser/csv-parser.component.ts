@@ -14,8 +14,8 @@ export class CsvParserComponent implements OnInit {
 
   // reference: https://www.npmjs.com/package/ngx-csv-parser
   csvRecords: any[] = [];
+  usernames: any[] = [];
   header = true;
-  emails: any[] = [];
 
   constructor(private ngxCsvParser: NgxCsvParser) {
   }
@@ -32,14 +32,18 @@ export class CsvParserComponent implements OnInit {
     this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
       .pipe().subscribe((result: Array<any>) => {
 
-        console.log('Result', result);
+        console.log('Parser Result', result);
         this.csvRecords = result;
+
+        // return only Calvin username, get rid of '@students.calvin.edu'
+        console.log(this.csvRecords.length);
+        for (let i = 0; i < this.csvRecords.length; i++) {
+          this.csvRecords[i]["Email address"] = this.csvRecords[i]["Email address"].split("@", 1);
+        }
+
       }, (error: NgxCSVParserError) => {
         console.log('Error', error);
       });
-
-    this.emails = this.csvRecords["Email address"];
-    console.log(this.emails);
 
   }
 
