@@ -44,25 +44,6 @@
                 <div class="panel panel-default hide-outline tight" id="main-btn-set">
                     <button type="button" class="btn btn-primary">Prev Student</button>
                     <button type="button" class="btn btn-primary">Next Student</button>
-                    <!-- <button type="button" class="btn btn-primary">Import CSV File</button> -->
-                    <div class="csv-file-chooser-section">
-                        <input 
-                        type="file" 
-                        #fileImportInput 
-                        name="File Upload" 
-                        id="csvFileUpload" 
-                        (change)="fileChangeListener($event)"
-                        accept=".csv" 
-                        data-testid="importCSV"/>
-                      
-                        <label>
-                          Parse Headers?
-                        </label>
-                        <select aria-placeholder="Parse headers?" [(ngModel)]="header">
-                          <option [value]="true">Yes</option>
-                          <option [value]="false">No</option>
-                        </select>
-                    </div>
                     <button type="button" class="btn btn-primary">Export Table</button>
                     <button type="button" class="btn btn-primary">Stats</button>
                 </div>
@@ -142,7 +123,7 @@
             </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">
-
+            <app-csv-parser></app-csv-parser>
         </div>
     </div>
 </div>
