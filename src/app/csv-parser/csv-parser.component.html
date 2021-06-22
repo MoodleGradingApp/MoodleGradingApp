@@ -1,1 +1,41 @@
-<p>csv-parser works! YAYYY!!! </p>
+<div class="csv-import-btn">
+    <input 
+        type="file" 
+        #fileImportInput 
+        name="File Upload" 
+        id="csvFileUpload" 
+        accept=".csv" 
+        data-testid="importCSV"
+        (change)="fileChangeListener($event)"/>
+</div>
+<div class="csv-result-table">
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Grade</th>
+                <th>Feedback</th>    
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let csvData of csvRecords; let i = index;">
+                <td>{{i+1}}</td>
+                <td>
+                    <span>{{csvData["Full name"]}}</span>
+                </td>
+                <td>
+                    <span>{{csvData["Email address"]}}</span>
+                </td>
+                <td>
+                    <span>{{csvData.Grade}}</span>
+                </td>
+                <td>
+                    <span>{{csvData["Feedback comments"]}}</span>
+                </td>
+            </tr>
+        </tbody>        
+    </table>
+</div>
+
