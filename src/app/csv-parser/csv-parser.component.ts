@@ -35,6 +35,7 @@ export class CsvParserComponent implements OnInit {
       this.emptyFile = false;
     } else {
       this.emptyFile = true;
+      this.correctFile =  false;
       console.log("File is empty!")
       return;
     }
