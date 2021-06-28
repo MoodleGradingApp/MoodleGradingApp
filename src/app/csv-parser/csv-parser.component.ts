@@ -10,7 +10,7 @@ import { ViewChild } from '@angular/core'
 })
 export class CsvParserComponent implements OnInit {
 
-  // constructor() { }
+  correctFile: boolean = false;
 
   // reference: https://www.npmjs.com/package/ngx-csv-parser
   csvRecords: any[] = [];
@@ -34,6 +34,24 @@ export class CsvParserComponent implements OnInit {
 
         console.log('Parser Result', result);
         this.csvRecords = result;
+
+        // check headers if correct CSV file
+        if (this.csvRecords[0]["Email address"] === undefined || 
+        this.csvRecords[0]["Feedback comments"] === undefined ||
+        this.csvRecords[0]["Full name"] === undefined ||
+        this.csvRecords[0]["Grade"] === undefined ||
+        this.csvRecords[0]["Grade can be changed"] === undefined ||
+        this.csvRecords[0]["Identifier"] === undefined ||
+        this.csvRecords[0]["Last modified (grade)"] === undefined ||
+        this.csvRecords[0]["Last modified (submission)"] === undefined ||
+        this.csvRecords[0]["Maximum Grade"] === undefined ||
+        this.csvRecords[0]["Online text"] === undefined ||
+        this.csvRecords[0]["Status"] === undefined) {
+          console.log("Wrong CSV File!");
+          this.correctFile = false;
+        } else {
+          this.correctFile = true;
+        }
 
         // return only Calvin username, get rid of '@students.calvin.edu'
         console.log(this.csvRecords.length);
