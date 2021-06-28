@@ -10,9 +10,9 @@ import { ViewChild } from '@angular/core'
 })
 export class CsvParserComponent implements OnInit {
 
-  correctFile: boolean = false;
+  correctFile: boolean;
+  emptyFile: boolean;
 
-  // reference: https://www.npmjs.com/package/ngx-csv-parser
   csvRecords: any[] = [];
   usernames: any[] = [];
   header = true;
@@ -27,11 +27,22 @@ export class CsvParserComponent implements OnInit {
 
     // Select the files from the event
     const files = $event.srcElement.files;
+    
+    console.log("File size: ", files[0]["size"]);
 
+    // Check for empty CSV file
+    if (files[0]["size"] > 3) { 
+      this.emptyFile = false;
+    } else {
+      this.emptyFile = true;
+      console.log("File is empty!")
+      return;
+    }
+
+    // reference: https://www.npmjs.com/package/ngx-csv-parser
     // Parse the file you want to select for the operation along with the configuration
     this.ngxCsvParser.parse(files[0], { header: this.header, delimiter: ',' })
       .pipe().subscribe((result: Array<any>) => {
-
         console.log('Parser Result', result);
         this.csvRecords = result;
 
@@ -53,16 +64,17 @@ export class CsvParserComponent implements OnInit {
           this.correctFile = true;
         }
 
-        // return only Calvin username, get rid of '@students.calvin.edu'
-        console.log(this.csvRecords.length);
-        for (let i = 0; i < this.csvRecords.length; i++) {
-          this.csvRecords[i]["Email address"] = this.csvRecords[i]["Email address"].split("@", 1);
+        if (this.correctFile === true) {
+          // return only Calvin username, get rid of '@students.calvin.edu'
+          console.log(this.csvRecords.length);
+          for (let i = 0; i < this.csvRecords.length; i++) {
+            this.csvRecords[i]["Email address"] = this.csvRecords[i]["Email address"].split("@", 1);
+          }
         }
 
       }, (error: NgxCSVParserError) => {
         console.log('Error', error);
       });
-
   }
 
   ngOnInit(): void {

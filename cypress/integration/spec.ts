@@ -49,22 +49,25 @@ it('Add Feedback', () => {
   cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
+// Currently don't have an error message in the GUI other than just a console message 
+// Nothing should be printed to the screen if the file is bad
+// Resource: https://www.npmjs.com/package/cypress-file-upload
 it('Upload Bad CSV file', () => {
   const yourFixturePath = 'Bad.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
-  // Currently don't have an error message in the GUI other than just a console message 
-  // Nothing should be printed to the screen if the file is bad
 });
 
-it('Upload Good CSV file', () => {
-  // Upload a CSV file from fixture file
-  // Resource: https://www.npmjs.com/package/cypress-file-upload
-  const yourFixturePath = 'Grades.csv';
+it('Upload empty CSV file', () => {
+  const yourFixturePath = 'Empty.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
 });
 
-// Currently brakes when upload an empty CSV file, but this is the test for when we figure out that functionality
-// it('Upload empty CSV file', () => {
-//   const yourFixturePath = 'Empty.csv';
-//   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
-// });
+it('Upload CSV file with only white spaces', () => {
+  const yourFixturePath = 'WhiteSpaces.csv';
+  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+});
+
+it('Upload Good CSV file', () => {
+  const yourFixturePath = 'Grades.csv';
+  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+});
