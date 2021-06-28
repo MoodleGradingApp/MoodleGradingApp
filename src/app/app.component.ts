@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ViewChild } from '@angular/core';
+import { CsvParserComponent } from './csv-parser/csv-parser.component';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,8 @@ import { ViewChild } from '@angular/core';
 })
 
 export class AppComponent {
+
+
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
 
