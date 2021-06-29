@@ -43,16 +43,16 @@
                     </div>
                 </div>
                 <div class="panel panel-default hide-outline tight" id="main-btn-set">
-                    <button type="button" class="btn btn-primary">Prev Student</button>
-                    <button type="button" class="btn btn-primary">Next Student</button>
-                    <button type="button" class="btn btn-primary">Export Table</button>
-                    <button type="button" class="btn btn-primary">Stats</button>
+                    <button type="button" class="btn-primary-blue">Prev Student</button>
+                    <button type="button" class="btn-primary-blue">Next Student</button>
+                    <button type="button" class="btn-primary-blue">Export Table</button>
+                    <button type="button" class="btn-primary-blue">Stats</button>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel panel-default hide-outline tight">
                     <label for="Student">Student Name: </label>
-                    <button type="button" id="save-btn" class="btn btn-primary feedback-btn">Save Progress</button>
+                    <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
                 </div>
                 <br>
                 <form [formGroup]="feedbackForm">
@@ -96,7 +96,7 @@
                                 </li>
                                 <li>
                                     <button 
-                                    class="btn btn-primary" 
+                                    class="btn-primary-trash" 
                                     type="button" id="trash-btn" 
                                     name="trashButton" 
                                     (click)="removeFeedback(i)" 
@@ -111,7 +111,7 @@
                 <br>
                 <button 
                 type="button" 
-                class="btn btn-primary feedback-btn" 
+                class="btn-primary-blue" 
                 (click)="addFeedback()"
                 data-testid="addFeedbackBtn"
                 >Add Feedback</button>
