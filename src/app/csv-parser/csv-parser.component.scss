@@ -1,5 +1,5 @@
 th, td {
-    // border: solid 1px red;
+    // border: solid 1px white;
     padding-left: 5px;
     padding-right: 5px;
     font-size: 14px;
@@ -8,4 +8,27 @@ th, td {
 .file-warning {
     color: red;
     font-size: 14px;
+}
+
+tr:nth-child(2n) {
+    background: #25272a;
+}
+
+tbody > tr:hover {
+    background: #414245;
+    cursor: pointer;
+}
+
+thead {
+    color: #BBB;
+    background: #212225;
+}
+
+table {
+    margin-top: 10px;
+    width: 100%;
+}
+
+tbody > tr:focus, tbody > tr:active {
+    border: 2px solid #778AD5;
 }
