@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgxCsvParser } from 'ngx-csv-parser';
-import { NgxCSVParserError } from 'ngx-csv-parser';
-import { ViewChild } from '@angular/core'
+import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
+import { ViewChild, Component, OnInit, EventEmitter, Output } from '@angular/core'
 
 @Component({
   selector: 'app-csv-parser',
@@ -13,9 +11,11 @@ export class CsvParserComponent implements OnInit {
   correctFile: boolean;
   emptyFile: boolean;
 
-  csvRecords: any[] = [];
-  usernames: any[] = [];
+  csvRecords: Array<String>[] = [];
+  usernames: String[] = [];
   header = true;
+
+  studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
   constructor(private ngxCsvParser: NgxCsvParser) {
   }
@@ -78,7 +78,5 @@ export class CsvParserComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

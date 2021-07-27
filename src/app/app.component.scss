@@ -70,6 +70,7 @@ button:focus {
     border: solid 1px #fff;
 }
 .btn-primary-trash {
+    padding: 3.5px;
     border: solid 1px #EA6A62;
     border-radius: 5px;
     background-color: #EA6A62;
@@ -119,7 +120,7 @@ li {
     border-radius: 5px;
     border: none;
     background: #212225;
-    padding-left: 3px;
+    padding: 4px;
     -moz-appearance: textfield;
     font-size: 14px;
 }

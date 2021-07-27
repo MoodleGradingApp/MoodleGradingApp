@@ -1,6 +1,6 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { CsvParserComponent } from './csv-parser/csv-parser.component';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +9,9 @@ import { CsvParserComponent } from './csv-parser/csv-parser.component';
 })
 
 export class AppComponent {
-
-
+  title(title: any) {
+    throw new Error('Method not implemented.');
+  }
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
 

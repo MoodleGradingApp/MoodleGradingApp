@@ -1,6 +1,9 @@
 <div class="csv-import-btn">
     <input 
         type="file" 
+        #fileImportInput 
+        name="File Upload" 
+        id="csvFileUpload" 
         accept=".csv" 
         data-testid="importCSV"
         (change)="fileChangeListener($event)"/>
@@ -20,22 +23,23 @@
             </tr>
         </thead>
         <tbody>
+
             <tr *ngFor="let csvData of csvRecords; let i = index;">
-                <td *ngIf="correctFile == true">{{i+1}}</td>
-                <td *ngIf="correctFile == true">
-                    <span>{{csvData["Full name"]}}</span>
+                <td>{{i+1}}</td>
+                <td>
+                    {{csvData["Full name"]}}
                 </td>
                 <td *ngIf="correctFile == true">
-                    <span>{{csvData["Email address"]}}</span>
+                    {{csvData["Email address"]}}
                 </td>
                 <td *ngIf="correctFile == true">
-                    <span>{{csvData["Last modified (submission)"]}}</span>
+                    {{csvData["Last modified (submission)"]}}
                 </td>
                 <td *ngIf="correctFile == true">
-                    <span>{{csvData.Grade}}</span>
+                    {{csvData.Grade}}
                 </td>
                 <td *ngIf="correctFile == true">
-                    <span>{{csvData["Feedback comments"]}}</span>
+                    {{csvData["Feedback comments"]}}
                 </td>
             </tr>
         </tbody>        
