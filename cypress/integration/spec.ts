@@ -27,7 +27,7 @@ it('Add Feedback', () => {
 });
 
 it('Delete Feedback', () => {
-  // Press delete buttoms from the bottom up 
+  // Press delete buttoms from the bottom up
   cy.get('[data-testid="trashBtn"]').spread((first, second) => {
     first.click();
   })
@@ -49,7 +49,7 @@ it('Add Feedback', () => {
   cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
-// Currently don't have an error message in the GUI other than just a console message 
+// Currently don't have an error message in the GUI other than just a console message
 // Nothing should be printed to the screen if the file is bad
 // Resource: https://www.npmjs.com/package/cypress-file-upload
 it('Upload Bad CSV file', () => {
@@ -70,4 +70,17 @@ it('Upload CSV file with only white spaces', () => {
 it('Upload Good CSV file', () => {
   const yourFixturePath = 'Grades.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+});
+
+it('Parse Next and Previous Student', () => {
+  // upload csv file
+  const yourFixturePath = 'Grades.csv';
+  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+  // click next student button
+  cy.get('[data-testid=nextStudentBtn]').click()
+  cy.get('[data-testid=nextStudentBtn]').click()
+  cy.get('[data-testid=nextStudentBtn]').click()
+  // click previous student button
+  cy.get('[data-testid=prevStudentBtn]').click()
+  cy.get('[data-testid=prevStudentBtn]').click()
 });
