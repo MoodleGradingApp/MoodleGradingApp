@@ -35,6 +35,11 @@ tr:nth-child(2n) {
     background: #25272a;
 }
 
+tr.selected {
+    color: #33cc33;
+    background: #626366
+}
+
 tbody > tr:hover {
     background: #414245;
     cursor: pointer;

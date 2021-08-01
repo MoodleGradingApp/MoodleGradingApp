@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ViewChild } from '@angular/core';
+import { ViewChild, } from '@angular/core';
+import { Subject } from 'rxjs';
+import { CsvParserComponent } from './csv-parser/csv-parser.component';
 
 @Component({
   selector: 'app-root',
@@ -12,12 +14,20 @@ export class AppComponent {
   title(title: any) {
     throw new Error('Method not implemented.');
   }
+
+  // listen to parent event 'next' or 'previous' student button clicked
+  eventsSubject: Subject<void> = new Subject<void>();
+
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
+  currentStudentName: String;
+
+  // member variable, type of child component class
+  @ViewChild('next') csvChildComponent:CsvParserComponent
 
   csvRecords: any[] = [];
   header: boolean = false;
-  
+
   constructor(private fb: FormBuilder) {
     this.feedbackForm = this.fb.group({
        feedbackArray: this.fb.array([ this.createFeedback() ]),
@@ -34,7 +44,7 @@ export class AppComponent {
     });
   }
 
-  removeFeedback(i: number) {
+  removeFeedback(i: number):void {
     this.feedbackArray.removeAt(i);
   }
 
@@ -43,5 +53,17 @@ export class AppComponent {
     this.feedbackArray.push(this.createFeedback());
   }
 
-  
+  currentStudent(studentData:string):void {
+    this.currentStudentName = studentData;
+  }
+
+  nextStudent(): void {
+    // call function from child component
+    this.csvChildComponent.studentParser(1);
+  }
+
+  previousStudent(): void {
+    // call function from child component
+    this.csvChildComponent.studentParser(-1);
+  }
 }

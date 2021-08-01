@@ -20,39 +20,38 @@
                     <div id="assignment">
                         <!-- <p *ngIf="correctFile == false">Testting!!</p> -->
                         <label for="assignment">Assignment:&nbsp;</label>
-                        <input 
-                        class="input-box" 
-                        type="text" 
-                        id="assignment" 
-                        name="assignment" 
+                        <input
+                        class="input-box"
+                        type="text"
+                        id="assignment"
+                        name="assignment"
                         placeholder="Ex. Homework #1"
                         data-testid="nameInput"
                         >
                     </div>
                     <div id="max-pts">
                         <label for="max-pts">Max Points:&nbsp;</label>
-                        <input 
-                        class="input-box" 
-                        type="number" 
-                        name="max-pts" 
-                        min=0 
-                        size=3 
+                        <input
+                        class="input-box"
+                        type="number"
+                        name="max-pts"
+                        min=0
+                        size=3
                         placeholder=100
                         data-testid="maxPointsInput"
                         >
                     </div>
                 </div>
                 <div class="panel panel-default hide-outline tight" id="main-btn-set">
-                    <button type="button" class="btn-primary-blue">Prev Student</button>
-                    <button type="button" class="btn-primary-blue">Next Student</button>
+                    <button type="button" class="btn-primary-blue" (click)="previousStudent()">Prev Student</button>
+                    <button type="button" class="btn-primary-blue" (click)="nextStudent()">Next Student</button>
                     <button type="button" class="btn-primary-blue">Export Table</button>
                     <button type="button" class="btn-primary-blue">Stats</button>
                 </div>
             </div>
             <div class="panel panel-default">
                 <div class="panel panel-default hide-outline tight">
-                    <!-- <label for="Student">Student Name: {{csvData["Full name"]}}</label> -->
-
+                    <label for="Student">Student Name: {{currentStudentName}}</label>
                     <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
                 </div>
                 <br>
@@ -77,30 +76,30 @@
                                 </li>
                                 <li class="feedback-column">
                                     <!-- Dynamic textbox citation in header -->
-                                    <textarea 
-                                    class="input-box feedback" 
-                                    name="text" 
-                                    oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"' 
+                                    <textarea
+                                    class="input-box feedback"
+                                    name="text"
+                                    oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"'
                                     placeholder="Say something constructive..."
                                     data-testid="feedbackInput"></textarea>
                                 </li>
                                 <li class="deduction-column">
-                                    <input 
-                                    id="deduction" 
-                                    class="input-box deduction" 
-                                    type="number" 
-                                    name="deduction" 
-                                    min=0 
-                                    size=3 
-                                    placeholder=0 
+                                    <input
+                                    id="deduction"
+                                    class="input-box deduction"
+                                    type="number"
+                                    name="deduction"
+                                    min=0
+                                    size=3
+                                    placeholder=0
                                     data-testid="deductionInput">
                                 </li>
                                 <li>
-                                    <button 
-                                    class="btn-primary-trash" 
-                                    type="button" id="trash-btn" 
-                                    name="trashButton" 
-                                    (click)="removeFeedback(i)" 
+                                    <button
+                                    class="btn-primary-trash"
+                                    type="button" id="trash-btn"
+                                    name="trashButton"
+                                    (click)="removeFeedback(i)"
                                     size=2
                                     data-testid="trashBtn"
                                     >X</button>
@@ -110,9 +109,9 @@
                     </table>
                 </form>
                 <br>
-                <button 
-                type="button" 
-                class="btn-primary-blue" 
+                <button
+                type="button"
+                class="btn-primary-blue"
                 (click)="addFeedback()"
                 data-testid="addFeedbackBtn"
                 >Add Feedback</button>
@@ -120,7 +119,7 @@
             </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">
-            <app-csv-parser></app-csv-parser>
+            <app-csv-parser (selectedStudent)="currentStudent($event)" #next></app-csv-parser>
         </div>
     </div>
 </div>

@@ -1,10 +1,10 @@
 <div class="csv-import-btn">
-    <input 
-        type="file" 
-        #fileImportInput 
-        name="File Upload" 
-        id="csvFileUpload" 
-        accept=".csv" 
+    <input
+        type="file"
+        #fileImportInput
+        name="File Upload"
+        id="csvFileUpload"
+        accept=".csv"
         data-testid="importCSV"
         (change)="fileChangeListener($event)"/>
     <p *ngIf="emptyFile == true" class="file-warning">*Empty CSV File</p>
@@ -19,12 +19,11 @@
                 <th>Email</th>
                 <th>Timestamp</th>
                 <th>Grade</th>
-                <th>Feedback</th>    
+                <th>Feedback</th>
             </tr>
         </thead>
         <tbody>
-
-            <tr *ngFor="let csvData of csvRecords; let i = index;">
+            <tr *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
                 <td>{{i+1}}</td>
                 <td>
                     {{csvData["Full name"]}}
@@ -42,6 +41,6 @@
                     {{csvData["Feedback comments"]}}
                 </td>
             </tr>
-        </tbody>        
+        </tbody>
     </table>
 </div>
