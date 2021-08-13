@@ -89,13 +89,15 @@ export class CsvParserComponent {
 
   highlightRow(row:number) {
     // add 'selected' class to tr element
-    var trs = document.querySelectorAll("tr");
+    var trs = document.querySelectorAll("tr.csv-data");
     if (this.isRowSelected === false) {
       this.isRowSelected = true;
     } else {
-      trs[this.previousRow+2].classList.remove("selected");
+      console.log("Previous Row: " + (this.previousRow));
+      trs[this.previousRow].classList.remove("selected");
     }
-    trs[row+2].classList.add("selected");
+    trs[row].classList.add("selected");
+    console.log("Row: " + (row));
     this.previousRow = row;
   }
 
@@ -108,7 +110,7 @@ export class CsvParserComponent {
     if (this.currentStudentIndex === 0 && incriment === -1 || this.currentStudentIndex === this.csvRecords.length-1 && incriment === 1) {
       return
     }
-    this.currentStudentIndex = this.currentStudentIndex + incriment;
+    this.currentStudentIndex += incriment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
     console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["Full name"]);

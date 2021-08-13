@@ -23,7 +23,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
+            <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
                 <td>{{i+1}}</td>
                 <td>
                     {{csvData["Full name"]}}
