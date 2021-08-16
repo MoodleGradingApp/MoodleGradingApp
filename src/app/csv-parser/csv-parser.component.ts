@@ -1,6 +1,7 @@
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 import { ViewChild, Component, OnInit, EventEmitter, Output, Input } from '@angular/core'
 import { Subscription, Observable } from 'rxjs';
+import { FeedbackService } from '../feedback.service';
 
 @Component({
   selector: 'app-csv-parser',
@@ -10,6 +11,9 @@ import { Subscription, Observable } from 'rxjs';
 export class CsvParserComponent {
   // communicate with parent that the selected student has changed
   @Output() public selectedStudent = new EventEmitter<String>();
+
+  // feedback service
+  // feedbackService: FeedbackService[] = [];
 
   currentStudentIndex: number = -1;
 
@@ -25,7 +29,8 @@ export class CsvParserComponent {
 
   studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
-  constructor(private ngxCsvParser: NgxCsvParser) {
+  constructor(private ngxCsvParser: NgxCsvParser, private feedbackService: FeedbackService) {
+    // no-op
   }
 
   // Your applications input change listener for the CSV File
@@ -102,8 +107,12 @@ export class CsvParserComponent {
   }
 
   rowSelected(index:number) {
+    console.log("DB Call: " + this.feedbackService.getStudents);
     this.currentStudentIndex = index;
     this.selectedStudent.emit(this.csvRecords[index]["Full name"]);
+    this.feedbackService.addToDb(this.csvRecords[1]["Full name"]);
+    console.log("Added students: ");
+    console.log(this.feedbackService.getStudents);
   }
 
   studentParser(incriment: number): void {
