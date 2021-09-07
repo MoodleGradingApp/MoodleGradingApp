@@ -8,7 +8,7 @@
         data-testid="importCSV"
         (change)="fileChangeListener($event)"/>
     <p *ngIf="emptyFile == true" class="file-warning">*Empty CSV File</p>
-    <p *ngIf="validFile == false" class="file-warning">*Invalid CSV File</p>
+    <p *ngIf="correctFile == false && emptyFile == false" class="file-warning">*Invalid CSV File</p>
 </div>
 <div class="csv-result-table">
     <table>
@@ -26,19 +26,19 @@
             <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
                 <td>{{i+1}}</td>
                 <td>
-                    {{csvData.fullName}}
+                    {{csvData["Full name"]}}
                 </td>
-                <td>
-                    {{csvData.email}}
+                <td *ngIf="correctFile == true">
+                    {{csvData["Email address"]}}
                 </td>
-                <td>
-                    {{csvData.gradeLastModified}}
+                <td *ngIf="correctFile == true">
+                    {{csvData["Last modified (submission)"]}}
                 </td>
-                <td>
-                    {{csvData.grade}}
+                <td *ngIf="correctFile == true">
+                    {{csvData.Grade}}
                 </td>
-                <td>
-                    {{csvData.feedback}}
+                <td *ngIf="correctFile == true">
+                    {{csvData["Feedback comments"]}}
                 </td>
             </tr>
         </tbody>

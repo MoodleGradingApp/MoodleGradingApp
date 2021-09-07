@@ -8,7 +8,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CsvParserComponent } from './csv-parser/csv-parser.component';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
-import { FeedbackService } from './feedback.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,7 @@ import { FeedbackService } from './feedback.service';
     FormsModule,
     NgxCsvParserModule
   ],
-  providers: [FeedbackService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
