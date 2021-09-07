@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CsvParserComponent } from './csv-parser/csv-parser.component';
-import { FeedbackService, StudentInfo } from './feedback.service';
 
 @Component({
   selector: 'app-root',
