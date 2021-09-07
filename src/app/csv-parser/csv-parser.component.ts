@@ -1,7 +1,7 @@
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 import { ViewChild, Component, OnInit, EventEmitter, Output, Input } from '@angular/core'
 import { Subscription, Observable } from 'rxjs';
-import { FeedbackService } from '../feedback.service';
+import { FeedbackService, StudentInfo } from '../feedback.service';
 
 @Component({
   selector: 'app-csv-parser',
@@ -15,7 +15,7 @@ export class CsvParserComponent {
   // feedback service
   // feedbackService: FeedbackService[] = [];
 
-  correctFile: boolean;
+  validFile: boolean;
   emptyFile: boolean;
 
   currentStudentIndex: number = -1;
@@ -23,7 +23,7 @@ export class CsvParserComponent {
   isRowSelected: boolean =  false;
   previousRow: number = 2;
 
-  csvRecords: Array<String>[] = [];
+  csvRecords: StudentInfo[] = [];
   usernames: String[] = [];
   header = true;
   selectedUser: Array<String>[] = [];
@@ -35,15 +35,29 @@ export class CsvParserComponent {
   }
 
   // Your applications input change listener for the CSV File
-  fileChangeListener($event: any): void {
+  fileChangeListener($event: any) {
 
     // Select the file from the event
     const file = $event.srcElement.files;
 
     console.log("File size: ", file[0]["size"]);
 
-    this.correctFile = this.feedbackService.parseFile(file);
+    this.feedbackService.parseFile(file);
+
+    this.csvRecords = this.feedbackService.fillChart();
+
+    console.log(this.feedbackService.correctFile);
+    this.validFile = this.feedbackService.correctFile
+    console.log("correct File? ", this.validFile)
+    console.log("component: ", this.csvRecords);
+
+    // if (this.csvRecords == null) {
+    //   this.validFile = false;
+    // } else {
+    //   this.validFile = true;
+    // }
   }
+
 
   ngOnInit(): void {
     // no-op
@@ -64,11 +78,9 @@ export class CsvParserComponent {
   }
 
   rowSelected(index:number) {
-    console.log("DB Call: " + this.feedbackService.getStudents);
     this.currentStudentIndex = index;
-    this.selectedStudent.emit(this.csvRecords[index]["Full name"]);
+    this.selectedStudent.emit(this.csvRecords[index].fullName);
     console.log("Added students: ");
-    console.log(this.feedbackService.getStudents);
   }
 
   studentParser(incriment: number): void {
