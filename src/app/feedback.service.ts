@@ -100,7 +100,7 @@ export class FeedbackService {
     // Pass string into handle for data-table
     let my_data_string = this.buildCSV(this.students);
 
-    // Create a link element in the DOM
+    // Create an href element in the DOM
     let a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
