@@ -95,39 +95,56 @@ export class FeedbackService {
     }
   }
 
+  // Make a download button
   public exportCSV() {
-    let dataTable = this.buildCSV(this.students);
+    // Pass string into handle for data-table
+    let my_data_string = this.buildCSV(this.students);
+
+    // Create a link element in the DOM
     let a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
-    let blob = new Blob([dataTable], { type: 'text/csv' });
+
+    // Create object of type csv text file
+    let blob = new Blob([my_data_string], { type: 'text/csv' });
     let url = window.URL.createObjectURL(blob);
+    
+    // Pass URL to hyper-reference, label download as modified CSV, onclick
     a.href = url;
     a.download = 'modified.csv';
     a.click();
   }
 
+  // This manually constructs our CSV file string
   private buildCSV(objArray: any): string {
-    let array = objArray;
-    let str = '';
+    let my_data = objArray;
+    let csv_file = '';
     let row = "";
 
+    // Separate by commas
     for (let index in objArray[0]) {
         row += index + ',';
     }
-    row = row.slice(0, -1);
-    str += row + '\r\n';
 
-    for (let i = 0; i < array.length; i++) {
+    // Get full line with exception of \n or \r
+    row = row.slice(0, -1);
+
+    // Add row and newline + carriage-return
+    csv_file += row + '\r\n';
+
+    // Build and add lines to csv_file
+    for (let i = 0; i < my_data.length; i++) {
         let line = '';
-        for (let index in array[i]) {
+        for (let index in my_data[i]) {
             if (line != '') line += ','
 
-            line += array[i][index];
+            line += my_data[i][index];
         }
-        str += line + '\r\n';
+        csv_file += line + '\r\n';
     }
-    return str;
+
+    // End of file
+    return csv_file;
   }
 
   private getStudents(parseResult: Array<String>[]) {
