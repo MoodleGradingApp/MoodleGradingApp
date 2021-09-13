@@ -95,6 +95,41 @@ export class FeedbackService {
     }
   }
 
+  public exportCSV() {
+    let dataTable = this.buildCSV(this.students);
+    let a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    let blob = new Blob([dataTable], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = 'modified.csv';
+    a.click();
+  }
+
+  private buildCSV(objArray: any): string {
+    let array = objArray;
+    let str = '';
+    let row = "";
+
+    for (let index in objArray[0]) {
+        row += index + ',';
+    }
+    row = row.slice(0, -1);
+    str += row + '\r\n';
+
+    for (let i = 0; i < array.length; i++) {
+        let line = '';
+        for (let index in array[i]) {
+            if (line != '') line += ','
+
+            line += array[i][index];
+        }
+        str += line + '\r\n';
+    }
+    return str;
+  }
+
   private getStudents(parseResult: Array<String>[]) {
 
     // return only Calvin username

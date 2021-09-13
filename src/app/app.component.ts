@@ -284,4 +284,8 @@ export class AppComponent {
     }];
     console.log("update chart data!")
   }
+
+  exportCSV(): void {
+    this.feedbackService.exportCSV();
+  }
 }

@@ -19,7 +19,6 @@
             <div class="panel panel-default">
                 <div class="panel panel-default hide-outline tight" id="item-info">
                     <div id="assignment">
-                        <!-- <p *ngIf="correctFile == false">Testting!!</p> -->
                         <label for="assignment">Assignment:&nbsp;</label>
                         <input
                         class="input-box"
@@ -79,10 +78,15 @@
                     </table>    
                 </div> 
                 <br>
-                <button
+                <!-- <button
                 type="button"
                 class="btn-primary-blue"
                 (click)="addRow()"
+                data-testid="addFeedbackBtn"
+                >Add Feedback</button> -->
+                <button
+                type="button"
+                class="btn-primary-blue"
                 data-testid="addFeedbackBtn"
                 >Add Feedback</button>
                 <br><br>
