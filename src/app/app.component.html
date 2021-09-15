@@ -31,15 +31,7 @@
                     </div>
                     <div id="max-pts">
                         <label for="max-pts">Max Points:&nbsp;</label>
-                        <input
-                        class="input-box"
-                        type="number"
-                        name="max-pts"
-                        min=0
-                        size=3
-                        placeholder=100
-                        data-testid="maxPointsInput"
-                        >
+                        {{maxScore}}
                     </div>
                 </div>
                 <div class="panel panel-default hide-outline tight" id="main-btn-set">
@@ -103,6 +95,7 @@
                                     size=2
                                     data-testid="trashBtn"
                                     >X</button>
+                                    <!-- Replace X char with actual icon-->
                                 </li>
                             </tr>
                         </tbody>
@@ -143,7 +136,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
+            <tr     class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
                 <td>{{i+1}}</td>
                 <td>{{csvData.fullName}}</td>
                 <td>{{csvData.email}}</td>

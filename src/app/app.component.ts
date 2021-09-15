@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
-import { CsvParserComponent } from './csv-parser/csv-parser.component';
 import { FeedbackService, StudentInfo } from './feedback.service';
 
 @Component({
@@ -20,6 +19,7 @@ export class AppComponent {
 
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
+  public maxScore: number;
   validFile: boolean = true;
   currentStudentName: String;
   currentStudentIndex: number = -1;
@@ -53,7 +53,11 @@ export class AppComponent {
 
     this.csvRecords = []
 
+    // wait for this to return
     this.csvRecords = this.feedbackService.fillChart();
+
+    // uncomment this once async functions work properly
+    // this.maxScore = this.csvRecords[0].maxGrade;
 
     this.validFile = this.feedbackService.correctFile
 
@@ -81,6 +85,9 @@ export class AppComponent {
   rowSelected(index:number) {
     this.currentStudentIndex = index;
     this.currentStudentName = this.csvRecords[index].fullName;
+
+    // delete this name once async functions solved
+    this.maxScore = this.csvRecords[0].maxGrade;
   }
 
   studentParser(incriment: number): void {
@@ -109,6 +116,7 @@ export class AppComponent {
   addFeedback(): void {
     this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
     this.feedbackArray.push(this.createFeedback());
+    console.log("Feedback Array: ", this.feedbackArray);
   }
 
   nextStudent(): void {

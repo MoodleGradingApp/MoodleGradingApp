@@ -53,6 +53,7 @@ export class FeedbackService {
         // check headers if correct CSV file
         if (
           result[0] === undefined ||
+          result[0]["Identifier"] === undefined ||
           result[0]["Email address"] === undefined ||
           result[0]["Feedback comments"] === undefined ||
           result[0]["Full name"] === undefined ||
