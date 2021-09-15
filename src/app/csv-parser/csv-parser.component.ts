@@ -12,7 +12,7 @@ export class CsvParserComponent {
   // communicate with parent that the selected student has changed
   @Output() public selectedStudent = new EventEmitter<String>();
 
-  validFile: boolean;
+  validFile: boolean = true;
   emptyFile: boolean;
 
   currentStudentIndex: number = -1;
@@ -39,14 +39,16 @@ export class CsvParserComponent {
 
     console.log("File size: ", file[0]["size"]);
 
+    // wait for this to return
     this.feedbackService.parseFile(file);
+
+    this.csvRecords = []
 
     this.csvRecords = this.feedbackService.fillChart();
 
-    console.log(this.feedbackService.correctFile);
     this.validFile = this.feedbackService.correctFile
+
     console.log("correct File? ", this.validFile)
-    console.log("component: ", this.csvRecords);
   }
 
 
@@ -71,7 +73,6 @@ export class CsvParserComponent {
   rowSelected(index:number) {
     this.currentStudentIndex = index;
     this.selectedStudent.emit(this.csvRecords[index].fullName);
-    console.log("Added students: ");
   }
 
   studentParser(incriment: number): void {
@@ -81,6 +82,9 @@ export class CsvParserComponent {
     this.currentStudentIndex += incriment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
-    console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["Full name"]);
+    console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["fullName"]);
+    this.validFile = this.feedbackService.correctFile
+
+    console.log("DELAY: correct File? ", this.validFile)
   }
 }
