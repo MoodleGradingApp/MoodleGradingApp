@@ -56,7 +56,7 @@
                 </div>
                 <br>
                 <form [formGroup]="feedbackForm">
-                    <table>
+                    <table class="feedbackTable">
                         <thead>
                             <thead>
                                 <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
@@ -119,7 +119,38 @@
             </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">
-            <app-csv-parser (selectedStudent)="currentStudent($event)" #next></app-csv-parser>
-        </div>
-    </div>
+            <div class="csv-import-btn">
+    <input
+        type="file"
+        #fileImportInput
+        name="File Upload"
+        id="csvFileUpload"
+        accept=".csv"
+        data-testid="importCSV"
+        (change)="fileChangeListener($event)"/>
+    <p *ngIf="validFile != true" class="file-warning">*Invalid CSV File</p>
+</div>
+<div class="csv-result-table">
+    <table class="csvTable">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Timestamp</th>
+                <th>Grade</th>
+                <th>Feedback</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
+                <td>{{i+1}}</td>
+                <td>{{csvData.fullName}}</td>
+                <td>{{csvData.email}}</td>
+                <td>{{csvData.gradeLastModified}}</td>
+                <td>{{csvData.grade}}</td>
+                <td>{{csvData.feedback}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
