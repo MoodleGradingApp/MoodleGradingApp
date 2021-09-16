@@ -88,22 +88,22 @@ button:focus {
     justify-content: center;
 }
 
-// Table formatting:
-table {
+// Feedback Table formatting:
+.feedbackTable table {
     table-layout: fixed;
     width: 100%;
     margin-right: 10px;
 }
-th {
+.feedbackTable th {
     text-align: left;
     padding: 3px;
     color: #B9BABE;
 }
-tr, thead {
+.feedbackTable tr, .feedbackTable thead {
     display: flex;
     min-width: 45vw;
 }
-li {
+.feedbackTable li {
     list-style: none;
     padding: 3px;
 }
@@ -160,4 +160,75 @@ p, h2, label {
 #deduction-head {
     margin-right: calc(2vw + 10px);
     text-align: left;
+}
+
+
+
+/****************************************
+ * Styling for CSV side 
+*****************************************/
+
+button:focus {
+    outline: none;
+}
+
+input[type=file]::file-selector-button {
+    // margin: 5px;
+    padding: 3px 6px 3px 6px;
+    border: solid 1px #778AD5;
+    border-radius: 5px;
+    background-color: #778AD5;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+}
+
+input[type=file]::file-selector-button:hover {
+    background: transparent;
+    border: solid 1px #fff;
+}
+
+.csvTable {
+    width: 100%;
+}
+
+// csv table styling
+.csvTable th, .csvTable td {
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 14px;
+}
+
+.file-warning {
+    color: red;
+    font-size: 14px;
+}
+
+.csvTable tr:nth-child(2n) {
+    background: #25272a;
+}
+
+.csvTable tr.selected {
+    color: #33cc33;
+    background: #626366
+}
+
+.csvTable tbody > tr:hover {
+    background: #414245;
+    cursor: pointer;
+}
+
+.csvTable thead {
+    color: #BBB;
+    background: #212225;
+}
+
+.csvTable table {
+    margin-top: 10px;
+    width: 100%;
+    // table-layout: auto;
+}
+
+.csvTable tbody > tr:focus, .csvTable tbody > tr:active {
+    border: 2px solid #778AD5;
 }
