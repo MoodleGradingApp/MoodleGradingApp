@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, Subscription, throwError } from 'rxjs';
 import { string } from 'yargs';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 
@@ -32,52 +32,51 @@ export class FeedbackService {
 
   csvRecords: Array<String>[] = [];
 
-  parseFile(fileName: any) {
+  parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
 
     // Check for empty CSV file
     if (fileName[0]["size"] > 3) {
+      this.correctFile = true;
     } else {
       this.correctFile = false;
       this.clearStudents()
-      console.log("File is empty!")
-      return;
+      return of("File is empty");
     }
 
     // reference: https://www.npmjs.com/package/ngx-csv-parser
     // Parse the file you want to select for the operation along with the configuration
-    this.ngxCsvParser.parse(fileName[0], { header: this.header, delimiter: ',' })
-      .pipe().subscribe((result: Array<any>) => {
-        console.log('Parser Result', result);
-        this.csvRecords = result;
+    let response = this.ngxCsvParser.parse(fileName[0], { header: this.header, delimiter: ',' })
+    return response;
+  }
 
-        // check headers if correct CSV file
-        if (
-          result[0] === undefined ||
-          result[0]["Identifier"] === undefined ||
-          result[0]["Email address"] === undefined ||
-          result[0]["Feedback comments"] === undefined ||
-          result[0]["Full name"] === undefined ||
-          result[0]["Grade"] === undefined ||
-          result[0]["Grade can be changed"] === undefined ||
-          result[0]["Identifier"] === undefined ||
-          result[0]["Last modified (grade)"] === undefined ||
-          result[0]["Last modified (submission)"] === undefined ||
-          result[0]["Maximum Grade"] === undefined ||
-          result[0]["Online text"] === undefined ||
-          result[0]["Status"] === undefined)
-        {
-          console.log("Wrong CSV File!");
-          this.correctFile = false;
-          this.clearStudents();
-        } else {
-          console.log("Correct CSV File!");
-          this.correctFile = true;
-          this.getStudents(this.csvRecords);
-        }
+  parseCSV(result: Array<any>) {
+    console.log('Parser Result', result);
+    this.csvRecords = result;
 
-      }, (error: NgxCSVParserError) => {
-        console.log('Error', error);
-      });
+    // check headers if correct CSV file
+    if (
+      result[0] === undefined ||
+      result[0]["Identifier"] === undefined ||
+      result[0]["Email address"] === undefined ||
+      result[0]["Feedback comments"] === undefined ||
+      result[0]["Full name"] === undefined ||
+      result[0]["Grade"] === undefined ||
+      result[0]["Grade can be changed"] === undefined ||
+      result[0]["Identifier"] === undefined ||
+      result[0]["Last modified (grade)"] === undefined ||
+      result[0]["Last modified (submission)"] === undefined ||
+      result[0]["Maximum Grade"] === undefined ||
+      result[0]["Online text"] === undefined ||
+      result[0]["Status"] === undefined)
+    {
+      console.log("Wrong CSV File!");
+      this.correctFile = false;
+      this.clearStudents();
+    } else {
+      console.log("Correct CSV File!");
+      this.correctFile = true;
+      this.getStudents(this.csvRecords);
+    }
   }
 
   private updateFeedback(feedback: string, studentIndex: number) {

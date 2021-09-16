@@ -41,7 +41,7 @@ export class AppComponent {
     return this.feedbackForm.get('feedbackArray')['controls'];
   }
 
-  fileChangeListener($event: any) {
+  async fileChangeListener ($event: any) {
 
     // Select the file from the event
     const file = $event.srcElement.files;
@@ -49,19 +49,28 @@ export class AppComponent {
     console.log("File size: ", file[0]["size"]);
 
     // wait for this to return
-    this.feedbackService.parseFile(file);
-
-    this.csvRecords = []
-
-    // wait for this to return
-    this.csvRecords = this.feedbackService.fillChart();
-
-    // uncomment this once async functions work properly
-    // this.maxScore = this.csvRecords[0].maxGrade;
-
-    this.validFile = this.feedbackService.correctFile
-
-    console.log("correct File? ", this.validFile)
+    await this.feedbackService.parseFile(file).subscribe(
+      result => {
+        if (result instanceof Array) {
+          this.feedbackService.parseCSV(result)
+          // wait for this to return
+          this.csvRecords = this.feedbackService.fillChart();
+          this.validFile = this.feedbackService.correctFile;
+          if (this.validFile) {
+            this.maxScore = this.csvRecords[0].maxGrade;
+          } else {
+            this.maxScore = null;
+            console.log('Error Bad CSV');
+          }
+        } else {
+          // handle empty CSV
+          this.maxScore = null;
+          this.validFile = false;
+          this.csvRecords = [];
+          console.log('Error', result);
+        }
+      }
+    )    
   }
 
   ngOnInit(): void {
@@ -99,8 +108,6 @@ export class AppComponent {
     this.highlightRow(this.currentStudentIndex);
     console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["fullName"]);
     this.validFile = this.feedbackService.correctFile
-
-    console.log("DELAY: correct File? ", this.validFile)
   }
 
   createFeedback(): FormGroup {

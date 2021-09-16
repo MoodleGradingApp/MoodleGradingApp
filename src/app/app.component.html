@@ -121,7 +121,7 @@
         accept=".csv"
         data-testid="importCSV"
         (change)="fileChangeListener($event)"/>
-    <p *ngIf="validFile != true" class="file-warning">*Invalid CSV File</p>
+    <p *ngIf="validFile == false" class="file-warning">*Invalid CSV File</p>
 </div>
 <div class="csv-result-table">
     <table class="csvTable">
