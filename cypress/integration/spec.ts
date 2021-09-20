@@ -11,10 +11,6 @@ it('Input Assignment Name', () => {
   cy.get('[data-testid="nameInput"]').type('Vaccine Clinic');
 });
 
-it('Input Max Score', () => {
-  cy.get('[data-testid="maxPointsInput"]').type('50');
-});
-
 it('Add Feedback', () => {
   // Type feedback
   cy.get('[data-testid=feedbackInput]').type('Show your work!');
@@ -49,12 +45,16 @@ it('Add Feedback', () => {
   cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
-// Currently don't have an error message in the GUI other than just a console message
-// Nothing should be printed to the screen if the file is bad
 // Resource: https://www.npmjs.com/package/cypress-file-upload
 it('Upload Bad CSV file', () => {
   const yourFixturePath = 'Bad.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+});
+
+// Check for Bad CSV error message
+it('Bad File Error Message', () => {
+  // Test to see if the name of the application appears on home page
+  cy.contains('*Invalid CSV File');
 });
 
 it('Upload empty CSV file', () => {
@@ -83,4 +83,10 @@ it('Parse Next and Previous Student', () => {
   // click previous student button
   cy.get('[data-testid=prevStudentBtn]').click()
   cy.get('[data-testid=prevStudentBtn]').click()
+});
+
+// Check that max scrore is automatically loaded
+it('Max Score Auto Fills', () => {
+  // Test to see if the name of the application appears on home page
+  cy.contains('100');
 });
