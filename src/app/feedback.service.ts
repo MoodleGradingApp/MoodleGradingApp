@@ -97,7 +97,7 @@ export class FeedbackService {
     for ( var i = 0; i < this.csvRecords.length; i++) {
       this.newStudent = {
         email: parseResult[i]["Email address"][0],
-        feedback: parseResult[i]["Feedback comments"],
+        feedback: [],
         fullName: parseResult[i]["Full name"],
         grade: parseResult[i]["Grade"],
         gradeChange: parseResult[i]["Grade can be changed"],
