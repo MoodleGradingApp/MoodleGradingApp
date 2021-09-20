@@ -123,7 +123,7 @@ export class AppComponent {
   addFeedback(): void {
     this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
     this.feedbackArray.push(this.createFeedback());
-    console.log("Feedback Array: ", this.feedbackArray);
+    console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
   }
 
   nextStudent(): void {

@@ -5,7 +5,7 @@ import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 
 export interface StudentInfo {
   email: string,
-  feedback: string,
+  feedback: Array<boolean>,
   fullName: string,
   grade: string,
   gradeChange: string,
@@ -17,6 +17,11 @@ export interface StudentInfo {
   status: string
 }
 
+export interface HomeworkFeedback {
+  feedback: string,
+  deduction: number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,9 +30,11 @@ export class FeedbackService {
   constructor(private ngxCsvParser: NgxCsvParser) { }
 
   private students: StudentInfo[] = [];
+  private feedback: HomeworkFeedback[] = [];
 
   public correctFile: boolean;
   private newStudent: StudentInfo;
+  private newFeedBack: HomeworkFeedback;
   private header = true;
 
   csvRecords: Array<String>[] = [];
@@ -79,10 +86,6 @@ export class FeedbackService {
     }
   }
 
-  private updateFeedback(feedback: string, studentIndex: number) {
-    this.students[studentIndex].feedback.concat(feedback);
-  }
-
   private getStudents(parseResult: Array<String>[]) {
 
     // return only Calvin username
@@ -105,7 +108,7 @@ export class FeedbackService {
         onlineText: parseResult[i]["Online text"],
         status: parseResult[i]["Status"]
       }
-      this.students.push(this.newStudent)
+      this.students.push(this.newStudent);
     }
   }
 
@@ -115,5 +118,33 @@ export class FeedbackService {
 
   fillChart(): StudentInfo[] {
     return this.students;
+  }
+
+  feeedbackCreate(feedbackString: string, points: number): void {
+    this.newFeedBack = {
+      feedback: feedbackString,
+      deduction: points
+    }
+    this.feedback.push(this.newFeedBack);
+
+    // add this feedback to the student feedback array as false
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      this.students[i].feedback.push(false);
+    }
+  }
+
+  feedbackRead(): HomeworkFeedback[] {
+    return this.feedback;
+  }
+
+  feedbackUpdate(index: number, feedbackString: string, points: number): void {
+    // update values in feedback array
+    this.feedback[index].feedback = feedbackString;
+    this.feedback[index].deduction = points;
+  }
+
+  feedbackDelete(index: number): void {
+    // remove 1 element at index
+    this.feedback.splice(index,1);
   }
 }

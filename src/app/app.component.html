@@ -47,6 +47,7 @@
                     <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
                 </div>
                 <br>
+                <!-- FEEDBACK INPUT NEEDS TO BE CHANGED -->
                 <form [formGroup]="feedbackForm">
                     <table class="feedbackTable">
                         <thead>
@@ -136,7 +137,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr     class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
+            <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
                 <td>{{i+1}}</td>
                 <td>{{csvData.fullName}}</td>
                 <td>{{csvData.email}}</td>
