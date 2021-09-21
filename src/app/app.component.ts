@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
-import { FeedbackService, StudentInfo } from './feedback.service';
+import { FeedbackService, HomeworkFeedback, StudentInfo } from './feedback.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class AppComponent {
 
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
-  public maxScore: number;
+  public maxScore: String;
   validFile: boolean = true;
   currentStudentName: String;
   currentStudentIndex: number = -1;
@@ -28,7 +28,8 @@ export class AppComponent {
   selectedUser: Array<String>[] = [];
   studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
-  csvRecords: any[] = [];
+  csvRecords: StudentInfo[];
+  feedback: HomeworkFeedback[];
   header: boolean = false;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
@@ -46,18 +47,32 @@ export class AppComponent {
     // Select the file from the event
     const file = $event.srcElement.files;
 
-    console.log("File size: ", file[0]["size"]);
+    // console.log("File size: ", file[0]["size"]);
 
     // wait for this to return
     await this.feedbackService.parseFile(file).subscribe(
       result => {
         if (result instanceof Array) {
           this.feedbackService.parseCSV(result)
-          // wait for this to return
           this.csvRecords = this.feedbackService.fillChart();
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
             this.maxScore = this.csvRecords[0].maxGrade;
+            console.log(this.csvRecords);
+            // test backend feedback (delete later) ////////////////////////////
+            // this.feedbackService.feeedbackCreate('Add more comments!', 5);
+            // this.feedbackService.feeedbackCreate('Code did not compile!', 20);
+            // this.feedback = this.feedbackService.feedbackRead();
+            // console.log(this.feedback);
+            // console.log(this.csvRecords);
+            // console.log('Apply Feedback')
+            // this.feedbackService.feedbackApply(0, 3);
+            // console.log(this.csvRecords);
+            // console.log('Delete Feedback')
+            // this.feedbackService.feedbackDelete(0);
+            // console.log(this.feedback);
+            // console.log(this.csvRecords);
+            ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
             console.log('Error Bad CSV');
@@ -83,11 +98,11 @@ export class AppComponent {
     if (this.isRowSelected === false) {
       this.isRowSelected = true;
     } else {
-      console.log("Previous Row: " + (this.previousRow));
+      // console.log("Previous Row: " + (this.previousRow));
       trs[this.previousRow].classList.remove("selected");
     }
     trs[row].classList.add("selected");
-    console.log("Row: " + (row));
+    // console.log("Row: " + (row));
     this.previousRow = row;
   }
 
@@ -106,7 +121,7 @@ export class AppComponent {
     this.currentStudentIndex += incriment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
-    console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["fullName"]);
+    // console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["fullName"]);
     this.validFile = this.feedbackService.correctFile
   }
 
@@ -123,7 +138,7 @@ export class AppComponent {
   addFeedback(): void {
     this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
     this.feedbackArray.push(this.createFeedback());
-    console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
+    // console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
   }
 
   nextStudent(): void {

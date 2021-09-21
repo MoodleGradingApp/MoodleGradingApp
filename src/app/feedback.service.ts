@@ -57,7 +57,7 @@ export class FeedbackService {
   }
 
   parseCSV(result: Array<any>) {
-    console.log('Parser Result', result);
+    // console.log('Parser Result', result);
     this.csvRecords = result;
 
     // check headers if correct CSV file
@@ -146,5 +146,13 @@ export class FeedbackService {
   feedbackDelete(index: number): void {
     // remove 1 element at index
     this.feedback.splice(index,1);
+    // delete feedback in students' boolean feedback arrays
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      this.students[i].feedback.splice(index,1);
+    }
+  }
+  
+  feedbackApply(feedbackIndex: number, studentIndex: number): void {
+    this.students[studentIndex].feedback[feedbackIndex] = true;
   }
 }
