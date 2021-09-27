@@ -5,7 +5,8 @@ import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 
 export interface StudentInfo {
   email: string,
-  feedback: Array<boolean>,
+  feedbackBoolean: Array<boolean>,
+  feedbackString: Array<string>,
   fullName: string,
   grade: string,
   gradeChange: string,
@@ -97,7 +98,8 @@ export class FeedbackService {
     for ( var i = 0; i < this.csvRecords.length; i++) {
       this.newStudent = {
         email: parseResult[i]["Email address"][0],
-        feedback: [],
+        feedbackBoolean: [],
+        feedbackString: [],
         fullName: parseResult[i]["Full name"],
         grade: parseResult[i]["Grade"],
         gradeChange: parseResult[i]["Grade can be changed"],
@@ -129,7 +131,7 @@ export class FeedbackService {
 
     // add this feedback to the student feedback array as false
     for (var i = 0; i < this.csvRecords.length; i++) {
-      this.students[i].feedback.push(false);
+      this.students[i].feedbackBoolean.push(false);
     }
   }
 
@@ -148,11 +150,12 @@ export class FeedbackService {
     this.feedback.splice(index,1);
     // delete feedback in students' boolean feedback arrays
     for (var i = 0; i < this.csvRecords.length; i++) {
-      this.students[i].feedback.splice(index,1);
+      this.students[i].feedbackBoolean.splice(index,1);
     }
   }
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
-    this.students[studentIndex].feedback[feedbackIndex] = true;
+    this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
+    this.students[studentIndex].feedbackString.push(this.feedback[feedbackIndex].feedback);
   }
 }

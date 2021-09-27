@@ -60,18 +60,15 @@ export class AppComponent {
             this.maxScore = this.csvRecords[0].maxGrade;
             console.log(this.csvRecords);
             // test backend feedback (delete later) ////////////////////////////
-            // this.feedbackService.feeedbackCreate('Add more comments!', 5);
-            // this.feedbackService.feeedbackCreate('Code did not compile!', 20);
-            // this.feedback = this.feedbackService.feedbackRead();
-            // console.log(this.feedback);
-            // console.log(this.csvRecords);
-            // console.log('Apply Feedback')
-            // this.feedbackService.feedbackApply(0, 3);
-            // console.log(this.csvRecords);
-            // console.log('Delete Feedback')
-            // this.feedbackService.feedbackDelete(0);
-            // console.log(this.feedback);
-            // console.log(this.csvRecords);
+            this.feedbackService.feeedbackCreate('Add more comments!', 5);
+            this.feedbackService.feeedbackCreate('Code did not compile!', 20);
+            this.feedback = this.feedbackService.feedbackRead();
+            console.log(this.feedback);
+            console.log(this.csvRecords);
+            console.log('Apply Feedback')
+            this.feedbackService.feedbackApply(0, 3);
+            console.log(this.csvRecords);
+            console.log(this.feedback);
             ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
