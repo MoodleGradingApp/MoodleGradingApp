@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
-import { FeedbackService, HomeworkFeedback, StudentInfo } from './feedback.service';
+import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +30,7 @@ export class AppComponent {
 
   csvRecords: StudentInfo[];
   feedback: HomeworkFeedback[];
+  feedbackStrings: FeedbackStrings[];
   header: boolean = false;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
@@ -69,6 +70,7 @@ export class AppComponent {
             this.feedbackService.feedbackApply(0, 3);
             console.log(this.csvRecords);
             console.log(this.feedback);
+            this.feedbackStrings = this.feedbackService.displayFeedback()
             ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
@@ -106,8 +108,6 @@ export class AppComponent {
   rowSelected(index:number) {
     this.currentStudentIndex = index;
     this.currentStudentName = this.csvRecords[index].fullName;
-
-    // delete this name once async functions solved
     this.maxScore = this.csvRecords[0].maxGrade;
   }
 

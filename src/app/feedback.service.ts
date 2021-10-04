@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of, Subscription, throwError } from 'rxjs';
 import { string } from 'yargs';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
+import { ThisReceiver } from '@angular/compiler';
 
 export interface StudentInfo {
   email: string,
   feedbackBoolean: Array<boolean>,
-  feedbackString: Array<string>,
   fullName: string,
   grade: string,
   gradeChange: string,
@@ -23,6 +23,10 @@ export interface HomeworkFeedback {
   deduction: number
 }
 
+export interface FeedbackStrings {
+  strings: Array<String>
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,10 +36,13 @@ export class FeedbackService {
 
   private students: StudentInfo[] = [];
   private feedback: HomeworkFeedback[] = [];
+  private feedbackString: FeedbackStrings[] = [];
 
   public correctFile: boolean;
+
   private newStudent: StudentInfo;
   private newFeedBack: HomeworkFeedback;
+  private newFeedbackString: FeedbackStrings;
   private header = true;
 
   csvRecords: Array<String>[] = [];
@@ -96,10 +103,10 @@ export class FeedbackService {
 
     // put csv-parser results into newStudent[]
     for ( var i = 0; i < this.csvRecords.length; i++) {
+      // initialize each student object
       this.newStudent = {
         email: parseResult[i]["Email address"][0],
         feedbackBoolean: [],
-        feedbackString: [],
         fullName: parseResult[i]["Full name"],
         grade: parseResult[i]["Grade"],
         gradeChange: parseResult[i]["Grade can be changed"],
@@ -111,6 +118,11 @@ export class FeedbackService {
         status: parseResult[i]["Status"]
       }
       this.students.push(this.newStudent);
+      // initialize each students' feedback strings
+      this.newFeedbackString = {
+        strings: []
+      }
+      this.feedbackString.push(this.newFeedbackString);
     }
   }
 
@@ -156,6 +168,19 @@ export class FeedbackService {
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
-    this.students[studentIndex].feedbackString.push(this.feedback[feedbackIndex].feedback);
+    // this.students[studentIndex].feedbackString.push(this.feedback[feedbackIndex].feedback);
+  }
+
+  displayFeedback(): FeedbackStrings[] {
+    for ( var i = 0; i < this.csvRecords.length; i++) {
+      for (var n = 0; n < this.feedback.length; n++) {
+        if(this.students[i].feedbackBoolean[n] == true) {
+          this.feedbackString[i].strings.push(this.feedback[n].feedback);
+        }
+      }
+    }
+    console.log('Display Feedback!');
+    console.log(this.feedbackString);
+    return this.feedbackString;
   }
 }
