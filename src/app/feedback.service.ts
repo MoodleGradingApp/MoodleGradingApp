@@ -168,11 +168,15 @@ export class FeedbackService {
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
-    // this.students[studentIndex].feedbackString.push(this.feedback[feedbackIndex].feedback);
   }
 
-  displayFeedback(): FeedbackStrings[] {
+  feedbackUnapply(feedbackIndex: number, studentIndex: number): void {
+    this.students[studentIndex].feedbackBoolean[feedbackIndex] = false;
+  }
+
+  getFeedbackStrings(): FeedbackStrings[] {
     for ( var i = 0; i < this.csvRecords.length; i++) {
+      this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
       for (var n = 0; n < this.feedback.length; n++) {
         if(this.students[i].feedbackBoolean[n] == true) {
           this.feedbackString[i].strings.push(this.feedback[n].feedback);

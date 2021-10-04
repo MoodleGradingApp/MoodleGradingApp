@@ -70,7 +70,15 @@ export class AppComponent {
             this.feedbackService.feedbackApply(0, 3);
             console.log(this.csvRecords);
             console.log(this.feedback);
-            this.feedbackStrings = this.feedbackService.displayFeedback()
+            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            this.feedbackService.feedbackUnapply(0, 3);
+            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            this.feedbackService.feedbackApply(0, 3);
+            this.feedbackService.feedbackApply(1, 3);
+            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            this.feedbackService.feedbackUnapply(0,3);
+            this.feedbackService.feedbackApply(0, 4);
+            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
             ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
