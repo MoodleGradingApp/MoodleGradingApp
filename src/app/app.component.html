@@ -137,13 +137,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="csv-data" *ngFor="let csvData of csvRecords; let i = index;" (click)="rowSelected(i)" (click)="highlightRow(i)">
+            <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;" 
+                (click)="rowSelected(i)" (click)="highlightRow(i)"
+            >
                 <td>{{i+1}}</td>
                 <td>{{csvData.fullName}}</td>
                 <td>{{csvData.email}}</td>
                 <td>{{csvData.gradeLastModified}}</td>
                 <td>{{csvData.grade}}</td>
-                <td>{{csvData.feedback}}</td>
+                <td>{{feedbackStrings[i].strings}}</td>
             </tr>
         </tbody>
     </table>
