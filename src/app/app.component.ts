@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
+import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
 
 @Component({
@@ -20,6 +21,10 @@ export class AppComponent {
   public feedbackArray: FormArray;
   public feedbackForm: FormGroup;
   public maxScore: String;
+  public feedbackInputText: String;
+
+  public feedbackText: String = '';
+
   validFile: boolean = true;
   currentStudentName: String;
   currentStudentIndex: number = -1;
@@ -33,10 +38,17 @@ export class AppComponent {
   feedbackStrings: FeedbackStrings[];
   header: boolean = false;
 
+  //Change later
+  dynamicArray: Array<DynamicGrid> = [];  
+  newDynamic: any = {}; 
+
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
-    this.feedbackForm = this.fb.group({
-       feedbackArray: this.fb.array([ this.createFeedback() ]),
-    });
+    // this.feedbackForm = this.fb.group({
+    //    feedbackArray: this.fb.array([ this.createFeedback() ]),
+    // });
+    this.newDynamic = {feedback: "", deduction:"", selected:""};  
+    this.dynamicArray.push(this.newDynamic);
+    this.feedbackService.feeedbackCreate(null, null)
   }
 
   get feedbackControls() {
@@ -61,24 +73,24 @@ export class AppComponent {
             this.maxScore = this.csvRecords[0].maxGrade;
             console.log(this.csvRecords);
             // test backend feedback (delete later) ////////////////////////////
-            this.feedbackService.feeedbackCreate('Add more comments!', 5);
-            this.feedbackService.feeedbackCreate('Code did not compile!', 20);
-            this.feedback = this.feedbackService.feedbackRead();
-            console.log(this.feedback);
-            console.log(this.csvRecords);
-            console.log('Apply Feedback')
-            this.feedbackService.feedbackApply(0, 3);
-            console.log(this.csvRecords);
-            console.log(this.feedback);
-            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            this.feedbackService.feedbackUnapply(0, 3);
-            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            this.feedbackService.feedbackApply(0, 3);
-            this.feedbackService.feedbackApply(1, 3);
-            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            this.feedbackService.feedbackUnapply(0,3);
-            this.feedbackService.feedbackApply(0, 4);
-            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            // this.feedbackService.feeedbackCreate('Add more comments!', 5);
+            // this.feedbackService.feeedbackCreate('Code did not compile!', 20);
+            // this.feedback = this.feedbackService.feedbackRead();
+            // console.log(this.feedback);
+            // console.log(this.csvRecords);
+            // console.log('Apply Feedback')
+            // this.feedbackService.feedbackApply(0, 3);
+            // console.log(this.csvRecords);
+            // console.log(this.feedback);
+            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            // this.feedbackService.feedbackUnapply(0, 3);
+            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            // this.feedbackService.feedbackApply(0, 3);
+            // this.feedbackService.feedbackApply(1, 3);
+            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            // this.feedbackService.feedbackUnapply(0,3);
+            // this.feedbackService.feedbackApply(0, 4);
+            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
             ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
@@ -130,21 +142,22 @@ export class AppComponent {
     this.validFile = this.feedbackService.correctFile
   }
 
-  createFeedback(): FormGroup {
-    return this.fb.group({
-      feedback: '',
-    });
-  }
+  // createFeedback(): FormGroup {
+  //   return this.fb.group({
+  //     feedback: '',
+  //   });
+  // }
 
-  removeFeedback(i: number):void {
-    this.feedbackArray.removeAt(i);
-  }
+  // removeFeedback(i: number):void {
+  //   this.feedbackArray.removeAt(i);
+  // }
 
-  addFeedback(): void {
-    this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
-    this.feedbackArray.push(this.createFeedback());
-    // console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
-  }
+  // addFeedback(): void {
+  //   this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
+  //   this.feedbackArray.push(this.createFeedback());
+  //   console.log('Input: ', this.feedbackText)
+  //   // console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
+  // }
 
   nextStudent(): void {
     this.studentParser(1);
@@ -152,5 +165,48 @@ export class AppComponent {
 
   previousStudent(): void {
     this.studentParser(-1);
+  }
+
+  addRow() {    
+    this.newDynamic = {feedback: "", deduction:"", selected:""};  
+      this.dynamicArray.push(this.newDynamic);  
+      // this.toastr.success('New row added successfully', 'New Row');  
+      console.log(this.dynamicArray);  
+      return true;  
+  } 
+
+  deleteRow(index) {  
+    if(this.dynamicArray.length ==1) {  
+      // this.toastr.error("Can't delete the row when there is only one row", 'Warning');  
+      console.log(this.dynamicArray);  
+      return false;  
+    } else {  
+      this.dynamicArray.splice(index, 1);  
+      // this.toastr.warning('Row deleted successfully', 'Delete row');  
+      console.log(this.dynamicArray);  
+      return true;  
+    }  
+  }
+
+  onFeedbackChange(newValue: string, index: number) {
+    console.log(newValue);
+    // ... do other stuff here ...
+    console.log(this.dynamicArray);
+
+    this.feedbackService.feedbackStringUpdate(index, newValue)
+  }
+
+  onDeductionChange(newValue: number, index: number) {
+    console.log(newValue);
+    this.feedbackService.feedbackDeductionUpdate(index, newValue);
+  }
+
+  onSelectedChange(newValue) {
+    console.log(newValue);
+  }
+
+  tempFunction() {
+    this.feedback = this.feedbackService.feedbackRead();
+    console.log(this.feedback)
   }
 }

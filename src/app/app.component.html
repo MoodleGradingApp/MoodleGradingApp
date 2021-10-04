@@ -44,69 +44,42 @@
             <div class="panel panel-default">
                 <div class="panel panel-default hide-outline tight">
                     <label for="Student">Student Name: {{currentStudentName}}</label>
-                    <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
+                    <button type="button" id="save-btn" class="btn-primary-green" (click)="tempFunction()">Save Progress</button>
                 </div>
                 <br>
-                <!-- FEEDBACK INPUT NEEDS TO BE CHANGED -->
-                <form [formGroup]="feedbackForm">
-                    <table class="feedbackTable">
-                        <thead>
-                            <thead>
-                                <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-                                <li id="feedback-head">
-                                    <th>Feedback</th>
-                                </li>
-                                <li id="deduction-head">
-                                    <th>Deduction</th>
-                                </li>
-                                <li></li>
-                            </thead>
-                        </thead>
-                        <tbody formArrayName="feedbackArray" *ngFor="let feedback of feedbackControls; let i = index">
-                            <tr [formGroupName]="i">
-                                <li>
-                                    <input id="selected" type="checkbox">
-                                </li>
-                                <li class="feedback-column">
-                                    <!-- Dynamic textbox citation in header -->
-                                    <textarea
-                                    class="input-box feedback"
-                                    name="text"
-                                    oninput='this.style.height = ""; this.style.height = this.scrollHeight + 2 + "px"'
-                                    placeholder="Say something constructive..."
-                                    data-testid="feedbackInput"></textarea>
-                                </li>
-                                <li class="deduction-column">
-                                    <input
-                                    id="deduction"
-                                    class="input-box deduction"
-                                    type="number"
-                                    name="deduction"
-                                    min=0
-                                    size=3
-                                    placeholder=0
-                                    data-testid="deductionInput">
-                                </li>
-                                <li>
-                                    <button
-                                    class="btn-primary-trash"
-                                    type="button" id="trash-btn"
-                                    name="trashButton"
-                                    (click)="removeFeedback(i)"
-                                    size=2
-                                    data-testid="trashBtn"
-                                    >X</button>
-                                    <!-- Replace X char with actual icon-->
-                                </li>
-                            </tr>
-                        </tbody>
-                    </table>
-                </form>
+                <div class="feedback-table-container">    
+                    <table>    
+                        <thead>    
+                            <tr>    
+                                <th>Delete</th>    
+                                <th>Feedback</th>    
+                                <th>Deduction</th>    
+                                <th>Apply</th>    
+                            </tr>    
+                        </thead>    
+                        <tbody>    
+                             <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
+                                <td (click)="deleteRow(i)">    
+                                    <p>Delete</p>   
+                                </td>    
+                                <td>    
+                                    <input [(ngModel)]="dynamicArray[i].feedback" (ngModelChange)="onFeedbackChange($event, i)" type="text"/>    
+                                </td>    
+                                <td>    
+                                    <input [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
+                                </td>    
+                                <td>
+                                    <input [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event)" type="checkbox"/>
+                                </td>    
+                            </tr>  
+                        </tbody>    
+                    </table>    
+                </div> 
                 <br>
                 <button
                 type="button"
                 class="btn-primary-blue"
-                (click)="addFeedback()"
+                (click)="addRow()"
                 data-testid="addFeedbackBtn"
                 >Add Feedback</button>
                 <br><br>

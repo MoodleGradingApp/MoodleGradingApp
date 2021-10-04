@@ -151,9 +151,15 @@ export class FeedbackService {
     return this.feedback;
   }
 
-  feedbackUpdate(index: number, feedbackString: string, points: number): void {
+  feedbackStringUpdate(index: number, feedbackString: string): void {
     // update values in feedback array
     this.feedback[index].feedback = feedbackString;
+    // console.log(this.feedback)
+  }
+
+  feedbackDeductionUpdate(index: number, points: number): void {
+    // console.log(this.feedback[index].deduction);
+    // console.log('Index: ', index);
     this.feedback[index].deduction = points;
   }
 
