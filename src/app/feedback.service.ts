@@ -170,15 +170,18 @@ export class FeedbackService {
   }
 
   feedbackDelete(index: number): void {
-    // remove 1 element at index
-    this.feedback.splice(index,1);
     // delete feedback in students' boolean feedback arrays
     for (var i = 0; i < this.csvRecords.length; i++) {
-      this.students[i].feedbackBoolean.splice(index,1);
       if (this.students[i].feedbackBoolean[index] == true) {
-        this.gradeUpdate(i);
+        // add deduction value to student grade before delete
+        var newGrade = parseInt(this.students[i].grade) + this.feedback[index].deduction
+        this.students[i].grade = newGrade.toString();
       }
+      this.students[i].feedbackBoolean.splice(index,1);
     }
+
+    // remove 1 element at index
+    this.feedback.splice(index,1);
   }
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
