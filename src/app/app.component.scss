@@ -114,39 +114,45 @@ button:focus {
     width: 15%;
 }
 
-// Input styling:
-.input-box {
-    height: 30px;
-    border-radius: 5px;
-    border: none;
-    background: #212225;
-    padding: 4px;
-    -moz-appearance: textfield;
-    font-size: 14px;
-}
-.input-box:focus {
-    outline: none;
-    border: solid 1px #fff;
-}
-textarea {
-    resize: none;
-}
-#assignment, #max-pts {
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 5px;
-}
-::placeholder {
-    font-style: italic;
-    color: #686A70;
-}
-.feedback {
-    width: 100%;
+
+// input styling new
+input {
+    color: black;
 }
 
-.input-box.deduction {
-    width: 100%
-}
+// Input styling:
+// .input-box {
+//     height: 30px;
+//     border-radius: 5px;
+//     border: none;
+//     background: #212225;
+//     padding: 4px;
+//     -moz-appearance: textfield;
+//     font-size: 14px;
+// }
+// .input-box:focus {
+//     outline: none;
+//     border: solid 1px #fff;
+// }
+// textarea {
+//     resize: none;
+// }
+// #assignment, #max-pts {
+//     display: inline-block;
+//     margin-right: 10px;
+//     margin-bottom: 5px;
+// }
+// ::placeholder {
+//     font-style: italic;
+//     color: #686A70;
+// }
+// .feedback {
+//     width: 100%;
+// }
+
+// .input-box.deduction {
+//     width: 100%
+// }
 
 // General styling
 p, h2, label {
