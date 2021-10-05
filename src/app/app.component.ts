@@ -4,6 +4,7 @@ import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
 import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
+import { event } from 'cypress/types/jquery';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,7 @@ export class AppComponent {
   }
 
   public feedbackArray: FormArray;
-  public feedbackForm: FormGroup;
+  // public feedbackForm: FormGroup;
   public maxScore: String;
   public feedbackInputText: String;
 
@@ -35,7 +36,7 @@ export class AppComponent {
 
   csvRecords: StudentInfo[];
   feedback: HomeworkFeedback[];
-  feedbackStrings: FeedbackStrings[];
+  feedbackStrings: FeedbackStrings[] = [];
   header: boolean = false;
 
   //Change later
@@ -48,12 +49,13 @@ export class AppComponent {
     // });
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
     this.dynamicArray.push(this.newDynamic);
-    this.feedbackService.feeedbackCreate(null, null)
+    this.feedbackService.feeedbackCreate(null, null);
+    // this.feedbackService.students[]
   }
 
-  get feedbackControls() {
-    return this.feedbackForm.get('feedbackArray')['controls'];
-  }
+  // get feedbackControls() {
+  //   return this.feedbackForm.get('feedbackArray')['controls'];
+  // }
 
   async fileChangeListener ($event: any) {
 
@@ -70,8 +72,11 @@ export class AppComponent {
           this.csvRecords = this.feedbackService.fillChart();
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
-            this.maxScore = this.csvRecords[0].maxGrade;
-            console.log(this.csvRecords);
+            this.maxScore = this.feedbackService.maxScore;
+            // console.log(this.csvRecords);
+            // get feedback strings to display
+            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+
             // test backend feedback (delete later) ////////////////////////////
             // this.feedbackService.feeedbackCreate('Add more comments!', 5);
             // this.feedbackService.feeedbackCreate('Code did not compile!', 20);
@@ -117,11 +122,9 @@ export class AppComponent {
     if (this.isRowSelected === false) {
       this.isRowSelected = true;
     } else {
-      // console.log("Previous Row: " + (this.previousRow));
       trs[this.previousRow].classList.remove("selected");
     }
     trs[row].classList.add("selected");
-    // console.log("Row: " + (row));
     this.previousRow = row;
   }
 
@@ -129,6 +132,23 @@ export class AppComponent {
     this.currentStudentIndex = index;
     this.currentStudentName = this.csvRecords[index].fullName;
     this.maxScore = this.csvRecords[0].maxGrade;
+    // code to check boxes off when on a certain student
+    this.updateCheckboxState();
+    // console.log(this.csvRecords);
+  }
+
+  updateCheckboxState() {
+    // var checkboxes = document.getElementsByClassName("checkbox");
+    // console.log(checkboxes[0]);
+    // var checkbox = document.getElementById("0");
+    for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
+      var checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
+      if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i] === true) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+    }
   }
 
   studentParser(incriment: number): void {
@@ -142,71 +162,69 @@ export class AppComponent {
     this.validFile = this.feedbackService.correctFile
   }
 
-  // createFeedback(): FormGroup {
-  //   return this.fb.group({
-  //     feedback: '',
-  //   });
-  // }
-
-  // removeFeedback(i: number):void {
-  //   this.feedbackArray.removeAt(i);
-  // }
-
-  // addFeedback(): void {
-  //   this.feedbackArray = this.feedbackForm.get('feedbackArray') as FormArray;
-  //   this.feedbackArray.push(this.createFeedback());
-  //   console.log('Input: ', this.feedbackText)
-  //   // console.log("Feedback Array: ", document.getElementsByClassName('feedback-column').length);
-  // }
-
   nextStudent(): void {
     this.studentParser(1);
   }
 
   previousStudent(): void {
-    this.studentParser(-1);
+    if(this.currentStudentIndex > 0) {
+      this.studentParser(-1); 
+    }
   }
 
   addRow() {    
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
-      this.dynamicArray.push(this.newDynamic);  
-      // this.toastr.success('New row added successfully', 'New Row');  
-      console.log(this.dynamicArray);  
-      return true;  
+    this.dynamicArray.push(this.newDynamic);  
+    // create another feedback object
+    this.feedbackService.feeedbackCreate(null, null)
+    // this.toastr.success('New row added successfully', 'New Row');  
+    console.log(this.dynamicArray);  
+    return true;  
   } 
 
-  deleteRow(index) {  
-    if(this.dynamicArray.length ==1) {  
-      // this.toastr.error("Can't delete the row when there is only one row", 'Warning');  
-      console.log(this.dynamicArray);  
+  deleteRow(index: number) {  
+    if(this.dynamicArray.length == 1) {  
+      console.log("Can't delete the row when there is one one row!");  
       return false;  
     } else {  
       this.dynamicArray.splice(index, 1);  
-      // this.toastr.warning('Row deleted successfully', 'Delete row');  
-      console.log(this.dynamicArray);  
+      this.feedbackService.feedbackDelete(index);
+      // console.log(this.dynamicArray); 
+      // update students' feedback string display
+      this.feedbackStrings = this.feedbackService.getFeedbackStrings();
       return true;  
     }  
   }
 
   onFeedbackChange(newValue: string, index: number) {
-    console.log(newValue);
-    // ... do other stuff here ...
-    console.log(this.dynamicArray);
+    // console.log(newValue);
+    // console.log(this.dynamicArray);
 
-    this.feedbackService.feedbackStringUpdate(index, newValue)
+    this.feedbackService.feedbackStringUpdate(index, newValue);
+    // update students' feedback string display
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
   }
 
   onDeductionChange(newValue: number, index: number) {
-    console.log(newValue);
+    // console.log(newValue);
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
   }
 
-  onSelectedChange(newValue) {
-    console.log(newValue);
+  onSelectedChange(newValue: boolean, feedbackIndex: number) {
+    // console.log(newValue);
+    if (newValue === true) {
+      this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
+    } else {
+      this.feedbackService.feedbackUnapply(feedbackIndex, this.currentStudentIndex);
+    }
+    // update students' feedback string display
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
   }
 
+  // To Do: Delete Later!
   tempFunction() {
     this.feedback = this.feedbackService.feedbackRead();
-    console.log(this.feedback)
+    console.log(this.feedback);
+    console.log(this.csvRecords);
   }
 }

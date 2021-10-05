@@ -39,6 +39,7 @@ export class FeedbackService {
   private feedbackString: FeedbackStrings[] = [];
 
   public correctFile: boolean;
+  public maxScore: string;
 
   private newStudent: StudentInfo;
   private newFeedBack: HomeworkFeedback;
@@ -106,7 +107,7 @@ export class FeedbackService {
       // initialize each student object
       this.newStudent = {
         email: parseResult[i]["Email address"][0],
-        feedbackBoolean: [],
+        feedbackBoolean: [false],
         fullName: parseResult[i]["Full name"],
         grade: parseResult[i]["Grade"],
         gradeChange: parseResult[i]["Grade can be changed"],
@@ -124,6 +125,9 @@ export class FeedbackService {
       }
       this.feedbackString.push(this.newFeedbackString);
     }
+
+    // set assignment max score
+    this.maxScore = this.students[0].maxGrade;
   }
 
   clearStudents() {
@@ -154,13 +158,15 @@ export class FeedbackService {
   feedbackStringUpdate(index: number, feedbackString: string): void {
     // update values in feedback array
     this.feedback[index].feedback = feedbackString;
-    // console.log(this.feedback)
   }
 
   feedbackDeductionUpdate(index: number, points: number): void {
-    // console.log(this.feedback[index].deduction);
-    // console.log('Index: ', index);
     this.feedback[index].deduction = points;
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].feedbackBoolean[index] == true) {
+        this.gradeUpdate(i);
+      }
+    }
   }
 
   feedbackDelete(index: number): void {
@@ -169,28 +175,44 @@ export class FeedbackService {
     // delete feedback in students' boolean feedback arrays
     for (var i = 0; i < this.csvRecords.length; i++) {
       this.students[i].feedbackBoolean.splice(index,1);
+      if (this.students[i].feedbackBoolean[index] == true) {
+        this.gradeUpdate(i);
+      }
     }
   }
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
+    // update grade
+    this.gradeUpdate(studentIndex);
   }
 
   feedbackUnapply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = false;
+    this.gradeUpdate(studentIndex);
+  }
+
+  gradeUpdate(studentIndex: number): void {
+    var totalDeductions = 0;
+    for (var n = 0; n < this.feedback.length; n++) {
+      if (this.students[studentIndex].feedbackBoolean[n] == true) {
+        totalDeductions = totalDeductions + this.feedback[n].deduction;
+      }
+    }
+
+    var newGrade = parseInt(this.maxScore) - totalDeductions
+    this.students[studentIndex].grade = newGrade.toString();
   }
 
   getFeedbackStrings(): FeedbackStrings[] {
-    for ( var i = 0; i < this.csvRecords.length; i++) {
+    for (var i = 0; i < this.csvRecords.length; i++) {
       this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
       for (var n = 0; n < this.feedback.length; n++) {
-        if(this.students[i].feedbackBoolean[n] == true) {
+        if (this.students[i].feedbackBoolean[n] == true) {
           this.feedbackString[i].strings.push(this.feedback[n].feedback);
         }
       }
     }
-    console.log('Display Feedback!');
-    console.log(this.feedbackString);
     return this.feedbackString;
   }
 }

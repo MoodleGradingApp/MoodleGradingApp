@@ -69,7 +69,7 @@
                                     <input [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
                                 </td>    
                                 <td>
-                                    <input [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event)" type="checkbox"/>
+                                    <input id="checkbox{{i}}" [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event, i)" type="checkbox"/>
                                 </td>    
                             </tr>  
                         </tbody>    
