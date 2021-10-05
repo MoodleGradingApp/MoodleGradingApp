@@ -20,7 +20,6 @@ export class AppComponent {
   }
 
   public feedbackArray: FormArray;
-  // public feedbackForm: FormGroup;
   public maxScore: String;
   public feedbackInputText: String;
 
@@ -39,31 +38,18 @@ export class AppComponent {
   feedbackStrings: FeedbackStrings[] = [];
   header: boolean = false;
 
-  //Change later
   dynamicArray: Array<DynamicGrid> = [];  
   newDynamic: any = {}; 
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
-    // this.feedbackForm = this.fb.group({
-    //    feedbackArray: this.fb.array([ this.createFeedback() ]),
-    // });
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
     this.dynamicArray.push(this.newDynamic);
     this.feedbackService.feeedbackCreate(null, null);
-    // this.feedbackService.students[]
   }
 
-  // get feedbackControls() {
-  //   return this.feedbackForm.get('feedbackArray')['controls'];
-  // }
-
   async fileChangeListener ($event: any) {
-
     // Select the file from the event
     const file = $event.srcElement.files;
-
-    // console.log("File size: ", file[0]["size"]);
-
     // wait for this to return
     await this.feedbackService.parseFile(file).subscribe(
       result => {
@@ -73,30 +59,8 @@ export class AppComponent {
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
             this.maxScore = this.feedbackService.maxScore;
-            // console.log(this.csvRecords);
             // get feedback strings to display
             this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-
-            // test backend feedback (delete later) ////////////////////////////
-            // this.feedbackService.feeedbackCreate('Add more comments!', 5);
-            // this.feedbackService.feeedbackCreate('Code did not compile!', 20);
-            // this.feedback = this.feedbackService.feedbackRead();
-            // console.log(this.feedback);
-            // console.log(this.csvRecords);
-            // console.log('Apply Feedback')
-            // this.feedbackService.feedbackApply(0, 3);
-            // console.log(this.csvRecords);
-            // console.log(this.feedback);
-            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            // this.feedbackService.feedbackUnapply(0, 3);
-            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            // this.feedbackService.feedbackApply(0, 3);
-            // this.feedbackService.feedbackApply(1, 3);
-            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            // this.feedbackService.feedbackUnapply(0,3);
-            // this.feedbackService.feedbackApply(0, 4);
-            // this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-            ////////////////////////////////////////////////////////////////////
           } else {
             this.maxScore = null;
             console.log('Error Bad CSV');
@@ -138,9 +102,6 @@ export class AppComponent {
   }
 
   updateCheckboxState() {
-    // var checkboxes = document.getElementsByClassName("checkbox");
-    // console.log(checkboxes[0]);
-    // var checkbox = document.getElementById("0");
     for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
       var checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
       if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i] === true) {
@@ -158,7 +119,6 @@ export class AppComponent {
     this.currentStudentIndex += incriment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
-    // console.log("Current Student: " + this.csvRecords[this.currentStudentIndex]["fullName"]);
     this.validFile = this.feedbackService.correctFile
   }
 
@@ -177,7 +137,6 @@ export class AppComponent {
     this.dynamicArray.push(this.newDynamic);  
     // create another feedback object
     this.feedbackService.feeedbackCreate(null, null)
-    // this.toastr.success('New row added successfully', 'New Row');  
     console.log(this.dynamicArray);  
     return true;  
   } 
@@ -189,7 +148,6 @@ export class AppComponent {
     } else {  
       this.dynamicArray.splice(index, 1);  
       this.feedbackService.feedbackDelete(index);
-      // console.log(this.dynamicArray); 
       // update students' feedback string display
       this.feedbackStrings = this.feedbackService.getFeedbackStrings();
       return true;  
@@ -197,21 +155,16 @@ export class AppComponent {
   }
 
   onFeedbackChange(newValue: string, index: number) {
-    // console.log(newValue);
-    // console.log(this.dynamicArray);
-
     this.feedbackService.feedbackStringUpdate(index, newValue);
     // update students' feedback string display
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
   }
 
   onDeductionChange(newValue: number, index: number) {
-    // console.log(newValue);
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
   }
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
-    // console.log(newValue);
     if (newValue === true) {
       this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
     } else {
@@ -221,7 +174,25 @@ export class AppComponent {
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
   }
 
-  // To Do: Delete Later!
+  perfectScore() {
+    if(this.currentStudentIndex > 0) {
+      this.feedbackService.perfectGrade(this.currentStudentIndex);
+    }
+    this.updateCheckboxState();
+    // update students' feedback string display
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+  }
+
+  clearScore() {
+    if(this.currentStudentIndex > 0) {
+      this.feedbackService.clearGrade(this.currentStudentIndex);
+    }
+    this.updateCheckboxState();
+    // update students' feedback string display
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();   
+  }
+
+  // To Do: Delete Later! Useful for Debugging!
   tempFunction() {
     this.feedback = this.feedbackService.feedbackRead();
     console.log(this.feedback);

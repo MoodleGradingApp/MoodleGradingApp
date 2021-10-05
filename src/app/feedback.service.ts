@@ -207,6 +207,22 @@ export class FeedbackService {
     this.students[studentIndex].grade = newGrade.toString();
   }
 
+  perfectGrade(studentIndex: number): void {
+    this.students[studentIndex].grade = this.maxScore;
+    // set all boolean feedback to false
+    for (var n = 0; n < this.feedback.length; n++) {
+      this.students[studentIndex].feedbackBoolean[n] = false;
+    }
+  }
+
+  clearGrade(studentIndex:number): void {
+    this.students[studentIndex].grade = "";
+    // set all boolean feedback to false
+    for (var n = 0; n < this.feedback.length; n++) {
+      this.students[studentIndex].feedbackBoolean[n] = false;
+    }
+  }
+
   getFeedbackStrings(): FeedbackStrings[] {
     for (var i = 0; i < this.csvRecords.length; i++) {
       this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
