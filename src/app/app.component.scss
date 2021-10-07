@@ -51,7 +51,7 @@ button:focus {
     font-size: 14px;
     color: #fff;
 }
-.btn-primary-blue:hover {
+.btn-primary-blue:hover, .btn-primary-green:hover {
     background: transparent;
     border: solid 1px #fff;
 }
@@ -65,110 +65,75 @@ button:focus {
     color: #fff;
     float: right
 }
-.btn-primary-green:hover {
-    background: transparent;
-    border: solid 1px #fff;
-}
-.btn-primary-trash {
-    padding: 3.5px;
-    border: solid 1px #EA6A62;
-    border-radius: 5px;
-    background-color: #EA6A62;
-    font-size: 14px;
-    float: left;
-    color: #fff;
-}
-.btn-primary-trash:hover {
-    background: transparent;
-    border: solid 1px #fff;
-}
 #main-btn-set {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
-// Feedback Table formatting:
-.feedbackTable table {
-    table-layout: fixed;
-    width: 100%;
-    margin-right: 10px;
-}
-.feedbackTable th {
-    text-align: left;
-    padding: 3px;
-    color: #B9BABE;
-}
-.feedbackTable tr, .feedbackTable thead {
-    display: flex;
-    min-width: 45vw;
-}
-.feedbackTable li {
-    list-style: none;
-    padding: 3px;
-}
-.feedback-column {
-    width: 90%;
-}
-.deduction-column {
-    width: 15%;
-}
-
-
-// input styling new
-input {
-    color: black;
-}
-
 // Input styling:
-// .input-box {
-//     height: 30px;
-//     border-radius: 5px;
-//     border: none;
-//     background: #212225;
-//     padding: 4px;
-//     -moz-appearance: textfield;
-//     font-size: 14px;
-// }
-// .input-box:focus {
-//     outline: none;
-//     border: solid 1px #fff;
-// }
-// textarea {
-//     resize: none;
-// }
-// #assignment, #max-pts {
-//     display: inline-block;
-//     margin-right: 10px;
-//     margin-bottom: 5px;
-// }
-// ::placeholder {
-//     font-style: italic;
-//     color: #686A70;
-// }
-// .feedback {
-//     width: 100%;
-// }
-
-// .input-box.deduction {
-//     width: 100%
-// }
+th {
+    padding-right: 5px;
+}
+.input-box {
+    height: 30px;
+    border-radius: 5px;
+    border: solid 1px #212225;
+    background: #212225;
+    padding: 4px;
+    -moz-appearance: textfield;
+    font-size: 14px;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+::placeholder {
+    font-style: italic;
+    color: #686A70;
+}
+.input-box:focus {
+    outline: none;
+    border: solid 1px #fff;
+}
+#feedback {
+    width: 32vw;
+}
+#deduction {
+    width: 60px;
+}
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-bottom: 2px;
+    margin-left: 5px;
+}
+#assignment, #max-pts {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+#trash {
+    background-color: #EA6A62;
+    border-radius: 5px;
+    border: solid 1px #EA6A62;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    width: 27px;
+    height: 27px;
+    margin-top: 3px;
+}
+#trash:hover {
+    background-color: transparent;
+    color: white;
+    border: solid 1px white;
+}
 
 // General styling
-p, h2, label {
+label {
     color: #ddd;
     font-size: 14px;
 }
-#feedback-head {
-    text-align: left;
-    width: 100%;
-}
-#deduction-head {
-    margin-right: calc(2vw + 10px);
-    text-align: left;
-}
-
-
 
 /****************************************
  * Styling for CSV side 
@@ -179,7 +144,7 @@ button:focus {
 }
 
 input[type=file]::file-selector-button {
-    // margin: 5px;
+    margin-bottom: 10px;
     padding: 3px 6px 3px 6px;
     border: solid 1px #778AD5;
     border-radius: 5px;

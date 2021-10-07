@@ -13,12 +13,6 @@ import { event } from 'cypress/types/jquery';
 })
 
 export class AppComponent {
-
-  // What is this????? Ask Michael
-  title(title: any) {
-    throw new Error('Method not implemented.');
-  }
-
   public feedbackArray: FormArray;
   public maxScore: String;
   public feedbackInputText: String;
