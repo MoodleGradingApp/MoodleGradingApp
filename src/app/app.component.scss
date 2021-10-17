@@ -1,4 +1,7 @@
 // Panel styling:
+.title {
+    font-size: 20pt;
+}
 .panel {
     padding: 10px;
     border-radius: 0px;
@@ -109,6 +112,8 @@ input[type="checkbox"] {
 }
 #assignment, #max-pts {
     display: inline-block;
+    font-size: 15px;
+    font-weight: bold;
     margin-right: 10px;
     margin-bottom: 5px;
 }
