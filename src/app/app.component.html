@@ -1,17 +1,17 @@
 <!--
 -- Authors: Michael Sisko and Emily Costa
 -- Citation(s):
---      Auto-sizing Text-box: https://stackoverflow.com/questions/2803880/ by Martin Prestone
 --
 -->
 
 <head>
     <title>Grading Assistant</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <div class="panel panel-default hide-outline" id="outer-card">
     <p>Developed by: Michael Sisko and Emily Costa</p>
-    <h1>Grading Assistant</h1>
+    <h1 class="title">Grading Assistant</h1>
     <hr>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
@@ -53,7 +53,7 @@
                     <table>    
                         <thead>    
                             <tr>    
-                                <th>Delete</th>    
+                                <th id="trash-header">Delete</th>    
                                 <th>Feedback</th>    
                                 <th>Deduction</th>    
                                 <th>Apply</th>    
@@ -61,17 +61,17 @@
                         </thead>    
                         <tbody>    
                              <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
-                                <td (click)="deleteRow(i)">    
-                                    <p>Delete</p>   
+                                <td (click)="deleteRow(i)">
+                                    <button id="trash"><i class="fa fa-trash"></i></button>
                                 </td>    
                                 <td>    
-                                    <input [(ngModel)]="dynamicArray[i].feedback" (ngModelChange)="onFeedbackChange($event, i)" type="text"/>    
+                                    <input class="input-box" id="feedback" placeholder="Say something constructive..." [(ngModel)]="dynamicArray[i].feedback" (ngModelChange)="onFeedbackChange($event, i)" type="text"/>
                                 </td>    
                                 <td>    
-                                    <input [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
+                                    <input class="input-box" id="deduction" placeholder="0" [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
                                 </td>    
                                 <td>
-                                    <input id="checkbox{{i}}" [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event, i)" type="checkbox"/>
+                                    <input class="checkbox" id="checkbox{{i}}" [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event, i)" type="checkbox"/>
                                 </td>    
                             </tr>  
                         </tbody>    
