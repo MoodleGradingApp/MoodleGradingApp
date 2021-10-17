@@ -112,10 +112,12 @@ input[type="checkbox"] {
 }
 #assignment, #max-pts {
     display: inline-block;
-    font-size: 15px;
-    font-weight: bold;
     margin-right: 10px;
     margin-bottom: 5px;
+}
+#max-pts {
+    font-size: 15px;
+    font-weight: bold;
 }
 #trash {
     background-color: #EA6A62;
