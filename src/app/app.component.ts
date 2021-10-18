@@ -159,17 +159,19 @@ export class AppComponent {
   }
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
-    if (newValue === true) {
-      this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
-    } else {
-      this.feedbackService.feedbackUnapply(feedbackIndex, this.currentStudentIndex);
+    if (this.currentStudentIndex >= 0) {
+      if (newValue === true) {
+        this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
+      } else {
+        this.feedbackService.feedbackUnapply(feedbackIndex, this.currentStudentIndex);
+      }
+      // update students' feedback string display
+      this.feedbackStrings = this.feedbackService.getFeedbackStrings();
     }
-    // update students' feedback string display
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
   }
 
   perfectScore() {
-    if(this.currentStudentIndex > 0) {
+    if(this.currentStudentIndex >= 0) {
       this.feedbackService.perfectGrade(this.currentStudentIndex);
     }
     this.updateCheckboxState();
@@ -178,7 +180,7 @@ export class AppComponent {
   }
 
   clearScore() {
-    if(this.currentStudentIndex > 0) {
+    if(this.currentStudentIndex >= 0) {
       this.feedbackService.clearGrade(this.currentStudentIndex);
     }
     this.updateCheckboxState();
