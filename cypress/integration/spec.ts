@@ -85,6 +85,25 @@ it('Parse Next and Previous Student', () => {
   cy.get('[data-testid=prevStudentBtn]').click()
 });
 
+it('Apply Feedback', () => {
+  // Add feedback and apply to a particular student
+  cy.get('[data-testid=feedbackInput]').last().type('Late 1 day...');
+  cy.get('[data-testid=deductionInput]').last().type('10');
+  cy.get('[data-testid=applyBtn]').last().check();
+
+  // Apply feedback to next student in list
+  cy.get('[data-testid=nextStudentBtn]').click();
+  cy.get('[data-testid=applyBtn]').first().check();
+
+  // Remove feedback from previous student in list
+  cy.get('[data-testid=prevStudentBtn]').click();
+  cy.get('[data-testid=applyBtn]').last().uncheck();
+  cy.get('[data-testid=addFeedbackBtn]').click()
+  cy.get('[data-testid=feedbackInput]').last().type('Looks good!');
+  cy.get('[data-testid=deductionInput]').last().type('0');
+  cy.get('[data-testid=applyBtn]').last().check();
+});
+
 // Check that max scrore is automatically loaded
 it('Max Score Auto Fills', () => {
   // Test to see if the name of the application appears on home page
