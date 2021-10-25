@@ -86,6 +86,14 @@
                 >Add Feedback</button>
                 <br><br>
             </div>
+            <div>
+                <apx-chart
+                    [series]="chartOptions.series"
+                    [chart]="chartOptions.chart"
+                    [xaxis]="chartOptions.xaxis"
+                    [title]="chartOptions.title"
+                ></apx-chart>
+            </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">
             <div class="csv-import-btn">

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { NgxCsvParserModule } from 'ngx-csv-parser';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    NgxCsvParserModule
+    NgxCsvParserModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

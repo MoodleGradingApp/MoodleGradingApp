@@ -5,6 +5,20 @@ import { Subject } from 'rxjs';
 import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
 import { event } from 'cypress/types/jquery';
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexTitleSubtitle
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
+};
 
 @Component({
   selector: 'app-root',
@@ -18,6 +32,9 @@ export class AppComponent {
   public feedbackInputText: String;
 
   public feedbackText: String = '';
+  
+  @ViewChild("chart") chart: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
 
   validFile: boolean = true;
   currentStudentName: String;
@@ -39,6 +56,26 @@ export class AppComponent {
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
     this.dynamicArray.push(this.newDynamic);
     this.feedbackService.feeedbackCreate(null, null);
+
+    this.chartOptions = {
+      series: [
+        {
+          name: "My-series",
+          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 100]
+        }
+      ],
+      chart: {
+        foreColor: '#FFFFFF',
+        height: 350,
+        type: "bar"
+      },
+      title: {
+        text: "My First Angular Chart"
+      },
+      xaxis: {
+        categories: ["0-9", "10-19",  "20-29",  "30-39",  "40-49",  "50-59",  "60-69",  "70-79", "80-89", "90-100"]
+      }
+    };
   }
 
   async fileChangeListener ($event: any) {
