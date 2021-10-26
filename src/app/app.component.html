@@ -11,6 +11,7 @@
 
 <div class="panel panel-default hide-outline" id="outer-card">
     <p>Developed by: Michael Sisko and Emily Costa</p>
+    <p>Advised by: Victor Norman</p>
     <h1 class="title">Grading Assistant</h1>
     <hr>
     <div class="row">
@@ -38,7 +39,7 @@
                     <button type="button" class="btn-primary-blue" (click)="previousStudent()" data-testid="prevStudentBtn">Prev Student</button>
                     <button type="button" class="btn-primary-blue" (click)="nextStudent()" data-testid="nextStudentBtn">Next Student</button>
                     <button type="button" class="btn-primary-blue">Export Table</button>
-                    <button type="button" class="btn-primary-blue">Stats</button>
+                    <button type="button" class="btn-primary-blue" (click)="showChart = !showChart">{{ showChart ? "Hide Stats" : "Show Stats" }}</button>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -86,13 +87,18 @@
                 >Add Feedback</button>
                 <br><br>
             </div>
-            <div>
+            <!-- Needs to be mvoed and restyled -->
+            <div *ngIf="showChart">
                 <apx-chart
                     [series]="chartOptions.series"
                     [chart]="chartOptions.chart"
                     [xaxis]="chartOptions.xaxis"
+                    [yaxis]="chartOptions.yaxis"
                     [title]="chartOptions.title"
                 ></apx-chart>
+                <div class="feedback-count">
+                    <!-- code here to display feedback and count -->
+                </div>
             </div>
         </div>
         <div class="panel panel-default" id="main-right-panel">

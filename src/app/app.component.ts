@@ -9,15 +9,33 @@ import {
   ChartComponent,
   ApexAxisChartSeries,
   ApexChart,
+  ApexYAxis,
   ApexXAxis,
-  ApexTitleSubtitle
+  ApexTitleSubtitle,
+  ApexDataLabels,
+  ApexPlotOptions,
+  ApexAnnotations,
+  ApexFill,
+  ApexStroke,
+  ApexGrid,
+  ApexStates,
+  ApexTooltip
 } from "ng-apexcharts";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
+  yaxis: ApexYAxis;
   xaxis: ApexXAxis;
   title: ApexTitleSubtitle;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  annotations: ApexAnnotations;
+  fill: ApexFill;
+  stroke: ApexStroke;
+  grid: ApexGrid;
+  states: ApexStates;
+  tooltip: ApexTooltip;
 };
 
 @Component({
@@ -30,6 +48,7 @@ export class AppComponent {
   public feedbackArray: FormArray;
   public maxScore: String;
   public feedbackInputText: String;
+  public showChart: boolean = false;
 
   public feedbackText: String = '';
   
@@ -60,21 +79,40 @@ export class AppComponent {
     this.chartOptions = {
       series: [
         {
-          name: "My-series",
-          data: [10, 41, 35, 51, 49, 62, 69, 91, 148, 100]
+          name: "Grades",
+          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         }
       ],
       chart: {
         foreColor: '#FFFFFF',
-        height: 350,
-        type: "bar"
+        height: 400,
+        type: "bar",
+        toolbar: {
+          show: false
+        }
       },
       title: {
-        text: "My First Angular Chart"
+        text: "Grade Distribution",
+        align: "center"
+      },
+      yaxis: {
+        title: {
+          text: "No. of Students"
+        }
       },
       xaxis: {
+        title: {
+          text: "Grades"
+        },
         categories: ["0-9", "10-19",  "20-29",  "30-39",  "40-49",  "50-59",  "60-69",  "70-79", "80-89", "90-100"]
-      }
+      },
+      states: {
+        hover: {
+          filter: {
+            type: "none"
+          }
+        }
+      },
     };
   }
 
@@ -181,6 +219,7 @@ export class AppComponent {
       this.feedbackService.feedbackDelete(index);
       // update students' feedback string display
       this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+      this.updateSeries();
       return true;  
     }  
   }
@@ -189,10 +228,12 @@ export class AppComponent {
     this.feedbackService.feedbackStringUpdate(index, newValue);
     // update students' feedback string display
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateSeries();
   }
 
   onDeductionChange(newValue: number, index: number) {
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
+    this.updateSeries();
   }
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
@@ -204,6 +245,7 @@ export class AppComponent {
       }
       // update students' feedback string display
       this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+      this.updateSeries();
     }
   }
 
@@ -214,6 +256,7 @@ export class AppComponent {
     this.updateCheckboxState();
     // update students' feedback string display
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateSeries();
   }
 
   clearScore() {
@@ -222,7 +265,8 @@ export class AppComponent {
     }
     this.updateCheckboxState();
     // update students' feedback string display
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();   
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateSeries();
   }
 
   // To Do: Delete Later! Useful for Debugging!
@@ -230,5 +274,14 @@ export class AppComponent {
     this.feedback = this.feedbackService.feedbackRead();
     console.log(this.feedback);
     console.log(this.csvRecords);
+  }
+
+  updateSeries() {
+    let chartData: Array<number> = this.feedbackService.updateChartData();
+    // update data in chart
+    this.chartOptions.series = [{
+      data: chartData
+    }];
+    console.log("update chart data!")
   }
 }
