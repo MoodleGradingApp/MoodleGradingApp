@@ -287,5 +287,6 @@ export class AppComponent {
 
   exportCSV(): void {
     this.feedbackService.exportCSV();
+    console.log("Export CSV!")
   }
 }

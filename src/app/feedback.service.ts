@@ -141,6 +141,7 @@ export class FeedbackService {
             line += my_data[i][index];
         }
         csv_file += line + '\r\n';
+        console.log()
     }
 
     // End of file
