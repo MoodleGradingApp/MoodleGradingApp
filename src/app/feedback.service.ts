@@ -203,7 +203,13 @@ export class FeedbackService {
       }
     }
 
-    var newGrade = parseInt(this.maxScore) - totalDeductions
+    var newGrade = parseFloat(this.maxScore) - totalDeductions
+    // if score is not an int round to 1 decimal place
+    var result = (newGrade - Math.floor(newGrade)) !== 0;
+    if (result) {
+      newGrade = parseFloat(newGrade.toFixed(1));
+    }
+    
     this.students[studentIndex].grade = newGrade.toString();
   }
 
@@ -233,5 +239,52 @@ export class FeedbackService {
       }
     }
     return this.feedbackString;
+  }
+
+  updateChartData(): Array<number> {
+    var chartData: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    // loop through each student to put data into histogram
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].grade != "") {
+        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        console.log(parseFloat(this.maxScore));
+        // console.log(numGrade);
+        // make sure in range 0 to 100
+        if (numGrade >= 0 && numGrade <= 100) {
+          if (numGrade <= 9) {
+            // 0 to 9
+            chartData[0] += 1;
+          } else if (numGrade <= 19) {
+            // 10 to 19
+            chartData[1] += 1;
+          } else if (numGrade <= 29) {
+            // 20 to 29
+            chartData[2] += 1;
+          } else if (numGrade <= 39) {
+            // 30 to 39
+            chartData[3] += 1;
+          } else if (numGrade <= 49) {
+            // 40 to 49
+            chartData[4] += 1;
+          } else if (numGrade <= 59) {
+            // 50 to 59
+            chartData[5] += 1;
+          } else if (numGrade <= 69) {
+            // 60 to 69
+            chartData[6] += 1;
+          } else if (numGrade <= 79) {
+            // 70 to 79
+            chartData[7] += 1;
+          } else if (numGrade <= 89) {
+            // 80 to 89
+            chartData[8] += 1;
+          } else if (numGrade <= 100) {
+            // 90 to 100
+            chartData[9] += 1;
+          }
+        }
+      }
+    }
+    return chartData;
   }
 }
