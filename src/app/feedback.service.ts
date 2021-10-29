@@ -95,6 +95,76 @@ export class FeedbackService {
     }
   }
 
+  // Make a download button
+  public exportCSV() {
+    // Pass string into handle for data-table
+    let my_data_string = this.buildCSV(this.students);
+
+    // Create an href element in the DOM
+    let a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+
+    // Create object of type csv text file
+    let blob = new Blob([my_data_string], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    
+    // Pass URL to hyper-reference, label download as modified CSV, onclick
+    a.href = url;
+    // To Do: Change name of exported csv file based on the Assignment Name input
+    a.download = 'graded.csv';
+    a.click();
+  }
+
+  // This manually constructs our CSV file string
+  private buildCSV(objArray: any): string {
+    let my_data = objArray;
+    let csv_file = '';
+
+    // create header row
+    let row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,Last modified (submission),Online text,Last modified (grade),Feedback comments'
+
+    // Add row and newline + carriage-return
+    csv_file += row + '\r\n';
+
+    // Build and add lines to csv_file
+    for (let i = 0; i < my_data.length; i++) {
+        let line = '';
+        for (let index in my_data[i]) {
+          if (line != '') {
+            line += ','
+          }
+          if (index == 'gradeLastModified' || index == 'submissionLastModified') {
+            line += '"' + my_data[i][index] + '"'
+          } else if (index == 'feedbackBoolean') {
+            let feedbackString = this.parseFeedbackCSV(my_data[i][index])
+            line += '"' + feedbackString + '"'
+            console.log("Return from function:" + my_data[i][index])
+          } 
+          else {
+            line += my_data[i][index];
+          }
+          
+        }
+        csv_file += line + '\r\n';
+    }
+
+    // End of file
+    return csv_file;
+  }
+
+  private parseFeedbackCSV(feedback: Array<boolean>): string {
+    let feedbackStringArray = []
+    let feedbackString = ''
+    for (var n = 0; n < this.feedback.length; n++) {
+      if (feedback[n] == true) {
+        feedbackStringArray.push(this.feedback[n].feedback)
+      }
+      feedbackString = feedbackStringArray.join(', ')
+    }
+    return feedbackString;
+  }
+
   private getStudents(parseResult: Array<String>[]) {
 
     // return only Calvin username
@@ -106,17 +176,17 @@ export class FeedbackService {
     for ( var i = 0; i < this.csvRecords.length; i++) {
       // initialize each student object
       this.newStudent = {
-        email: parseResult[i]["Email address"][0],
-        feedbackBoolean: [false],
-        fullName: parseResult[i]["Full name"],
-        grade: parseResult[i]["Grade"],
-        gradeChange: parseResult[i]["Grade can be changed"],
         identifier: parseResult[i]["Identifier"],
-        gradeLastModified: parseResult[i]["Last modified (grade)"],
-        submissionLastModified: parseResult[i]["Last modified (submission)"],
+        fullName: parseResult[i]["Full name"],
+        email: parseResult[i]["Email address"][0],
+        status: parseResult[i]["Status"],
+        grade: parseResult[i]["Grade"],
         maxGrade: parseResult[i]["Maximum Grade"],
+        gradeChange: parseResult[i]["Grade can be changed"],
+        submissionLastModified: parseResult[i]["Last modified (submission)"],
         onlineText: parseResult[i]["Online text"],
-        status: parseResult[i]["Status"]
+        gradeLastModified: parseResult[i]["Last modified (grade)"],
+        feedbackBoolean: [false]
       }
       this.students.push(this.newStudent);
       // initialize each students' feedback strings
@@ -128,6 +198,7 @@ export class FeedbackService {
 
     // set assignment max score
     this.maxScore = this.students[0].maxGrade;
+    
   }
 
   clearStudents() {
@@ -174,7 +245,7 @@ export class FeedbackService {
     for (var i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].feedbackBoolean[index] == true) {
         // add deduction value to student grade before delete
-        var newGrade = parseInt(this.students[i].grade) + this.feedback[index].deduction
+        var newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction
         this.students[i].grade = newGrade.toString();
       }
       this.students[i].feedbackBoolean.splice(index,1);
