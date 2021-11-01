@@ -1,5 +1,5 @@
 export class DynamicGrid{   
-    feedback:string;  
-    deduction:number;  
+    feedback: string;  
+    deduction: number;  
     selected: boolean; 
 }

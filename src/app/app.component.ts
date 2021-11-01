@@ -201,27 +201,27 @@ export class AppComponent {
     }
   }
 
-  addRow() {    
+  addRow(): void {    
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
     this.dynamicArray.push(this.newDynamic);  
     // create another feedback object
     this.feedbackService.feeedbackCreate(null, null)
     console.log(this.dynamicArray);  
-    return true;  
+    return;  
   } 
 
   deleteRow(index: number) {  
-    if(this.dynamicArray.length == 1) {  
-      console.log("Can't delete the row when there is one one row!");  
-      return false;  
-    } else {  
+    // add row so there will never be 0 rows
+    if(this.dynamicArray.length == 1) {
+      this.addRow();
+    }
       this.dynamicArray.splice(index, 1);  
       this.feedbackService.feedbackDelete(index);
-      // update students' feedback string display
-      this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-      this.updateSeries();
-      return true;  
-    }  
+    
+    // update students' feedback string display
+    this.updateCheckboxState();
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateSeries();
   }
 
   onFeedbackChange(newValue: string, index: number) {
@@ -283,5 +283,10 @@ export class AppComponent {
       data: chartData
     }];
     console.log("update chart data!")
+  }
+
+  exportCSV(): void {
+    this.feedbackService.exportCSV();
+    console.log("Export CSV!")
   }
 }
