@@ -3,6 +3,7 @@ import { Observable, of, Subscription, throwError } from 'rxjs';
 import { string } from 'yargs';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 import { ThisReceiver } from '@angular/compiler';
+import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
   email: string,
@@ -97,9 +98,27 @@ export class FeedbackService {
 
   // Make a download button
   public exportCSV() {
+    // Get the assignment title
+    let title = (<HTMLInputElement>document.getElementById('title')).value;
+
+    // Remove forbidden characters from assignment title
+    title.replace('#','').replace('<','').replace('>','').replace('$','').replace('%','')
+    title.replace('!','').replace('&','').replace('*','').replace('\'','').replace('"','')
+    title.replace('?','').replace('\\','').replace('/','').replace('{','').replace('}','')
+    title.replace(':','').replace(' ','').replace('@','').replace('+','').replace('`','')
+    title.replace('|','').replace('=', '');
+
+    // If title is not provided assign default title 'assignment'
+    if (title == '') {
+      title = "assignment";
+    }
+
+    // Get current date and time
+    let currentDateTime = dayjs().format('_YYYY-MM-DD_HHmmss');
+
     // Pass string into handle for data-table
     let my_data_string = this.buildCSV(this.students);
-
+    
     // Create an href element in the DOM
     let a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
@@ -109,10 +128,11 @@ export class FeedbackService {
     let blob = new Blob([my_data_string], { type: 'text/csv' });
     let url = window.URL.createObjectURL(blob);
     
-    // Pass URL to hyper-reference, label download as modified CSV, onclick
+    // Pass URL to hyper-reference csv onclick
     a.href = url;
-    // To Do: Change name of exported csv file based on the Assignment Name input
-    a.download = 'graded.csv';
+
+    // Apply custom name to file download
+    a.download = title + currentDateTime + '.csv';
     a.click();
   }
 
@@ -198,7 +218,6 @@ export class FeedbackService {
 
     // set assignment max score
     this.maxScore = this.students[0].maxGrade;
-    
   }
 
   clearStudents() {
