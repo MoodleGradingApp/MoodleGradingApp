@@ -66,12 +66,9 @@ button:focus {
     font-size: 14px;
     padding: 3px 6px 3px 6px;
     color: #fff;
-    float: right
 }
-#main-btn-set {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.btn-set {
+    text-align: center;
 }
 
 // Input styling:
