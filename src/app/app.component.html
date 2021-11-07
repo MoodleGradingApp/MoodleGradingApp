@@ -1,7 +1,5 @@
 <!--
 -- Authors: Michael Sisko and Emily Costa
--- Citation(s):
---
 -->
 
 <head>
@@ -9,11 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<div class="panel panel-default hide-outline" id="outer-card">
-    <p>Developed by: Michael Sisko and Emily Costa</p>
-    <p>Advised by: Victor Norman</p>
+<div class="panel panel-default hide-outline" id="master-panel">
+    <p>Developed by: Michael Sisko and Emily Costa<br>Advised by: Victor Norman</p>
     <h1 class="title">Grading Assistant</h1>
-    <hr>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
             <div class="panel panel-default">
@@ -155,24 +151,24 @@
     <table class="csvTable">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Timestamp</th>
-                <th>Grade</th>
-                <th>Feedback</th>
+                <th class="narrow">#</th>
+                <th class="narrow">Name</th>
+                <th class="narrow">Email</th>
+                <th class="narrow">Timestamp</th>
+                <th class="narrow">Grade</th>
+                <th class="wide">Feedback</th>
             </tr>
         </thead>
         <tbody>
             <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;" 
                 (click)="rowSelected(i)" (click)="highlightRow(i)"
             >
-                <td>{{i+1}}</td>
-                <td>{{csvData.fullName}}</td>
-                <td>{{csvData.email}}</td>
-                <td>{{csvData.gradeLastModified}}</td>
-                <td>{{csvData.grade}}</td>
-                <td>{{feedbackStrings[i].strings.join(', ')}}</td>
+                <td class="narrow">{{i+1}}</td>
+                <td class="narrow">{{csvData.fullName}}</td>
+                <td class="narrow">{{csvData.email}}</td>
+                <td class="narrow">{{csvData.gradeLastModified}}</td>
+                <td class="narrow">{{csvData.grade}}</td>
+                <td class="wide" id="feedback-column">{{feedbackStrings[i].strings.join(', ')}}</td>
             </tr>
         </tbody>
     </table>

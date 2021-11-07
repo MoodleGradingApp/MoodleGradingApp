@@ -18,15 +18,16 @@
 }
 #main-left-panel {
     padding-left: 10px;
-    min-width: 50%;
-    max-width: 50%;
+    min-width: 460px;
+    max-width: 460px;
+    flex-wrap: nowrap;
 }
 #main-right-panel {
     padding: 10px;
-    min-width: 49%;
-    max-width: 49%;
+    min-width: 600px;
+    max-width: calc(100% - 460px);
+    flex-wrap: nowrap;
     z-index: 900;
-    overflow-y: scroll;
 }
 .hide-outline {
     border: none;
@@ -36,10 +37,13 @@
     margin: 0px;
     padding: 0px;
 }
-#outer-card {
+#master-panel {
     overflow-y: scroll;
     min-height: 100vh;
     max-height: 100vh;
+}
+.row {
+    flex-wrap: nowrap;
 }
 
 // Button styling:
@@ -103,7 +107,9 @@ th {
     border: solid 1px #fff;
 }
 #feedback {
-    width: 32vw;
+    width: 28vw;
+    max-width: 280px;
+    min-width: 280px;
 }
 #deduction {
     width: 60px;
@@ -174,6 +180,11 @@ button:focus {
 
 #csvImportBtn {
     font-weight: 400;
+    margin-bottom: 10px;
+}
+
+#csvFileUpload {
+    width: 80px;
 }
 
 input[type=file]::file-selector-button {
@@ -223,6 +234,19 @@ input[type=file]::file-selector-button {
 
 .csvTable tbody > tr:focus, .csvTable tbody > tr:active {
     border: 2px solid #778AD5;
+}
+
+.narrow {
+    max-width: min-content + 3px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+.wide {
+    min-width: 100%;
+}
+#feedback-column {
+    width: 100%;
+    min-width: 190px;
 }
 
 // Histogram styling 
