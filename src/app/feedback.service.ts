@@ -100,13 +100,13 @@ export class FeedbackService {
   public exportCSV() {
     // Get the assignment title
     let title = (<HTMLInputElement>document.getElementById('title')).value;
-
+    
     // Remove forbidden characters from assignment title
-    title.replace('#','').replace('<','').replace('>','').replace('$','').replace('%','')
-    title.replace('!','').replace('&','').replace('*','').replace('\'','').replace('"','')
-    title.replace('?','').replace('\\','').replace('/','').replace('{','').replace('}','')
-    title.replace(':','').replace(' ','').replace('@','').replace('+','').replace('`','')
-    title.replace('|','').replace('=', '');
+    title = title.replace('#','').replace('<','').replace('>','').replace('$','').replace('%','');
+    title = title.replace('!','').replace('&','').replace('*','').replace('\'','').replace('"','');
+    title = title.replace('?','').replace('\\','').replace('/','').replace('{','').replace('}','');
+    title = title.replace(':','').replace(' ','_').replace('@','').replace('+','').replace('`','');
+    title = title.replace('|','').replace('=', '');
 
     // If title is not provided assign default title 'assignment'
     if (title == '') {

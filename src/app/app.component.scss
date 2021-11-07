@@ -149,24 +149,29 @@ label {
  * Styling for CSV side 
 *****************************************/
 
+.outer-nowrap {
+    width:100%;
+    text-align: left;
+}
+
+.inner-nowrap {
+    display: inline-block;
+}
+
+#exportBtn {
+    float: right;
+}
+
 button:focus {
     outline: none;
 }
 
-input[type=file]::file-selector-button {
-    margin-bottom: 10px;
-    padding: 3px 6px 3px 6px;
-    border: solid 1px #778AD5;
-    border-radius: 5px;
-    background-color: #778AD5;
-    font-size: 14px;
-    color: #fff;
-    cursor: pointer;
+#csvImportBtn {
+    font-weight: 400;
 }
 
-input[type=file]::file-selector-button:hover {
-    background: transparent;
-    border: solid 1px #fff;
+input[type=file]::file-selector-button {
+    display: none;
 }
 
 .csvTable {
