@@ -54,6 +54,8 @@ button:focus {
     padding: 3px 6px 3px 6px;
     font-size: 14px;
     color: #fff;
+    width: 112px;
+    text-align: center;
 }
 .btn-primary-blue:hover, .btn-primary-green:hover {
     background: transparent;
@@ -67,9 +69,14 @@ button:focus {
     font-size: 14px;
     padding: 3px 6px 3px 6px;
     color: #fff;
+    width: 112px;
 }
 .btn-set {
     text-align: center;
+}
+#addFeedbackBtn {
+    margin-top: 0px;
+    margin-left: 0px;
 }
 
 // Input styling:
