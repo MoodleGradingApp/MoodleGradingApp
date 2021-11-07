@@ -62,16 +62,40 @@
                         <tbody>    
                              <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
                                 <td (click)="deleteRow(i)">
-                                    <button id="trash" data-testid="trashBtn"><i class="fa fa-trash"></i></button>
+                                    <button 
+                                        id="trash" 
+                                        data-testid="trashBtn">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </td>    
                                 <td>    
-                                    <input class="input-box" id="feedback" data-testid="feedbackInput" placeholder="Say something constructive..." [(ngModel)]="dynamicArray[i].feedback" (ngModelChange)="onFeedbackChange($event, i)" type="text"/>
+                                    <input 
+                                        class="input-box" 
+                                        id="feedback" 
+                                        data-testid="feedbackInput" 
+                                        placeholder="Say something constructive..." 
+                                        [(ngModel)]="dynamicArray[i].feedback" 
+                                        (ngModelChange)="onFeedbackChange($event, i)" 
+                                        type="text"/>
                                 </td>    
                                 <td>    
-                                    <input class="input-box" id="deduction" data-testid="deductionInput" placeholder="0" [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
+                                    <input 
+                                        class="input-box" 
+                                        id="deduction" 
+                                        data-testid="deductionInput" 
+                                        placeholder="0" 
+                                        [(ngModel)]="dynamicArray[i].deduction" 
+                                        (ngModelChange)="onDeductionChange($event, i)" 
+                                        type="number"/>    
                                 </td>    
                                 <td>
-                                    <input class="checkbox" id="checkbox{{i}}" data-testid="applyBtn" [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event, i)" type="checkbox"/>
+                                    <input 
+                                        class="checkbox" 
+                                        id="checkbox{{i}}" 
+                                        data-testid="applyBtn" 
+                                        [(ngModel)]="dynamicArray[i].selected" 
+                                        (ngModelChange)="onSelectedChange($event, i)" 
+                                        type="checkbox"/>
                                 </td>    
                             </tr>  
                         </tbody>    
@@ -86,7 +110,7 @@
                 >Add Feedback</button>
                 <br><br>
             </div>
-            <!-- Needs to be mvoed and restyled -->
+            <!-- Needs to be moved and restyled -->
             <div *ngIf="showChart">
                 <apx-chart
                     [series]="chartOptions.series"
