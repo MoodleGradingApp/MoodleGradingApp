@@ -25,7 +25,7 @@
 #main-right-panel {
     padding: 10px;
     min-width: 600px;
-    max-width: calc(100% - 460px);
+    max-width: calc(100% - 470px);
     flex-wrap: nowrap;
     z-index: 900;
 }
@@ -229,7 +229,6 @@ input[type=file]::file-selector-button {
 .csvTable table {
     margin-top: 10px;
     width: 100%;
-    // table-layout: auto;
 }
 
 .csvTable tbody > tr:focus, .csvTable tbody > tr:active {
@@ -245,8 +244,9 @@ input[type=file]::file-selector-button {
     min-width: 100%;
 }
 #feedback-column {
-    width: 100%;
+    max-width: 190px;
     min-width: 190px;
+    flex-wrap: wrap;
 }
 
 // Histogram styling 
