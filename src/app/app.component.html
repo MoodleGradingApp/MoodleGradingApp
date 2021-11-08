@@ -1,7 +1,5 @@
 <!--
 -- Authors: Michael Sisko and Emily Costa
--- Citation(s):
---
 -->
 
 <head>
@@ -9,11 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<div class="panel panel-default hide-outline" id="outer-card">
-    <p>Developed by: Michael Sisko and Emily Costa</p>
-    <p>Advised by: Victor Norman</p>
+<div class="panel panel-default hide-outline" id="master-panel">
+    <p>Developed by: Michael Sisko and Emily Costa<br>Advised by: Victor Norman</p>
     <h1 class="title">Grading Assistant</h1>
-    <hr>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
             <div class="panel panel-default">
@@ -23,27 +19,27 @@
                         <input
                         class="input-box"
                         type="text"
-                        id="assignment"
+                        id="title"
                         name="assignment"
                         placeholder="Ex. Homework #1"
                         data-testid="nameInput"
                         >
                     </div>
                     <div id="max-pts">
-                        <label for="max-pts">Max Points:&nbsp;</label>
-                        {{maxScore}}
+                        <label for="max-pts">Max Points: {{maxScore}}</label>
                     </div>
                 </div>
-                <div class="panel panel-default hide-outline tight" id="main-btn-set">
+                <div class="panel panel-default hide-outline tight btn-set">
                     <button type="button" class="btn-primary-blue" (click)="previousStudent()" data-testid="prevStudentBtn">Prev Student</button>
                     <button type="button" class="btn-primary-blue" (click)="nextStudent()" data-testid="nextStudentBtn">Next Student</button>
-                    <button type="button" class="btn-primary-blue" (click)="exportCSV()">Export Table</button>
                     <button type="button" class="btn-primary-blue" (click)="showChart = !showChart">{{ showChart ? "Hide Stats" : "Show Stats" }}</button>
                 </div>
             </div>
             <div class="panel panel-default">
-                <div class="panel panel-default hide-outline tight">
+                <div>
                     <label for="Student">Student Name: {{currentStudentName}}</label>
+                </div>
+                <div class="panel panel-default hide-outline tight btn-set">
                     <button type="button" id="save-btn" class="btn-primary-green" (click)="tempFunction()">Save Progress</button>
                     <button type="button" id="save-btn" class="btn-primary-green" (click)="perfectScore()">Perfect Score</button>
                     <button type="button" id="save-btn" class="btn-primary-green" (click)="clearScore()">Clear Score</button>
@@ -62,37 +58,56 @@
                         <tbody>    
                              <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
                                 <td (click)="deleteRow(i)">
-                                    <button id="trash"><i class="fa fa-trash"></i></button>
+                                    <button 
+                                        id="trash" 
+                                        data-testid="trashBtn">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
                                 </td>    
                                 <td>    
-                                    <input class="input-box" id="feedback" placeholder="Say something constructive..." [(ngModel)]="dynamicArray[i].feedback" (ngModelChange)="onFeedbackChange($event, i)" type="text"/>
+                                    <input 
+                                        class="input-box" 
+                                        id="feedback" 
+                                        data-testid="feedbackInput" 
+                                        placeholder="Say something constructive..." 
+                                        [(ngModel)]="dynamicArray[i].feedback" 
+                                        (ngModelChange)="onFeedbackChange($event, i)" 
+                                        type="text"/>
                                 </td>    
                                 <td>    
-                                    <input class="input-box" id="deduction" placeholder="0" [(ngModel)]="dynamicArray[i].deduction" (ngModelChange)="onDeductionChange($event, i)" type="number"/>    
+                                    <input 
+                                        class="input-box" 
+                                        id="deduction" 
+                                        data-testid="deductionInput" 
+                                        placeholder="0" 
+                                        [(ngModel)]="dynamicArray[i].deduction" 
+                                        (ngModelChange)="onDeductionChange($event, i)" 
+                                        type="number"/>    
                                 </td>    
                                 <td>
-                                    <input class="checkbox" id="checkbox{{i}}" [(ngModel)]="dynamicArray[i].selected" (ngModelChange)="onSelectedChange($event, i)" type="checkbox"/>
+                                    <input 
+                                        class="checkbox" 
+                                        id="checkbox{{i}}" 
+                                        data-testid="applyBtn" 
+                                        [(ngModel)]="dynamicArray[i].selected" 
+                                        (ngModelChange)="onSelectedChange($event, i)" 
+                                        type="checkbox"/>
                                 </td>    
                             </tr>  
                         </tbody>    
                     </table>    
                 </div> 
                 <br>
-                <!-- <button
-                type="button"
-                class="btn-primary-blue"
-                (click)="addRow()"
-                data-testid="addFeedbackBtn"
-                >Add Feedback</button> -->
                 <button
                 type="button"
+                id="addFeedbackBtn"
                 class="btn-primary-blue"
                 (click)="addRow()"
                 data-testid="addFeedbackBtn"
                 >Add Feedback</button>
                 <br><br>
             </div>
-            <!-- Needs to be mvoed and restyled -->
+            <!-- Needs to be moved and restyled -->
             <div *ngIf="showChart">
                 <apx-chart
                     [series]="chartOptions.series"
@@ -106,40 +121,54 @@
                 </div>
             </div>
         </div>
-        <div class="panel panel-default" id="main-right-panel">
-            <div class="csv-import-btn">
-    <input
-        type="file"
-        #fileImportInput
-        name="File Upload"
-        id="csvFileUpload"
-        accept=".csv"
-        data-testid="importCSV"
-        (change)="fileChangeListener($event)"/>
-    <p *ngIf="validFile == false" class="file-warning">*Invalid CSV File</p>
+    <div class="panel panel-default" id="main-right-panel">
+        <div class="csv-import-btn">
+    <div class="outer-nowrap">
+        <label 
+            for="csvFileUpload"
+            id="csvImportBtn"
+            class="btn-primary-blue inner-nowrap"
+            data-testid="importCSV"
+        >Import Table</label>
+        <input
+            id="csvFileUpload"
+            class="inner-nowrap"
+            type="file"
+            #fileImportInput
+            name="File Upload"
+            accept=".csv"
+            (change)="fileChangeListener($event)"/>
+        <p *ngIf="validFile == false" class="file-warning inner-nowrap">*Invalid CSV File</p>
+        <button 
+            type="button" 
+            class="btn-primary-blue" 
+            id="exportBtn" 
+            (click)="exportCSV()"
+        >Export Table</button>
+    </div>
 </div>
 <div class="csv-result-table">
     <table class="csvTable">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Timestamp</th>
-                <th>Grade</th>
-                <th>Feedback</th>
+                <th class="narrow">#</th>
+                <th class="narrow">Name</th>
+                <th class="narrow">Email</th>
+                <th class="narrow">Timestamp</th>
+                <th class="narrow">Grade</th>
+                <th class="wide">Feedback</th>
             </tr>
         </thead>
         <tbody>
             <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;" 
                 (click)="rowSelected(i)" (click)="highlightRow(i)"
             >
-                <td>{{i+1}}</td>
-                <td>{{csvData.fullName}}</td>
-                <td>{{csvData.email}}</td>
-                <td>{{csvData.gradeLastModified}}</td>
+                <td class="narrow">{{i+1}}</td>
+                <td class="narrow">{{csvData.fullName}}</td>
+                <td class="narrow">{{csvData.email}}</td>
+                <td class="narrow">{{csvData.gradeLastModified}}</td>
                 <td>{{csvData.grade}}</td>
-                <td>{{feedbackStrings[i].strings.join(', ')}}</td>
+                <td class="wide" id="feedback-column">{{feedbackStrings[i].strings.join(', ')}}</td>
             </tr>
         </tbody>
     </table>

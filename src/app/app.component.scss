@@ -18,14 +18,16 @@
 }
 #main-left-panel {
     padding-left: 10px;
-    min-width: 50%;
-    max-width: 50%;
+    min-width: 460px;
+    max-width: 460px;
+    flex-wrap: nowrap;
 }
 #main-right-panel {
     padding: 10px;
-    min-width: 49%;
-    max-width: 49%;
-    overflow-y: scroll;
+    min-width: 600px;
+    max-width: calc(100% - 470px);
+    flex-wrap: nowrap;
+    z-index: 900;
 }
 .hide-outline {
     border: none;
@@ -35,10 +37,13 @@
     margin: 0px;
     padding: 0px;
 }
-#outer-card {
+#master-panel {
     overflow-y: scroll;
     min-height: 100vh;
     max-height: 100vh;
+}
+.row {
+    flex-wrap: nowrap;
 }
 
 // Button styling:
@@ -53,6 +58,8 @@ button:focus {
     padding: 3px 6px 3px 6px;
     font-size: 14px;
     color: #fff;
+    width: 112px;
+    text-align: center;
 }
 .btn-primary-blue:hover, .btn-primary-green:hover {
     background: transparent;
@@ -66,12 +73,14 @@ button:focus {
     font-size: 14px;
     padding: 3px 6px 3px 6px;
     color: #fff;
-    float: right
+    width: 112px;
 }
-#main-btn-set {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.btn-set {
+    text-align: center;
+}
+#addFeedbackBtn {
+    margin-top: 0px;
+    margin-left: 0px;
 }
 
 // Input styling:
@@ -98,7 +107,9 @@ th {
     border: solid 1px #fff;
 }
 #feedback {
-    width: 32vw;
+    width: 28vw;
+    max-width: 280px;
+    min-width: 280px;
 }
 #deduction {
     width: 60px;
@@ -109,8 +120,9 @@ input[type="checkbox"] {
     cursor: pointer;
     margin-bottom: 2px;
     margin-left: 5px;
+    z-index: 800;
 }
-#assignment, #max-pts {
+#title, #max-pts {
     display: inline-block;
     margin-right: 10px;
     margin-bottom: 5px;
@@ -149,24 +161,34 @@ label {
  * Styling for CSV side 
 *****************************************/
 
+.outer-nowrap {
+    width:100%;
+    text-align: left;
+}
+
+.inner-nowrap {
+    display: inline-block;
+}
+
+#exportBtn {
+    float: right;
+}
+
 button:focus {
     outline: none;
 }
 
-input[type=file]::file-selector-button {
+#csvImportBtn {
+    font-weight: 400;
     margin-bottom: 10px;
-    padding: 3px 6px 3px 6px;
-    border: solid 1px #778AD5;
-    border-radius: 5px;
-    background-color: #778AD5;
-    font-size: 14px;
-    color: #fff;
-    cursor: pointer;
 }
 
-input[type=file]::file-selector-button:hover {
-    background: transparent;
-    border: solid 1px #fff;
+#csvFileUpload {
+    width: 80px;
+}
+
+input[type=file]::file-selector-button {
+    display: none;
 }
 
 .csvTable {
@@ -207,11 +229,24 @@ input[type=file]::file-selector-button:hover {
 .csvTable table {
     margin-top: 10px;
     width: 100%;
-    // table-layout: auto;
 }
 
 .csvTable tbody > tr:focus, .csvTable tbody > tr:active {
     border: 2px solid #778AD5;
+}
+
+.narrow {
+    max-width: min-content + 3px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+}
+.wide {
+    min-width: 100%;
+}
+#feedback-column {
+    max-width: 190px;
+    min-width: 190px;
+    flex-wrap: wrap;
 }
 
 // Histogram styling 

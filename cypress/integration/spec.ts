@@ -23,7 +23,7 @@ it('Add Feedback', () => {
 });
 
 it('Delete Feedback', () => {
-  // Press delete buttoms from the bottom up
+  // Press delete buttons from the bottom up
   cy.get('[data-testid="trashBtn"]').spread((first, second) => {
     first.click();
   })
@@ -40,9 +40,6 @@ it('Add Feedback', () => {
   // Enter new feedback and deduction in the bottom input box
   cy.get('[data-testid=feedbackInput]').last().type('Code does not compile :(');
   cy.get('[data-testid=deductionInput]').last().type('20');
-
-  // Press 'Add Feedback' button for new input line
-  cy.get('[data-testid=addFeedbackBtn]').click();
 });
 
 // Resource: https://www.npmjs.com/package/cypress-file-upload
@@ -83,6 +80,23 @@ it('Parse Next and Previous Student', () => {
   // click previous student button
   cy.get('[data-testid=prevStudentBtn]').click()
   cy.get('[data-testid=prevStudentBtn]').click()
+});
+
+it('Apply Feedback', () => {
+  // Select a student by name via table
+  cy.contains('Mason VanMeurs').click();
+
+  // Apply 2 options to a particular student
+  cy.get('[data-testid=applyBtn]').first().check();
+  cy.get('[data-testid=applyBtn]').last().check();
+
+  // Select another student by name via table
+  cy.contains('Young Kwang Choi').click();
+  cy.get('[data-testid=applyBtn]').first().check();
+
+  // Remove feedback from a student in list
+  cy.contains('Mason VanMeurs').click();
+  cy.get('[data-testid=applyBtn]').first().uncheck();
 });
 
 // Check that max scrore is automatically loaded
