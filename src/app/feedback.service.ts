@@ -50,7 +50,6 @@ export class FeedbackService {
   csvRecords: Array<String>[] = [];
 
   parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
-
     // Check for empty CSV file
     if (fileName[0]["size"] > 3) {
       this.correctFile = true;
@@ -180,7 +179,7 @@ export class FeedbackService {
       if (feedback[n] == true) {
         feedbackStringArray.push(this.feedback[n].feedback)
       }
-      feedbackString = feedbackStringArray.join(', ')
+      feedbackString = feedbackStringArray.join('; ')
     }
     return feedbackString;
   }
