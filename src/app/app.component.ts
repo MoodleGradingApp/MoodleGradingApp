@@ -117,6 +117,21 @@ export class AppComponent {
   }
 
   async fileChangeListener ($event: any) {
+    // clear current table
+    // display warning if student table is not empty
+    console.log(this.csvRecords);
+    console.log(this.csvRecords != undefined);
+    if (this.csvRecords != undefined) {
+      if (confirm("Are you sure you want to upload another CSV file? Your current work will be deleted!")) {
+        // do nothing
+        console.log("User pressed Yes!");
+      } else {
+        console.log("User pressed No!");
+        return;
+      }
+    }
+
+    this.feedbackService.clearStudents();
     // Select the file from the event
     const file = $event.srcElement.files;
     // wait for this to return

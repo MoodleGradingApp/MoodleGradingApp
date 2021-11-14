@@ -114,7 +114,7 @@ export class FeedbackService {
     }
 
     // Get current date and time
-    let currentDateTime = dayjs().format('_YYYY-MM-DD_HHmmss');
+    let currentDateTime = dayjs().format('_YYYY-MM-DD');
 
     // Pass string into handle for data-table
     let my_data_string = this.buildCSV(this.students);
