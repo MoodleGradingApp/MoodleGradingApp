@@ -37,6 +37,7 @@ export class FeedbackService {
 
   private students: StudentInfo[] = [];
   private feedback: HomeworkFeedback[] = [];
+  private feedbackCount: HomeworkFeedback[] = [];
   private feedbackString: FeedbackStrings[] = [];
 
   public correctFile: boolean;
@@ -379,5 +380,28 @@ export class FeedbackService {
       }
     }
     return chartData;
+  }
+
+  updateFeedbackCount(): Array<HomeworkFeedback> {
+    // count the number of times each feedback is applied
+    // the deduction value is the count vlaue
+
+    this.feedbackCount = []
+
+    for (var n = 0; n < this.feedback.length; n++) {
+      if (this.feedback[n].feedback != "") {
+        this.newFeedBack = {
+          feedback: this.feedback[n].feedback,
+          deduction: 0
+        }
+        this.feedbackCount.push(this.newFeedBack);
+      }
+      for (var i = 0; i < this.csvRecords.length; i++) {
+        if (this.students[i].feedbackBoolean[n] == true) {
+          this.feedbackCount[n].deduction += 1;
+        }
+      }
+    }
+    return this.feedbackCount;
   }
 }
