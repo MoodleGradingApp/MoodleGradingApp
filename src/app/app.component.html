@@ -108,7 +108,8 @@
                                             data-testid="applyBtn" 
                                             [(ngModel)]="dynamicArray[i].selected" 
                                             (ngModelChange)="onSelectedChange($event, i)" 
-                                            type="checkbox"/>
+                                            type="checkbox"
+                                            [attr.disabled]="isCheckDisabled ? true : null"/>
                                     </td>    
                                 </tr>  
                             </tbody>    
@@ -134,8 +135,14 @@
                     [yaxis]="chartOptions.yaxis"
                     [title]="chartOptions.title"
                 ></apx-chart>
-                <div class="feedback-count">
-                    <!-- code here to display feedback and count -->
+                <div class="feedback-stats">
+                    <h4>Feedback Count:</h4>
+                    <tbody>
+                        <tr *ngFor="let stats of feedbackCount;">
+                            <td class="feedback-count">{{stats.deduction}}:</td>
+                            <td class="feedback-string">{{stats.feedback}}</td>
+                        </tr>
+                    </tbody>
                 </div>
             </div>
         </div>

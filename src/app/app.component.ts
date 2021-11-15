@@ -65,11 +65,15 @@ export class AppComponent {
 
   csvRecords: StudentInfo[];
   feedback: HomeworkFeedback[];
+  feedbackCount: HomeworkFeedback[] = [];
   feedbackStrings: FeedbackStrings[] = [];
   header: boolean = false;
 
   dynamicArray: Array<DynamicGrid> = [];  
   newDynamic: any = {}; 
+
+  //disable check boxes when no csv is imported
+  isCheckDisabled: boolean = true;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
     this.newDynamic = {feedback: "", deduction:"", selected:""};  
@@ -145,6 +149,10 @@ export class AppComponent {
             this.maxScore = this.feedbackService.maxScore;
             // get feedback strings to display
             this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            // enable checkboxes
+            this.isCheckDisabled = null;
+            // reset chart data
+            this.updateSeries();
           } else {
             this.maxScore = null;
             console.log('Error Bad CSV');
@@ -281,6 +289,7 @@ export class AppComponent {
     this.updateCheckboxState();
     // update students' feedback string display
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    console.log(this.feedbackCount);
     this.updateSeries();
   }
 
@@ -288,6 +297,7 @@ export class AppComponent {
   tempFunction() {
     this.feedback = this.feedbackService.feedbackRead();
     console.log(this.feedback);
+    console.log(this.feedbackCount);
     console.log(this.csvRecords);
   }
 
@@ -297,6 +307,7 @@ export class AppComponent {
     this.chartOptions.series = [{
       data: chartData
     }];
+    this.feedbackCount = this.feedbackService.updateFeedbackCount();
     console.log("update chart data!")
   }
 
