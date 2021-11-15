@@ -50,7 +50,6 @@ export class FeedbackService {
   csvRecords: Array<String>[] = [];
 
   parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
-
     // Check for empty CSV file
     if (fileName[0]["size"] > 3) {
       this.correctFile = true;
@@ -180,7 +179,7 @@ export class FeedbackService {
       if (feedback[n] == true) {
         feedbackStringArray.push(this.feedback[n].feedback)
       }
-      feedbackString = feedbackStringArray.join(', ')
+      feedbackString = feedbackStringArray.join('; ')
     }
     return feedbackString;
   }
@@ -260,6 +259,9 @@ export class FeedbackService {
   }
 
   feedbackDelete(index: number): void {
+    // let response = window.confirm("Deleting this option will remove it universally. Are you sure?");
+    // if (response) {
+    console.log("HERE");
     // delete feedback in students' boolean feedback arrays
     for (var i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].feedbackBoolean[index] == true) {
@@ -272,6 +274,7 @@ export class FeedbackService {
 
     // remove 1 element at index
     this.feedback.splice(index,1);
+    // }
   }
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {

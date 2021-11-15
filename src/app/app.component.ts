@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
@@ -303,5 +303,11 @@ export class AppComponent {
   exportCSV(): void {
     this.feedbackService.exportCSV();
     console.log("Export CSV!")
+  }
+
+  // Warn user if reloading, closing, navigating away from page.
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event) {
+    window.opener.location.reload();
   }
 }

@@ -19,15 +19,19 @@
 #main-left-panel {
     padding-left: 10px;
     min-width: 460px;
-    max-width: 460px;
-    flex-wrap: nowrap;
+    max-width: 33vw;
 }
 #main-right-panel {
     padding: 10px;
+    padding-top: 0px;
     min-width: 600px;
-    max-width: calc(100% - 470px);
+    width: calc(100% - 475px);
+    max-width: calc(66vw - 10px);
+    max-height: calc(100vh - 110px);
+    min-height: min-content;
     flex-wrap: nowrap;
     z-index: 900;
+    overflow-y: scroll;
 }
 .hide-outline {
     border: none;
@@ -41,6 +45,7 @@
     overflow-y: scroll;
     min-height: 100vh;
     max-height: 100vh;
+    padding-right: 10px;
 }
 .row {
     flex-wrap: nowrap;
@@ -84,8 +89,11 @@ button:focus {
 }
 
 // Input styling:
-th {
-    padding-right: 5px;
+.csv-table-head {
+    background: #212225;
+    padding: 5px;
+    position: sticky;
+    top: 52px;
 }
 .input-box {
     height: 30px;
@@ -94,9 +102,11 @@ th {
     background: #212225;
     padding: 4px;
     -moz-appearance: textfield;
+    resize: none;
     font-size: 14px;
     margin-top: 3px;
     margin-right: 5px;
+    overflow: hidden;
 }
 ::placeholder {
     font-style: italic;
@@ -108,8 +118,8 @@ th {
 }
 #feedback {
     width: 28vw;
-    max-width: 280px;
     min-width: 280px;
+    width: calc(33vw - 180px);
 }
 #deduction {
     width: 60px;
@@ -150,6 +160,10 @@ input[type="checkbox"] {
 #trash-header {
     opacity: 0;
 }
+.sticky {
+    position: sticky;
+    top: 0;
+}
 
 // General styling
 label {
@@ -162,7 +176,8 @@ label {
 *****************************************/
 
 .outer-nowrap {
-    width:100%;
+    padding-top: 10px;
+    width: 100%;
     text-align: left;
 }
 
@@ -244,11 +259,12 @@ input[type=file]::file-selector-button {
     min-width: 100%;
 }
 #feedback-column {
-    max-width: 190px;
     min-width: 190px;
     flex-wrap: wrap;
 }
-
+#feedback-table {
+    width: 100%;
+}
 // Histogram styling 
 apx-chart {
     color: black;
