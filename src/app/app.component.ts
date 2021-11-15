@@ -146,11 +146,15 @@ export class AppComponent {
           this.csvRecords = this.feedbackService.fillChart();
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
+            // select and highlist first student
+            this.currentStudentIndex = 0;
             this.maxScore = this.feedbackService.maxScore;
             // get feedback strings to display
             this.feedbackStrings = this.feedbackService.getFeedbackStrings();
             // enable checkboxes
             this.isCheckDisabled = null;
+            // uncheck check boxes
+            this.updateCheckboxState();
             // reset chart data
             this.updateSeries();
           } else {
@@ -165,7 +169,7 @@ export class AppComponent {
           console.log('Error', result);
         }
       }
-    )    
+    )  
   }
 
   ngOnInit(): void {
@@ -260,6 +264,10 @@ export class AppComponent {
   }
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
+    if (this.currentStudentIndex == 0) {
+      this.highlightRow(this.currentStudentIndex);  
+    }
+
     if (this.currentStudentIndex >= 0) {
       if (newValue === true) {
         this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
