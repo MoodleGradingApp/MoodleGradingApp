@@ -178,7 +178,7 @@ export class FeedbackService {
     let feedbackString = ''
     for (var n = 0; n < this.feedback.length; n++) {
       if (feedback[n] == true) {
-        feedbackStringArray.push(this.feedback[n].feedback)
+        feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback)
       }
       feedbackString = feedbackStringArray.join('; ')
     }
@@ -328,7 +328,7 @@ export class FeedbackService {
       this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
       for (var n = 0; n < this.feedback.length; n++) {
         if (this.students[i].feedbackBoolean[n] == true) {
-          this.feedbackString[i].strings.push(this.feedback[n].feedback);
+          this.feedbackString[i].strings.push("-" +this.feedback[n].deduction + ": " + this.feedback[n].feedback);
         }
       }
     }
