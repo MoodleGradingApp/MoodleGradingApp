@@ -259,6 +259,9 @@ export class FeedbackService {
   }
 
   feedbackDelete(index: number): void {
+    // let response = window.confirm("Deleting this option will remove it universally. Are you sure?");
+    // if (response) {
+    console.log("HERE");
     // delete feedback in students' boolean feedback arrays
     for (var i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].feedbackBoolean[index] == true) {
@@ -271,6 +274,7 @@ export class FeedbackService {
 
     // remove 1 element at index
     this.feedback.splice(index,1);
+    // }
   }
   
   feedbackApply(feedbackIndex: number, studentIndex: number): void {

@@ -28,13 +28,10 @@
     width: calc(100% - 475px);
     max-width: calc(66vw - 10px);
     max-height: calc(100vh - 110px);
-    overflow-y: scroll;
     min-height: min-content;
     flex-wrap: nowrap;
     z-index: 900;
-}
-#master-panel {
-    padding-right: 10px;
+    overflow-y: scroll;
 }
 .hide-outline {
     border: none;
@@ -48,6 +45,7 @@
     overflow-y: scroll;
     min-height: 100vh;
     max-height: 100vh;
+    padding-right: 10px;
 }
 .row {
     flex-wrap: nowrap;
@@ -89,12 +87,13 @@ button:focus {
     margin-top: 0px;
     margin-left: 0px;
 }
+
 // Input styling:
 .csv-table-head {
     background: #212225;
     padding: 5px;
     position: sticky;
-    top: 54px;
+    top: 52px;
 }
 .input-box {
     height: 30px;
@@ -107,7 +106,7 @@ button:focus {
     font-size: 14px;
     margin-top: 3px;
     margin-right: 5px;
-    overflow:hidden
+    overflow: hidden;
 }
 ::placeholder {
     font-style: italic;
