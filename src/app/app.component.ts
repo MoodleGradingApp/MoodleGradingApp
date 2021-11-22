@@ -49,6 +49,9 @@ export class AppComponent {
   public maxScore: String;
   public feedbackInputText: String;
   public showChart: boolean = false;
+  public averageScore: number = 0;
+  public minScore: number = 0;
+  public maxScoreStat: number = 0;
 
   public feedbackText: String = '';
   
@@ -198,6 +201,7 @@ export class AppComponent {
   }
 
   updateCheckboxState() {
+    console.log("Update Check Boxes");
     for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
       var checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
       if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i] === true) {
@@ -260,6 +264,7 @@ export class AppComponent {
 
   onDeductionChange(newValue: number, index: number) {
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
     this.updateSeries();
   }
 
@@ -316,6 +321,8 @@ export class AppComponent {
       data: chartData
     }];
     this.feedbackCount = this.feedbackService.updateFeedbackCount();
+    this.averageScore = this.feedbackService.updateAverageStat();
+    [this.minScore, this.maxScoreStat] = this.feedbackService.updateMinMaxStats();
     console.log("update chart data!")
   }
 
