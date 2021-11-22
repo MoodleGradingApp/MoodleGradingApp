@@ -341,7 +341,7 @@ export class FeedbackService {
     for (var i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].grade != "") {
         var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
-        console.log(parseFloat(this.maxScore));
+        // console.log(parseFloat(this.maxScore));
         // console.log(numGrade);
         // make sure in range 0 to 100
         if (numGrade >= 0 && numGrade <= 100) {
@@ -404,4 +404,33 @@ export class FeedbackService {
     }
     return this.feedbackCount;
   }
+
+  updateAverageStat(): number {
+    var avg: number = 0;
+    var count: number = 0;
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].grade != "") {
+        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        avg += numGrade;
+        count += 1;
+      }
+    }
+    return (avg / count)
+  }
+
+  updateMinMaxStats(): Array<number> {
+    var min: number = 0;
+    var max: number = 0;
+    var arrayGrades: Array<number> =[];
+
+    for (var i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].grade != "") {
+        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        arrayGrades.push(numGrade);
+      }
+    }
+    min = Math.min.apply(Math, arrayGrades)
+    max = Math.max.apply(Math, arrayGrades)
+    return [min, max]
+  } 
 }
