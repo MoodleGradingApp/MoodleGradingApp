@@ -15,6 +15,7 @@
 
 // When a command from ./commands is ready to use, import with `import './commands'` syntax
 import './commands';
+import 'cypress-file-upload';
 
 // https://docs.cypress.io/api/events/catalog-of-events#Uncaught-Exceptions
 // likely want to do this in a support file

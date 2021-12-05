@@ -1,12 +1,25 @@
-# GradingApp
+# Moodle GradingApp
+By: Emily Costa & Michael Sisko
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
+Advisor: Victor Norman
 
-## Development server
+## Project Information
+[Project Website](https://moodlegradingapp.github.io/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Proejct Setup
+```
+git clone https://github.com/MoodleGradingApp/Client.git
+```
+```
+npm install
+```
 
-## Build
+## Compile and hot-reloads for development
+```
+ng serve
+```
+
+## Compile and build files for deployment
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
