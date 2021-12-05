@@ -54,7 +54,7 @@ export class AppComponent {
   public maxScoreStat: number = 0;
 
   public feedbackText: String = '';
-  
+
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -72,14 +72,14 @@ export class AppComponent {
   feedbackStrings: FeedbackStrings[] = [];
   header: boolean = false;
 
-  dynamicArray: Array<DynamicGrid> = [];  
-  newDynamic: any = {}; 
+  dynamicArray: Array<DynamicGrid> = [];
+  newDynamic: any = {};
 
   //disable check boxes when no csv is imported
   isCheckDisabled: boolean = true;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
-    this.newDynamic = {feedback: "", deduction:"", selected:""};  
+    this.newDynamic = {feedback: "", deduction:"", selected:""};
     this.dynamicArray.push(this.newDynamic);
     this.feedbackService.feeedbackCreate(null, null);
 
@@ -172,7 +172,7 @@ export class AppComponent {
           console.log('Error', result);
         }
       }
-    )  
+    )
   }
 
   ngOnInit(): void {
@@ -228,27 +228,27 @@ export class AppComponent {
 
   previousStudent(): void {
     if(this.currentStudentIndex > 0) {
-      this.studentParser(-1); 
+      this.studentParser(-1);
     }
   }
 
-  addRow(): void {    
-    this.newDynamic = {feedback: "", deduction:"", selected:""};  
-    this.dynamicArray.push(this.newDynamic);  
+  addRow(): void {
+    this.newDynamic = {feedback: "", deduction:"", selected:""};
+    this.dynamicArray.push(this.newDynamic);
     // create another feedback object
     this.feedbackService.feeedbackCreate(null, null)
-    console.log(this.dynamicArray);  
-    return;  
-  } 
+    console.log(this.dynamicArray);
+    return;
+  }
 
-  deleteRow(index: number) {  
+  deleteRow(index: number) {
     // add row so there will never be 0 rows
     if(this.dynamicArray.length == 1) {
       this.addRow();
     }
-      this.dynamicArray.splice(index, 1);  
+      this.dynamicArray.splice(index, 1);
       this.feedbackService.feedbackDelete(index);
-    
+
     // update students' feedback string display
     this.updateCheckboxState();
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
@@ -270,7 +270,7 @@ export class AppComponent {
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
     if (this.currentStudentIndex == 0) {
-      this.highlightRow(this.currentStudentIndex);  
+      this.highlightRow(this.currentStudentIndex);
     }
 
     if (this.currentStudentIndex >= 0) {

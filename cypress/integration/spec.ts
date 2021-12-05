@@ -45,7 +45,7 @@ it('Add Feedback', () => {
 // Resource: https://www.npmjs.com/package/cypress-file-upload
 it('Upload Bad CSV file', () => {
   const yourFixturePath = 'Bad.csv';
-  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath);
+  cy.get('[data-testid=importCSV]').attachFile(yourFixturePath).trigger('input');
 });
 
 // Check for Bad CSV error message

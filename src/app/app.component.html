@@ -1,9 +1,9 @@
 <!--
 -- Authors: Michael Sisko and Emily Costa
--- 
+--
 -- Citation(s):
 -- Autosizing Textarea: https://stackoverflow.com/questions/2803880/ by Martin Prestone
--- 
+--
 -->
 
 <head>
@@ -12,7 +12,7 @@
 </head>
 
 <div class="panel panel-default hide-outline" id="master-panel">
-    <p>Developed by: Michael Sisko and Emily Costa<br>Advised by: Victor Norman</p>
+    <p>Developed by: Emily Costa & Michael Sisko<br>Advised by: Victor Norman</p>
     <h1 class="title">Grading Assistant</h1>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
@@ -50,71 +50,63 @@
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="clearScore()">Clear Score</button>
                     </div>
                     <br>
-                    <div class="feedback-table-container">    
-                        <table id="feedback-table">    
-                            <thead>    
-                                <tr>    
-                                    <th id="trash-header">Delete</th>    
-                                    <th>Feedback</th>    
-                                    <th>Deduction</th>    
-                                    <th>Apply</th>    
-                                </tr>    
-                            </thead>    
-                            <tbody>    
-                                <tr *ngFor="let dynamic of dynamicArray; let i = index;">    
+                    <div class="feedback-table-container">
+                        <table id="feedback-table">
+                            <thead>
+                                <tr>
+                                    <th id="trash-header">Delete</th>
+                                    <th>Feedback</th>
+                                    <th>Deduction</th>
+                                    <th>Apply</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
                                     <td (click)="deleteRow(i)">
-                                        <button 
-                                            id="trash" 
+                                        <button
+                                            id="trash"
                                             data-testid="trashBtn">
                                             <i class="fa fa-trash"></i>
                                         </button>
-                                    </td>    
-                                    <td>    
-                                        <!-- <input 
-                                            class="input-box" 
-                                            id="feedback" 
-                                            data-testid="feedbackInput" 
-                                            placeholder="Say something constructive..." 
-                                            [(ngModel)]="dynamicArray[i].feedback" 
-                                            (ngModelChange)="onFeedbackChange($event, i)" 
-                                            type="text"/> -->
-                                        <textarea 
-                                            class="input-box" 
-                                            id="feedback" 
-                                            data-testid="feedbackInput" 
-                                            placeholder="Say something constructive..." 
-                                            [(ngModel)]="dynamicArray[i].feedback" 
-                                            (ngModelChange)="onFeedbackChange($event, i)" 
+                                    </td>
+                                    <td>
+                                        <textarea
+                                            class="input-box"
+                                            id="feedback"
+                                            data-testid="feedbackInput"
+                                            placeholder="Say something constructive..."
+                                            [(ngModel)]="dynamicArray[i].feedback"
+                                            (ngModelChange)="onFeedbackChange($event, i)"
                                             type="text"
                                             name="text"
                                             oninput='this.style.height = "";
                                             this.style.height = this.scrollHeight + 3 + "px"'>
                                         </textarea>
-                                    </td>    
-                                    <td>    
-                                        <input 
-                                            class="input-box" 
-                                            id="deduction" 
-                                            data-testid="deductionInput" 
-                                            placeholder="0" 
-                                            [(ngModel)]="dynamicArray[i].deduction" 
-                                            (ngModelChange)="onDeductionChange($event, i)" 
-                                            type="number"/>    
-                                    </td>    
+                                    </td>
                                     <td>
-                                        <input 
-                                            class="checkbox" 
-                                            id="checkbox{{i}}" 
-                                            data-testid="applyBtn" 
-                                            [(ngModel)]="dynamicArray[i].selected" 
-                                            (ngModelChange)="onSelectedChange($event, i)" 
+                                        <input
+                                            class="input-box"
+                                            id="deduction"
+                                            data-testid="deductionInput"
+                                            placeholder="0"
+                                            [(ngModel)]="dynamicArray[i].deduction"
+                                            (ngModelChange)="onDeductionChange($event, i)"
+                                            type="number"/>
+                                    </td>
+                                    <td>
+                                        <input
+                                            class="checkbox"
+                                            id="checkbox{{i}}"
+                                            data-testid="applyBtn"
+                                            [(ngModel)]="dynamicArray[i].selected"
+                                            (ngModelChange)="onSelectedChange($event, i)"
                                             type="checkbox"
                                             [attr.disabled]="isCheckDisabled ? true : null"/>
-                                    </td>    
-                                </tr>  
-                            </tbody>    
-                        </table>    
-                    </div> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <br>
                     <button
                     type="button"
@@ -127,7 +119,7 @@
                 </div>
             </div>
             <!-- Needs to be moved and restyled -->
-            <div *ngIf="showChart">
+            <div *ngIf="showChart" class="grade-stats">
                 <apx-chart
                     [series]="chartOptions.series"
                     [chart]="chartOptions.chart"
@@ -163,7 +155,7 @@
     <div class="panel panel-default" id="main-right-panel">
         <div class="csv-import-btn">
     <div class="panel panel-default tight hide-outline sticky outer-nowrap">
-        <label 
+        <label
             for="csvFileUpload"
             id="csvImportBtn"
             class="btn-primary-blue inner-nowrap"
@@ -178,9 +170,9 @@
             accept=".csv"
             (change)="fileChangeListener($event)"/>
         <p *ngIf="validFile == false" class="file-warning inner-nowrap">*Invalid CSV File</p>
-        <button 
-            type="button" 
-            class="btn-primary-blue" 
+        <button
+            type="button"
+            class="btn-primary-blue"
             id="exportBtn"
             (click)="exportCSV()"
         >Export Table</button>
@@ -198,7 +190,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;" 
+                <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;"
                     (click)="rowSelected(i)" (click)="highlightRow(i)"
                 >
                     <td class="narrow">{{i+1}}</td>

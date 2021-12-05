@@ -100,7 +100,7 @@ export class FeedbackService {
   public exportCSV() {
     // Get the assignment title
     let title = (<HTMLInputElement>document.getElementById('title')).value;
-    
+
     // Remove forbidden characters from assignment title
     title = title.replace('#','').replace('<','').replace('>','').replace('$','').replace('%','');
     title = title.replace('!','').replace('&','').replace('*','').replace('\'','').replace('"','');
@@ -118,7 +118,7 @@ export class FeedbackService {
 
     // Pass string into handle for data-table
     let my_data_string = this.buildCSV(this.students);
-    
+
     // Create an href element in the DOM
     let a = document.createElement("a");
     a.setAttribute('style', 'display:none;');
@@ -127,7 +127,7 @@ export class FeedbackService {
     // Create object of type csv text file
     let blob = new Blob([my_data_string], { type: 'text/csv' });
     let url = window.URL.createObjectURL(blob);
-    
+
     // Pass URL to hyper-reference csv onclick
     a.href = url;
 
@@ -160,11 +160,11 @@ export class FeedbackService {
             let feedbackString = this.parseFeedbackCSV(my_data[i][index])
             line += '"' + feedbackString + '"'
             console.log("Return from function:" + my_data[i][index])
-          } 
+          }
           else {
             line += my_data[i][index];
           }
-          
+
         }
         csv_file += line + '\r\n';
     }
@@ -277,7 +277,7 @@ export class FeedbackService {
     this.feedback.splice(index,1);
     // }
   }
-  
+
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
     // update grade
@@ -303,7 +303,7 @@ export class FeedbackService {
     if (result) {
       newGrade = parseFloat(newGrade.toFixed(1));
     }
-    
+
     this.students[studentIndex].grade = newGrade.toString();
   }
 
@@ -432,5 +432,5 @@ export class FeedbackService {
     min = Math.min.apply(Math, arrayGrades)
     max = Math.max.apply(Math, arrayGrades)
     return [min, max]
-  } 
+  }
 }
