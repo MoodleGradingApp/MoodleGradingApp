@@ -5,6 +5,7 @@ Advisor: Victor Norman
 
 ## Project Information
 [Project Website](https://moodlegradingapp.github.io/)
+
 [Documentation](https://github.com/MoodleGradingApp/Client/tree/master/assets)
 
 ## Proejct Setup
