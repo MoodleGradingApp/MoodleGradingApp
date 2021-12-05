@@ -4,7 +4,7 @@ import { ViewChild, EventEmitter} from '@angular/core';
 import { Subject } from 'rxjs';
 import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
-import { event } from 'cypress/types/jquery';
+import { ajaxSettings, event } from 'cypress/types/jquery';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -109,7 +109,9 @@ export class AppComponent {
       },
       xaxis: {
         title: {
-          text: "Grades"
+          text: "Grades Percentage",
+          offsetY: -10,
+          offsetX: -20,
         },
         categories: ["0-9", "10-19",  "20-29",  "30-39",  "40-49",  "50-59",  "60-69",  "70-79", "80-89", "90-100"]
       },

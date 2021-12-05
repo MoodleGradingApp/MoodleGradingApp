@@ -16,7 +16,7 @@
     <h1 class="title">Grading Assistant</h1>
     <div class="row">
         <div class="col fixed-panel" id="main-left-panel">
-            <div class="panel panel-default hide-outline tight sticky">
+            <div class="panel panel-default hide-outline tight">
                 <div class="panel panel-default">
                     <div class="panel panel-default hide-outline tight" id="item-info">
                         <div id="assignment">
@@ -118,7 +118,6 @@
                     <br><br>
                 </div>
             </div>
-            <!-- Needs to be moved and restyled -->
             <div *ngIf="showChart" class="grade-stats">
                 <apx-chart
                     [series]="chartOptions.series"
