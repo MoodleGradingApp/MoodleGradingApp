@@ -1,4 +1,4 @@
-# Moodle GradingApp
+# Moodle Grading App
 By: Emily Costa & Michael Sisko
 
 Advisor: Victor Norman
