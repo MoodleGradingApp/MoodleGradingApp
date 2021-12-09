@@ -47,7 +47,7 @@ it('Upload Bad CSV file', () => {
   const yourFixturePath = 'Bad.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath).trigger('input');
   // look for new element that says Invalid, waiting up to 1 second.
-  cy.contains('*Invalid CSV File', { timeout: 1000} );
+  cy.contains('*Invalid CSV File');
 });
 
 it('Upload empty CSV file', () => {
