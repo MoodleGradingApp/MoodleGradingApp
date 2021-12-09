@@ -1,5 +1,5 @@
 <!--
--- Authors: Emily Costa and Michael Sisko 
+-- Authors: Emily Costa and Michael Sisko
 --
 -- Citation(s):
 -- Autosizing Textarea: https://stackoverflow.com/questions/2803880/ by Martin Prestone
@@ -168,7 +168,7 @@
             name="File Upload"
             accept=".csv"
             (change)="fileChangeListener($event)"/>
-        <p *ngIf="validFile == false" class="file-warning inner-nowrap">*Invalid CSV File</p>
+        <p *ngIf="!validFile" class="file-warning inner-nowrap">*Invalid CSV File</p>
         <button
             type="button"
             class="btn-primary-blue"

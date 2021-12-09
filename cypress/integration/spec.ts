@@ -46,12 +46,8 @@ it('Add Feedback', () => {
 it('Upload Bad CSV file', () => {
   const yourFixturePath = 'Bad.csv';
   cy.get('[data-testid=importCSV]').attachFile(yourFixturePath).trigger('input');
-});
-
-// Check for Bad CSV error message
-it('Bad File Error Message', () => {
-  // Test to see if the name of the application appears on home page
-  cy.contains('*Invalid CSV File');
+  // look for new element that says Invalid, waiting up to 1 second.
+  cy.contains('*Invalid CSV File', { timeout: 1000} );
 });
 
 it('Upload empty CSV file', () => {
