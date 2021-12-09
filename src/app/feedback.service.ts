@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, Subscription, throwError } from 'rxjs';
-import { string } from 'yargs';
+import { Observable, of } from 'rxjs';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
-import { ThisReceiver } from '@angular/compiler';
 import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
@@ -62,11 +60,11 @@ export class FeedbackService {
 
     // reference: https://www.npmjs.com/package/ngx-csv-parser
     // Parse the file you want to select for the operation along with the configuration
-    let response = this.ngxCsvParser.parse(fileName[0], { header: this.header, delimiter: ',' })
+    const response = this.ngxCsvParser.parse(fileName[0], { header: this.header, delimiter: ',' })
     return response;
   }
 
-  parseCSV(result: Array<any>) {
+  parseCSV(result: Array<any>): void {
     // console.log('Parser Result', result);
     this.csvRecords = result;
 
@@ -111,10 +109,10 @@ export class FeedbackService {
     }
 
     // Get current date and time
-    let currentDateTime = dayjs().format('_YYYY-MM-DD');
+    const currentDateTime = dayjs().format('_YYYY-MM-DD');
 
     // Pass string into handle for data-table
-    let my_data_string = this.buildCSV(this.students);
+    const my_data_string = this.buildCSV(this.students);
 
     // Create an href element in the DOM
     let a = document.createElement("a");
@@ -122,8 +120,8 @@ export class FeedbackService {
     document.body.appendChild(a);
 
     // Create object of type csv text file
-    let blob = new Blob([my_data_string], { type: 'text/csv' });
-    let url = window.URL.createObjectURL(blob);
+    const blob = new Blob([my_data_string], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
 
     // Pass URL to hyper-reference csv onclick
     a.href = url;
@@ -134,8 +132,9 @@ export class FeedbackService {
   }
 
   // This manually constructs our CSV file string
-  private buildCSV(objArray: any): string {
-    let my_data = objArray;
+  private buildCSV(students: Array<StudentInfo>): string {
+    // console.log(JSON.stringify(students, null, 2));
+    let my_data = students;
     let csv_file = '';
 
     // create header row
@@ -148,10 +147,10 @@ export class FeedbackService {
     for (let i = 0; i < my_data.length; i++) {
         let line = '';
         for (let index in my_data[i]) {
-          if (line != '') {
+          if (line !== '') {
             line += ','
           }
-          if (index == 'gradeLastModified' || index == 'submissionLastModified') {
+          if (index === 'gradeLastModified' || index === 'submissionLastModified') {
             line += '"' + my_data[i][index] + '"'
           } else if (index == 'feedbackBoolean') {
             let feedbackString = this.parseFeedbackCSV(my_data[i][index])
