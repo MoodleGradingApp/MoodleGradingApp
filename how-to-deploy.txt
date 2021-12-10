@@ -1,0 +1,20 @@
+build:
+
+ng build --configuration production
+--> builds in the dist/GradingApp directory
+
+cd dist
+tar cvf GradingApp.tar GradingApp
+scp GradingApp.tar cs-ssh.calvin.edu:/tmp
+
+ssh to cs-ssh.calvin.edu and then cs.calvin.edu
+cd www/apps/
+rm -rf GradingApp   (or move it to a bak directory)
+scp cs-ssh.calvin.edu:/tmp/GradingApp.tar .
+tar xvf GradingApp.tar
+
+cd GradingApp
+edit index.html: change base href to /apps/GradingApp/    make sure you have the /'s.
+mkdir assets
+cp ../demo_full.mp4 assets/
+

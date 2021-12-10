@@ -147,7 +147,6 @@ export class FeedbackService {
     for (let i = 0; i < my_data.length; i++) {
         let line = '';
         for (let index in my_data[i]) {
-          console.log('index is', index);
           if (line !== '') {
             line += ','   // do comma-separation
           }
@@ -157,10 +156,10 @@ export class FeedbackService {
             let feedbackString = this.createCSVFeedbackString(my_data[i][index])
             // wrap each field in double quotes
             line += '"' + feedbackString + '"'
-            console.log("Return from function:" + my_data[i][index])
+            // console.log("Return from function:" + my_data[i][index])
           }
           else {
-            console.log('mydata[i][index] = ', my_data[i][index])
+            // console.log('mydata[i][index] = ', my_data[i][index])
             line += my_data[i][index];
           }
 

@@ -284,3 +284,10 @@ input[type=file]::file-selector-button {
 apx-chart {
     color: black;
 }
+
+.demo-text {
+    // put the text on the right edge of the screen
+    position: absolute;
+    right: 5%;
+    font-size: medium;
+}
