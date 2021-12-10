@@ -138,7 +138,7 @@ export class FeedbackService {
     let csv_file = '';
 
     // create header row
-    let row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,Last modified (submission),Online text,Last modified (grade),Feedback comments'
+    const row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,Last modified (submission),Online text,Last modified (grade),Feedback comments'
 
     // Add row and newline + carriage-return
     csv_file += row + '\r\n';
@@ -171,13 +171,12 @@ export class FeedbackService {
 
   private parseFeedbackCSV(feedback: Array<boolean>): string {
     let feedbackStringArray = []
-    let feedbackString = ''
     for (var n = 0; n < this.feedback.length; n++) {
       if (feedback[n] == true) {
         feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback)
       }
-      feedbackString = feedbackStringArray.join('; ')
     }
+    const feedbackString = feedbackStringArray.join('; ')
     return feedbackString;
   }
 
@@ -189,7 +188,7 @@ export class FeedbackService {
     }
 
     // put csv-parser results into newStudent[]
-    for ( var i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
       // initialize each student object
       this.newStudent = {
         identifier: parseResult[i]["Identifier"],
