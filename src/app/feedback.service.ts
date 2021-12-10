@@ -147,17 +147,20 @@ export class FeedbackService {
     for (let i = 0; i < my_data.length; i++) {
         let line = '';
         for (let index in my_data[i]) {
+          console.log('index is', index);
           if (line !== '') {
-            line += ','
+            line += ','   // do comma-separation
           }
           if (index === 'gradeLastModified' || index === 'submissionLastModified') {
             line += '"' + my_data[i][index] + '"'
           } else if (index == 'feedbackBoolean') {
-            let feedbackString = this.parseFeedbackCSV(my_data[i][index])
+            let feedbackString = this.createCSVFeedbackString(my_data[i][index])
+            // wrap each field in double quotes
             line += '"' + feedbackString + '"'
             console.log("Return from function:" + my_data[i][index])
           }
           else {
+            console.log('mydata[i][index] = ', my_data[i][index])
             line += my_data[i][index];
           }
 
@@ -169,11 +172,13 @@ export class FeedbackService {
     return csv_file;
   }
 
-  private parseFeedbackCSV(feedback: Array<boolean>): string {
+  private createCSVFeedbackString(feedback: Array<boolean>): string {
     let feedbackStringArray = []
-    for (var n = 0; n < this.feedback.length; n++) {
-      if (feedback[n] == true) {
-        feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback)
+    for (let n = 0; n < this.feedback.length; n++) {
+      if (feedback[n]) {
+        // if the feedback string has a double quote in it, add an extra one.
+        const res = this.feedback[n].feedback.replace(/"/g, '""');
+        feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + res)
       }
     }
     const feedbackString = feedbackStringArray.join('; ')
@@ -231,7 +236,7 @@ export class FeedbackService {
     this.feedback.push(this.newFeedBack);
 
     // add this feedback to the student feedback array as false
-    for (var i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
       this.students[i].feedbackBoolean.push(false);
     }
   }
@@ -247,8 +252,8 @@ export class FeedbackService {
 
   feedbackDeductionUpdate(index: number, points: number): void {
     this.feedback[index].deduction = points;
-    for (var i = 0; i < this.csvRecords.length; i++) {
-      if (this.students[i].feedbackBoolean[index] == true) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].feedbackBoolean[index]) {
         this.gradeUpdate(i);
       }
     }
@@ -259,10 +264,10 @@ export class FeedbackService {
     // if (response) {
     console.log("HERE");
     // delete feedback in students' boolean feedback arrays
-    for (var i = 0; i < this.csvRecords.length; i++) {
-      if (this.students[i].feedbackBoolean[index] == true) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
+      if (this.students[i].feedbackBoolean[index]) {
         // add deduction value to student grade before delete
-        var newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction
+        const newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction
         this.students[i].grade = newGrade.toString();
       }
       this.students[i].feedbackBoolean.splice(index,1);
@@ -285,16 +290,16 @@ export class FeedbackService {
   }
 
   gradeUpdate(studentIndex: number): void {
-    var totalDeductions = 0;
-    for (var n = 0; n < this.feedback.length; n++) {
-      if (this.students[studentIndex].feedbackBoolean[n] == true) {
+    let totalDeductions = 0;
+    for (let n = 0; n < this.feedback.length; n++) {
+      if (this.students[studentIndex].feedbackBoolean[n]) {
         totalDeductions = totalDeductions + this.feedback[n].deduction;
       }
     }
 
-    var newGrade = parseFloat(this.maxScore) - totalDeductions
+    let newGrade = parseFloat(this.maxScore) - totalDeductions;
     // if score is not an int round to 1 decimal place
-    var result = (newGrade - Math.floor(newGrade)) !== 0;
+    const result = (newGrade - Math.floor(newGrade)) !== 0;
     if (result) {
       newGrade = parseFloat(newGrade.toFixed(1));
     }
@@ -305,7 +310,7 @@ export class FeedbackService {
   perfectGrade(studentIndex: number): void {
     this.students[studentIndex].grade = this.maxScore;
     // set all boolean feedback to false
-    for (var n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedback.length; n++) {
       this.students[studentIndex].feedbackBoolean[n] = false;
     }
   }
@@ -313,17 +318,17 @@ export class FeedbackService {
   clearGrade(studentIndex:number): void {
     this.students[studentIndex].grade = "";
     // set all boolean feedback to false
-    for (var n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedback.length; n++) {
       this.students[studentIndex].feedbackBoolean[n] = false;
     }
   }
 
   getFeedbackStrings(): FeedbackStrings[] {
-    for (var i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
       this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
-      for (var n = 0; n < this.feedback.length; n++) {
-        if (this.students[i].feedbackBoolean[n] == true) {
-          this.feedbackString[i].strings.push("-" +this.feedback[n].deduction + ": " + this.feedback[n].feedback);
+      for (let n = 0; n < this.feedback.length; n++) {
+        if (this.students[i].feedbackBoolean[n]) {
+          this.feedbackString[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
         }
       }
     }
@@ -331,11 +336,11 @@ export class FeedbackService {
   }
 
   updateChartData(): Array<number> {
-    var chartData: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    let chartData: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     // loop through each student to put data into histogram
-    for (var i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].grade != "") {
-        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         // console.log(parseFloat(this.maxScore));
         // console.log(numGrade);
         // make sure in range 0 to 100
@@ -383,7 +388,7 @@ export class FeedbackService {
 
     this.feedbackCount = []
 
-    for (var n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedback.length; n++) {
       if (this.feedback[n].feedback != "") {
         this.newFeedBack = {
           feedback: this.feedback[n].feedback,
@@ -391,8 +396,8 @@ export class FeedbackService {
         }
         this.feedbackCount.push(this.newFeedBack);
       }
-      for (var i = 0; i < this.csvRecords.length; i++) {
-        if (this.students[i].feedbackBoolean[n] == true) {
+      for (let i = 0; i < this.csvRecords.length; i++) {
+        if (this.students[i].feedbackBoolean[n]) {
           this.feedbackCount[n].deduction += 1;
         }
       }
@@ -401,11 +406,11 @@ export class FeedbackService {
   }
 
   updateAverageStat(): number {
-    var avg: number = 0;
-    var count: number = 0;
-    for (var i = 0; i < this.csvRecords.length; i++) {
+    let avg: number = 0;
+    let count: number = 0;
+    for (let i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].grade != "") {
-        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         avg += numGrade;
         count += 1;
       }
@@ -414,13 +419,13 @@ export class FeedbackService {
   }
 
   updateMinMaxStats(): Array<number> {
-    var min: number = 0;
-    var max: number = 0;
-    var arrayGrades: Array<number> =[];
+    let min: number = 0;
+    let max: number = 0;
+    let arrayGrades: Array<number> =[];
 
-    for (var i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.csvRecords.length; i++) {
       if (this.students[i].grade != "") {
-        var numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
+        const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         arrayGrades.push(numGrade);
       }
     }
