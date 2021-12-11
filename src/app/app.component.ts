@@ -1,10 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { ViewChild, EventEmitter} from '@angular/core';
-import { Subject } from 'rxjs';
+import { FormBuilder, FormArray } from '@angular/forms';
+import { ViewChild } from '@angular/core';
 import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
-import { ajaxSettings, event } from 'cypress/types/jquery';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -46,24 +44,24 @@ export type ChartOptions = {
 
 export class AppComponent {
   public feedbackArray: FormArray;
-  public maxScore: String;
-  public feedbackInputText: String;
+  public maxScore: string;
+  public feedbackInputText: string;
   public showChart: boolean = false;
   public averageScore: number = 0;
   public minScore: number = 0;
   public maxScoreStat: number = 0;
 
-  public feedbackText: String = '';
+  public feedbackText: string = '';
 
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
   validFile: boolean = true;
-  currentStudentName: String;
+  currentStudentName: string;
   currentStudentIndex: number = -1;
   isRowSelected: boolean =  false;
   previousRow: number = 2;
-  selectedUser: Array<String>[] = [];
+  selectedUser: Array<string>[] = [];
   studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
   csvRecords: StudentInfo[];
@@ -81,7 +79,7 @@ export class AppComponent {
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
     this.newDynamic = {feedback: "", deduction:"", selected:""};
     this.dynamicArray.push(this.newDynamic);
-    this.feedbackService.feeedbackCreate(null, null);
+    this.feedbackService.feedbackCreate(null, null);
 
     this.chartOptions = {
       series: [
@@ -144,14 +142,14 @@ export class AppComponent {
     // Select the file from the event
     const file = $event.srcElement.files;
     // wait for this to return
-    await this.feedbackService.parseFile(file).subscribe(
+    this.feedbackService.parseFile(file).subscribe(
       result => {
         if (result instanceof Array) {
-          this.feedbackService.parseCSV(result)
+          this.feedbackService.parseCSV(result);
           this.csvRecords = this.feedbackService.fillChart();
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
-            // select and highlist first student
+            // select and highlight first student
             this.currentStudentIndex = 0;
             this.maxScore = this.feedbackService.maxScore;
             // get feedback strings to display
@@ -238,7 +236,7 @@ export class AppComponent {
     this.newDynamic = {feedback: "", deduction:"", selected:""};
     this.dynamicArray.push(this.newDynamic);
     // create another feedback object
-    this.feedbackService.feeedbackCreate(null, null)
+    this.feedbackService.feedbackCreate(null, null)
     console.log(this.dynamicArray);
     return;
   }

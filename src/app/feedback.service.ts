@@ -23,7 +23,7 @@ export interface HomeworkFeedback {
 }
 
 export interface FeedbackStrings {
-  strings: Array<String>
+  strings: Array<string>
 }
 
 @Injectable({
@@ -46,7 +46,7 @@ export class FeedbackService {
   private newFeedbackString: FeedbackStrings;
   private header = true;
 
-  csvRecords: Array<String>[] = [];
+  csvRecords: Array<string>[] = [];
 
   parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
@@ -184,7 +184,7 @@ export class FeedbackService {
     return feedbackString;
   }
 
-  private getStudents(parseResult: Array<String>[]) {
+  private getStudents(parseResult: Array<string>[]) {
 
     // return only Calvin username
     for (let i = 0; i < parseResult.length; i++) {
@@ -227,7 +227,7 @@ export class FeedbackService {
     return this.students;
   }
 
-  feeedbackCreate(feedbackString: string, points: number): void {
+  feedbackCreate(feedbackString: string, points: number): void {
     this.newFeedBack = {
       feedback: feedbackString,
       deduction: points
