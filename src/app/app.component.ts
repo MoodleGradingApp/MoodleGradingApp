@@ -243,7 +243,7 @@ export class AppComponent {
 
   deleteRow(index: number) {
     // add row so there will never be 0 rows
-    if(this.dynamicArray.length == 1) {
+    if (this.dynamicArray.length == 1) {
       this.addRow();
     }
       this.dynamicArray.splice(index, 1);
@@ -286,7 +286,7 @@ export class AppComponent {
   }
 
   perfectScore() {
-    if(this.currentStudentIndex >= 0) {
+    if (this.currentStudentIndex >= 0) {
       this.feedbackService.perfectGrade(this.currentStudentIndex);
     }
     this.updateCheckboxState();
@@ -296,7 +296,7 @@ export class AppComponent {
   }
 
   clearScore() {
-    if(this.currentStudentIndex >= 0) {
+    if (this.currentStudentIndex >= 0) {
       this.feedbackService.clearGrade(this.currentStudentIndex);
     }
     this.updateCheckboxState();

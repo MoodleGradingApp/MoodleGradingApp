@@ -33,20 +33,15 @@ export class FeedbackService {
 
   constructor(private ngxCsvParser: NgxCsvParser) { }
 
-  private students: StudentInfo[] = [];
-  private feedback: HomeworkFeedback[] = [];
+  private students: StudentInfo[] = [];                    // store this in temp storage
+  private feedback: HomeworkFeedback[] = [];               // store this in temp storage
   private feedbackCount: HomeworkFeedback[] = [];
-  private feedbackString: FeedbackStrings[] = [];
+  private feedbackStrings: FeedbackStrings[] = [];
 
   public correctFile: boolean;
   public maxScore: string;
 
-  private newStudent: StudentInfo;
-  private newFeedBack: HomeworkFeedback;
-  private newFeedbackString: FeedbackStrings;
-  private header = true;
-
-  csvRecords: Array<string>[] = [];
+  // csvRecords: Array<string>[] = [];
 
   parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
@@ -60,37 +55,36 @@ export class FeedbackService {
 
     // reference: https://www.npmjs.com/package/ngx-csv-parser
     // Parse the file you want to select for the operation along with the configuration
-    const response = this.ngxCsvParser.parse(fileName[0], { header: this.header, delimiter: ',' })
+    const response = this.ngxCsvParser.parse(fileName[0], { header: true, delimiter: ',' })
     return response;
   }
 
-  parseCSV(result: Array<any>): void {
+  parseCSV(csvRecords: Array<any>): void {
     // console.log('Parser Result', result);
-    this.csvRecords = result;
+    // this.csvRecords = csvRecords;
 
     // check headers if correct CSV file
     if (
-      result[0] === undefined ||
-      result[0]["Identifier"] === undefined ||
-      result[0]["Email address"] === undefined ||
-      result[0]["Feedback comments"] === undefined ||
-      result[0]["Full name"] === undefined ||
-      result[0]["Grade"] === undefined ||
-      result[0]["Grade can be changed"] === undefined ||
-      result[0]["Identifier"] === undefined ||
-      result[0]["Last modified (grade)"] === undefined ||
-      result[0]["Last modified (submission)"] === undefined ||
-      result[0]["Maximum Grade"] === undefined ||
-      result[0]["Online text"] === undefined ||
-      result[0]["Status"] === undefined)
-    {
+      csvRecords[0] === undefined ||
+      csvRecords[0]["Identifier"] === undefined ||
+      csvRecords[0]["Email address"] === undefined ||
+      csvRecords[0]["Feedback comments"] === undefined ||
+      csvRecords[0]["Full name"] === undefined ||
+      csvRecords[0]["Grade"] === undefined ||
+      csvRecords[0]["Grade can be changed"] === undefined ||
+      csvRecords[0]["Identifier"] === undefined ||
+      csvRecords[0]["Last modified (grade)"] === undefined ||
+      csvRecords[0]["Last modified (submission)"] === undefined ||
+      csvRecords[0]["Maximum Grade"] === undefined ||
+      csvRecords[0]["Online text"] === undefined ||
+      csvRecords[0]["Status"] === undefined) {
       console.log("Wrong CSV File!");
       this.correctFile = false;
       this.clearStudents();
     } else {
       console.log("Correct CSV File!");
       this.correctFile = true;
-      this.getStudents(this.csvRecords);
+      this.createStudentsFromCsv(csvRecords);
     }
   }
 
@@ -184,35 +178,34 @@ export class FeedbackService {
     return feedbackString;
   }
 
-  private getStudents(parseResult: Array<string>[]) {
+  private createStudentsFromCsv(csvRecords: Array<{}>) {
 
-    // return only Calvin username
-    for (let i = 0; i < parseResult.length; i++) {
-      parseResult[i]["Email address"] = this.csvRecords[i]["Email address"].split("@", 1);
-    }
+    // console.log(JSON.stringify(csvRecords, null, 2));
 
     // put csv-parser results into newStudent[]
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < csvRecords.length; i++) {
       // initialize each student object
-      this.newStudent = {
-        identifier: parseResult[i]["Identifier"],
-        fullName: parseResult[i]["Full name"],
-        email: parseResult[i]["Email address"][0],
-        status: parseResult[i]["Status"],
-        grade: parseResult[i]["Grade"],
-        maxGrade: parseResult[i]["Maximum Grade"],
-        gradeChange: parseResult[i]["Grade can be changed"],
-        submissionLastModified: parseResult[i]["Last modified (submission)"],
-        onlineText: parseResult[i]["Online text"],
-        gradeLastModified: parseResult[i]["Last modified (grade)"],
+      const newStudent: StudentInfo = {
+        identifier: csvRecords[i]["Identifier"],
+        fullName: csvRecords[i]["Full name"],
+        email: csvRecords[i]["Email address"].split("@", 1)[0],  // only the username part
+        status: csvRecords[i]["Status"],
+        grade: csvRecords[i]["Grade"],
+        maxGrade: csvRecords[i]["Maximum Grade"],
+        gradeChange: csvRecords[i]["Grade can be changed"],
+        submissionLastModified: csvRecords[i]["Last modified (submission)"],
+        onlineText: csvRecords[i]["Online text"],
+        gradeLastModified: csvRecords[i]["Last modified (grade)"],
         feedbackBoolean: [false]
       }
-      this.students.push(this.newStudent);
+      this.students.push(newStudent);
       // initialize each students' feedback strings
-      this.newFeedbackString = {
+      // vtn2 -- just initialized to a list of emtpy objects... then computed below in
+      // getFeedbackStrings().  Probably don't need this at all.
+      const newFeedbackString: FeedbackStrings = {
         strings: []
       }
-      this.feedbackString.push(this.newFeedbackString);
+      this.feedbackStrings.push(newFeedbackString);
     }
 
     // set assignment max score
@@ -223,19 +216,25 @@ export class FeedbackService {
     this.students = [];
   }
 
+  sortStudentsOnEmail(ascending: boolean) {
+
+
+  }
+
+
   fillChart(): StudentInfo[] {
     return this.students;
   }
 
   feedbackCreate(feedbackString: string, points: number): void {
-    this.newFeedBack = {
+    const newFeedback: HomeworkFeedback = {
       feedback: feedbackString,
       deduction: points
     }
-    this.feedback.push(this.newFeedBack);
+    this.feedback.push(newFeedback);
 
     // add this feedback to the student feedback array as false
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       this.students[i].feedbackBoolean.push(false);
     }
   }
@@ -251,7 +250,7 @@ export class FeedbackService {
 
   feedbackDeductionUpdate(index: number, points: number): void {
     this.feedback[index].deduction = points;
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].feedbackBoolean[index]) {
         this.gradeUpdate(i);
       }
@@ -261,9 +260,8 @@ export class FeedbackService {
   feedbackDelete(index: number): void {
     // let response = window.confirm("Deleting this option will remove it universally. Are you sure?");
     // if (response) {
-    console.log("HERE");
     // delete feedback in students' boolean feedback arrays
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].feedbackBoolean[index]) {
         // add deduction value to student grade before delete
         const newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction
@@ -323,21 +321,23 @@ export class FeedbackService {
   }
 
   getFeedbackStrings(): FeedbackStrings[] {
-    for (let i = 0; i < this.csvRecords.length; i++) {
-      this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
+    // todo: csvRecrods.length should be students.length, imo.
+    for (let i = 0; i < this.students.length; i++) {
+      // this.feedbackStrings[i].strings.splice(0, this.feedbackStrings[i].strings.length);
+      this.feedbackStrings[i].strings = [];
       for (let n = 0; n < this.feedback.length; n++) {
         if (this.students[i].feedbackBoolean[n]) {
-          this.feedbackString[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
+          this.feedbackStrings[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
         }
       }
     }
-    return this.feedbackString;
+    return this.feedbackStrings;
   }
 
   updateChartData(): Array<number> {
     let chartData: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     // loop through each student to put data into histogram
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].grade != "") {
         const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         // console.log(parseFloat(this.maxScore));
@@ -389,13 +389,13 @@ export class FeedbackService {
 
     for (let n = 0; n < this.feedback.length; n++) {
       if (this.feedback[n].feedback != "") {
-        this.newFeedBack = {
+        const newFeedback: HomeworkFeedback = {
           feedback: this.feedback[n].feedback,
           deduction: 0
         }
-        this.feedbackCount.push(this.newFeedBack);
+        this.feedbackCount.push(newFeedback);
       }
-      for (let i = 0; i < this.csvRecords.length; i++) {
+      for (let i = 0; i < this.students.length; i++) {
         if (this.students[i].feedbackBoolean[n]) {
           this.feedbackCount[n].deduction += 1;
         }
@@ -407,7 +407,7 @@ export class FeedbackService {
   updateAverageStat(): number {
     let avg: number = 0;
     let count: number = 0;
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].grade != "") {
         const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         avg += numGrade;
@@ -422,7 +422,7 @@ export class FeedbackService {
     let max: number = 0;
     let arrayGrades: Array<number> =[];
 
-    for (let i = 0; i < this.csvRecords.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].grade != "") {
         const numGrade: number = Math.round((parseFloat(this.students[i].grade) / parseFloat(this.maxScore)) * 100);
         arrayGrades.push(numGrade);

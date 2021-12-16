@@ -967,7 +967,7 @@
         },
         decls: 80,
         vars: 8,
-        consts: [["rel", "stylesheet", "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"], ["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head"], [1, "wide", "csv-table-head"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
+        consts: [["rel", "stylesheet", "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"], ["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable", "sortable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head"], [1, "wide", "csv-table-head"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "head");
@@ -1457,13 +1457,14 @@
           _classCallCheck(this, _FeedbackService);
 
           this.ngxCsvParser = ngxCsvParser;
-          this.students = [];
-          this.feedback = [];
+          this.students = []; // store this in temp storage
+
+          this.feedback = []; // store this in temp storage
+
           this.feedbackCount = [];
-          this.feedbackString = [];
-          this.header = true;
-          this.csvRecords = [];
-        }
+          this.feedbackStrings = [];
+        } // csvRecords: Array<string>[] = [];
+
 
         _createClass(_FeedbackService, [{
           key: "parseFile",
@@ -1480,25 +1481,25 @@
 
 
             var response = this.ngxCsvParser.parse(fileName[0], {
-              header: this.header,
+              header: true,
               delimiter: ','
             });
             return response;
           }
         }, {
           key: "parseCSV",
-          value: function parseCSV(result) {
+          value: function parseCSV(csvRecords) {
             // console.log('Parser Result', result);
-            this.csvRecords = result; // check headers if correct CSV file
-
-            if (result[0] === undefined || result[0]["Identifier"] === undefined || result[0]["Email address"] === undefined || result[0]["Feedback comments"] === undefined || result[0]["Full name"] === undefined || result[0]["Grade"] === undefined || result[0]["Grade can be changed"] === undefined || result[0]["Identifier"] === undefined || result[0]["Last modified (grade)"] === undefined || result[0]["Last modified (submission)"] === undefined || result[0]["Maximum Grade"] === undefined || result[0]["Online text"] === undefined || result[0]["Status"] === undefined) {
+            // this.csvRecords = csvRecords;
+            // check headers if correct CSV file
+            if (csvRecords[0] === undefined || csvRecords[0]["Identifier"] === undefined || csvRecords[0]["Email address"] === undefined || csvRecords[0]["Feedback comments"] === undefined || csvRecords[0]["Full name"] === undefined || csvRecords[0]["Grade"] === undefined || csvRecords[0]["Grade can be changed"] === undefined || csvRecords[0]["Identifier"] === undefined || csvRecords[0]["Last modified (grade)"] === undefined || csvRecords[0]["Last modified (submission)"] === undefined || csvRecords[0]["Maximum Grade"] === undefined || csvRecords[0]["Online text"] === undefined || csvRecords[0]["Status"] === undefined) {
               console.log("Wrong CSV File!");
               this.correctFile = false;
               this.clearStudents();
             } else {
               console.log("Correct CSV File!");
               this.correctFile = true;
-              this.getStudents(this.csvRecords);
+              this.createStudentsFromCsv(csvRecords);
             }
           } // Make a download button
 
@@ -1589,35 +1590,33 @@
             return feedbackString;
           }
         }, {
-          key: "getStudents",
-          value: function getStudents(parseResult) {
-            // return only Calvin username
-            for (var i = 0; i < parseResult.length; i++) {
-              parseResult[i]["Email address"] = this.csvRecords[i]["Email address"].split("@", 1);
-            } // put csv-parser results into newStudent[]
-
-
-            for (var _i2 = 0; _i2 < this.csvRecords.length; _i2++) {
+          key: "createStudentsFromCsv",
+          value: function createStudentsFromCsv(csvRecords) {
+            // console.log(JSON.stringify(csvRecords, null, 2));
+            // put csv-parser results into newStudent[]
+            for (var i = 0; i < csvRecords.length; i++) {
               // initialize each student object
-              this.newStudent = {
-                identifier: parseResult[_i2]["Identifier"],
-                fullName: parseResult[_i2]["Full name"],
-                email: parseResult[_i2]["Email address"][0],
-                status: parseResult[_i2]["Status"],
-                grade: parseResult[_i2]["Grade"],
-                maxGrade: parseResult[_i2]["Maximum Grade"],
-                gradeChange: parseResult[_i2]["Grade can be changed"],
-                submissionLastModified: parseResult[_i2]["Last modified (submission)"],
-                onlineText: parseResult[_i2]["Online text"],
-                gradeLastModified: parseResult[_i2]["Last modified (grade)"],
+              var newStudent = {
+                identifier: csvRecords[i]["Identifier"],
+                fullName: csvRecords[i]["Full name"],
+                email: csvRecords[i]["Email address"].split("@", 1)[0],
+                status: csvRecords[i]["Status"],
+                grade: csvRecords[i]["Grade"],
+                maxGrade: csvRecords[i]["Maximum Grade"],
+                gradeChange: csvRecords[i]["Grade can be changed"],
+                submissionLastModified: csvRecords[i]["Last modified (submission)"],
+                onlineText: csvRecords[i]["Online text"],
+                gradeLastModified: csvRecords[i]["Last modified (grade)"],
                 feedbackBoolean: [false]
               };
-              this.students.push(this.newStudent); // initialize each students' feedback strings
+              this.students.push(newStudent); // initialize each students' feedback strings
+              // vtn2 -- just initialized to a list of emtpy objects... then computed below in
+              // getFeedbackStrings().  Probably don't need this at all.
 
-              this.newFeedbackString = {
+              var newFeedbackString = {
                 strings: []
               };
-              this.feedbackString.push(this.newFeedbackString);
+              this.feedbackStrings.push(newFeedbackString);
             } // set assignment max score
 
 
@@ -1629,6 +1628,9 @@
             this.students = [];
           }
         }, {
+          key: "sortStudentsOnEmail",
+          value: function sortStudentsOnEmail(ascending) {}
+        }, {
           key: "fillChart",
           value: function fillChart() {
             return this.students;
@@ -1636,13 +1638,13 @@
         }, {
           key: "feedbackCreate",
           value: function feedbackCreate(feedbackString, points) {
-            this.newFeedBack = {
+            var newFeedback = {
               feedback: feedbackString,
               deduction: points
             };
-            this.feedback.push(this.newFeedBack); // add this feedback to the student feedback array as false
+            this.feedback.push(newFeedback); // add this feedback to the student feedback array as false
 
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            for (var i = 0; i < this.students.length; i++) {
               this.students[i].feedbackBoolean.push(false);
             }
           }
@@ -1662,7 +1664,7 @@
           value: function feedbackDeductionUpdate(index, points) {
             this.feedback[index].deduction = points;
 
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].feedbackBoolean[index]) {
                 this.gradeUpdate(i);
               }
@@ -1673,9 +1675,8 @@
           value: function feedbackDelete(index) {
             // let response = window.confirm("Deleting this option will remove it universally. Are you sure?");
             // if (response) {
-            console.log("HERE"); // delete feedback in students' boolean feedback arrays
-
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            // delete feedback in students' boolean feedback arrays
+            for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].feedbackBoolean[index]) {
                 // add deduction value to student grade before delete
                 var newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction;
@@ -1743,24 +1744,26 @@
         }, {
           key: "getFeedbackStrings",
           value: function getFeedbackStrings() {
-            for (var i = 0; i < this.csvRecords.length; i++) {
-              this.feedbackString[i].strings.splice(0, this.feedbackString[i].strings.length);
+            // todo: csvRecrods.length should be students.length, imo.
+            for (var i = 0; i < this.students.length; i++) {
+              // this.feedbackStrings[i].strings.splice(0, this.feedbackStrings[i].strings.length);
+              this.feedbackStrings[i].strings = [];
 
               for (var n = 0; n < this.feedback.length; n++) {
                 if (this.students[i].feedbackBoolean[n]) {
-                  this.feedbackString[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
+                  this.feedbackStrings[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
                 }
               }
             }
 
-            return this.feedbackString;
+            return this.feedbackStrings;
           }
         }, {
           key: "updateChartData",
           value: function updateChartData() {
             var chartData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]; // loop through each student to put data into histogram
 
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].grade != "") {
                 var numGrade = Math.round(parseFloat(this.students[i].grade) / parseFloat(this.maxScore) * 100); // console.log(parseFloat(this.maxScore));
                 // console.log(numGrade);
@@ -1813,14 +1816,14 @@
 
             for (var n = 0; n < this.feedback.length; n++) {
               if (this.feedback[n].feedback != "") {
-                this.newFeedBack = {
+                var newFeedback = {
                   feedback: this.feedback[n].feedback,
                   deduction: 0
                 };
-                this.feedbackCount.push(this.newFeedBack);
+                this.feedbackCount.push(newFeedback);
               }
 
-              for (var i = 0; i < this.csvRecords.length; i++) {
+              for (var i = 0; i < this.students.length; i++) {
                 if (this.students[i].feedbackBoolean[n]) {
                   this.feedbackCount[n].deduction += 1;
                 }
@@ -1835,7 +1838,7 @@
             var avg = 0;
             var count = 0;
 
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].grade != "") {
                 var numGrade = Math.round(parseFloat(this.students[i].grade) / parseFloat(this.maxScore) * 100);
                 avg += numGrade;
@@ -1852,7 +1855,7 @@
             var max = 0;
             var arrayGrades = [];
 
-            for (var i = 0; i < this.csvRecords.length; i++) {
+            for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].grade != "") {
                 var numGrade = Math.round(parseFloat(this.students[i].grade) / parseFloat(this.maxScore) * 100);
                 arrayGrades.push(numGrade);
