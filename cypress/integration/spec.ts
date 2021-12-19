@@ -82,9 +82,17 @@ it('Apply Feedback', () => {
   // Select a student by name via table
   cy.contains('Mason VanMeurs').click();
 
-  // Apply 2 options to a particular student
+  // Apply 2 feedbacks to Mason's submission
   cy.get('[data-testid=applyBtn]').first().check();
   cy.get('[data-testid=applyBtn]').last().check();
+
+  // Check if the feedback string is correct.
+  // See https://docs.cypress.io/api/commands/within#Tables
+  cy.contains('td', 'Mason VanMeurs').parent('tr').within(() => {
+    // check that the score is 77 and feedback string is correct
+    cy.get('td').eq(4).contains(77);
+    cy.get('td').eq(5).contains('-3: Add comments!; -20: Code does not compile :(');
+  });
 
   // Select another student by name via table
   cy.contains('Young Kwang Choi').click();
@@ -93,6 +101,25 @@ it('Apply Feedback', () => {
   // Remove feedback from a student in list
   cy.contains('Mason VanMeurs').click();
   cy.get('[data-testid=applyBtn]').first().uncheck();
+
+  cy.contains('td', 'Mason VanMeurs').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(4).contains(80);
+    cy.get('td').eq(5).contains('-20: Code does not compile :(');
+  });
+
+  // Apply feedback to another student
+  cy.contains('Coleman Ulry').click();
+  cy.get('[data-testid=applyBtn]').last().check();
+
+  cy.contains('td', 'Coleman Ulry').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(4).contains(80);
+    cy.get('td').eq(5).contains('-20: Code does not compile :(');
+  });
+
+
+
 });
 
 // Check that max scrore is automatically loaded

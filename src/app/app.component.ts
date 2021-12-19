@@ -146,7 +146,7 @@ export class AppComponent {
       result => {
         if (result instanceof Array) {
           this.feedbackService.parseCSV(result);
-          this.csvRecords = this.feedbackService.fillChart();
+          this.csvRecords = this.feedbackService.getStudents();
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
             // select and highlight first student
@@ -181,8 +181,8 @@ export class AppComponent {
 
   highlightRow(row:number) {
     // add 'selected' class to tr element
-    var trs = document.querySelectorAll("tr.csv-data");
-    if (this.isRowSelected === false) {
+    const trs = document.querySelectorAll("tr.csv-data");
+    if (! this.isRowSelected) {
       this.isRowSelected = true;
     } else {
       trs[this.previousRow].classList.remove("selected");
@@ -201,10 +201,14 @@ export class AppComponent {
   }
 
   updateCheckboxState() {
+    if (this.currentStudentIndex === -1) {
+      return;
+    }
     console.log("Update Check Boxes");
-    for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
-      var checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
-      if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i] === true) {
+    console.log('student feedbackBoolean array = ', this.csvRecords[this.currentStudentIndex].feedbackBoolean);
+    for (let i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
+      let checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
+      if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i]) {
         checkbox.checked = true;
       } else {
         checkbox.checked = false;
@@ -227,7 +231,7 @@ export class AppComponent {
   }
 
   previousStudent(): void {
-    if(this.currentStudentIndex > 0) {
+    if (this.currentStudentIndex > 0) {
       this.studentParser(-1);
     }
   }
@@ -238,7 +242,6 @@ export class AppComponent {
     // create another feedback object
     this.feedbackService.feedbackCreate(null, null)
     console.log(this.dynamicArray);
-    return;
   }
 
   deleteRow(index: number) {
@@ -246,8 +249,8 @@ export class AppComponent {
     if (this.dynamicArray.length == 1) {
       this.addRow();
     }
-      this.dynamicArray.splice(index, 1);
-      this.feedbackService.feedbackDelete(index);
+    this.dynamicArray.splice(index, 1);
+    this.feedbackService.feedbackDelete(index);
 
     // update students' feedback string display
     this.updateCheckboxState();

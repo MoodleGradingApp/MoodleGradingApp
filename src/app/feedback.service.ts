@@ -196,11 +196,15 @@ export class FeedbackService {
         submissionLastModified: csvRecords[i]["Last modified (submission)"],
         onlineText: csvRecords[i]["Online text"],
         gradeLastModified: csvRecords[i]["Last modified (grade)"],
-        feedbackBoolean: [false]
+        // Could be that the user added multiple feedbacks before loading the csv file
+        // (seems unlikely but could be done). So, we need to initialize feedbackBoolean array
+        // to have false for each feedback in existence already.
+        feedbackBoolean: new Array(this.feedback.length).fill(false),
       }
       this.students.push(newStudent);
+
       // initialize each students' feedback strings
-      // vtn2 -- just initialized to a list of emtpy objects... then computed below in
+      // vtn2 -- just initialized to a list of empty objects... then computed below in
       // getFeedbackStrings().  Probably don't need this at all.
       const newFeedbackString: FeedbackStrings = {
         strings: []
@@ -222,7 +226,7 @@ export class FeedbackService {
   }
 
 
-  fillChart(): StudentInfo[] {
+  getStudents(): StudentInfo[] {
     return this.students;
   }
 
