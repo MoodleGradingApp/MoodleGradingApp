@@ -78,7 +78,7 @@ it('Parse Next and Previous Student', () => {
   cy.get('[data-testid=prevStudentBtn]').click()
 });
 
-it('Apply Feedback', () => {
+it('Apply, Update, Delete Feedback', () => {
   // Select a student by name via table
   cy.contains('Mason VanMeurs').click();
 
@@ -118,7 +118,33 @@ it('Apply Feedback', () => {
     cy.get('td').eq(5).contains('-20: Code does not compile :(');
   });
 
+  // Change last feedback (add 3 zeros) and check that that others have changed tool
+  cy.get('[data-testid=feedbackInput]').last().type('000');
 
+  cy.contains('td', 'Coleman Ulry').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(4).contains(80);
+    cy.get('td').eq(5).contains('-20: Code does not compile :(000');
+  });
+  cy.contains('td', 'Mason VanMeurs').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(4).contains(80);
+    cy.get('td').eq(5).contains('-20: Code does not compile :(000');
+  });
+
+  // Change the last feedback's deduction frmo -20 to -2 and check
+  // if the other things are updated.
+  cy.get('[data-testid=deductionInput]').last().type('{backspace}');
+  cy.contains('td', 'Coleman Ulry').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(5).contains('-2: Code does not compile :(000');
+    cy.get('td').eq(4).contains(98);
+  });
+  cy.contains('td', 'Mason VanMeurs').parent('tr').within(() => {
+    // check that the score is 80 and feedback string is correct
+    cy.get('td').eq(5).contains('-2: Code does not compile :(000');
+    cy.get('td').eq(4).contains(98);
+  });
 
 });
 
