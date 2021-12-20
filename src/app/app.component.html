@@ -49,7 +49,7 @@
                         <label for="Student">Student Name: {{currentStudentName}}</label>
                     </div>
                     <div class="panel panel-default hide-outline tight btn-set">
-                        <button type="button" id="save-btn" class="btn-primary-green" (click)="tempFunction()">Save Progress</button>
+                        <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="perfectScore()">Perfect Score</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="clearScore()">Clear Score</button>
                     </div>
@@ -65,7 +65,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+                                <tr *ngFor="let row of feedbackRows; let i = index;">
                                     <td (click)="deleteRow(i)">
                                         <button
                                             id="trash"
@@ -79,7 +79,7 @@
                                             id="feedback"
                                             data-testid="feedbackInput"
                                             placeholder="Say something constructive..."
-                                            [(ngModel)]="dynamicArray[i].feedback"
+                                            [(ngModel)]="row.feedback"
                                             (ngModelChange)="onFeedbackChange($event, i)"
                                             type="text"
                                             name="text"
@@ -93,7 +93,7 @@
                                             id="deduction"
                                             data-testid="deductionInput"
                                             placeholder="0"
-                                            [(ngModel)]="dynamicArray[i].deduction"
+                                            [(ngModel)]="row.deduction"
                                             (ngModelChange)="onDeductionChange($event, i)"
                                             type="number"/>
                                     </td>
@@ -102,7 +102,7 @@
                                             class="checkbox"
                                             id="checkbox{{i}}"
                                             data-testid="applyBtn"
-                                            [(ngModel)]="dynamicArray[i].selected"
+                                            [(ngModel)]="row.selected"
                                             (ngModelChange)="onSelectedChange($event, i)"
                                             type="checkbox"
                                             [attr.disabled]="isCheckDisabled ? true : null"/>

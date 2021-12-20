@@ -151,5 +151,5 @@ it('Apply, Update, Delete Feedback', () => {
 // Check that max scrore is automatically loaded
 it('Max Score Auto Fills', () => {
   // Test to see if the name of the application appears on home page
-  cy.contains('100');
+  cy.contains('Max Points: 100');
 });

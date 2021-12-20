@@ -1,7 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { ViewChild } from '@angular/core';
-import { DynamicGrid } from './grid.model';
 import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
 import {
   ChartComponent,
@@ -35,6 +34,12 @@ export type ChartOptions = {
   states: ApexStates;
   tooltip: ApexTooltip;
 };
+
+export class FeedbackRow{
+    feedback: string;
+    deduction: number;
+    selected: boolean;
+}
 
 @Component({
   selector: 'app-root',
@@ -70,15 +75,14 @@ export class AppComponent {
   feedbackStrings: FeedbackStrings[] = [];
   header: boolean = false;
 
-  dynamicArray: Array<DynamicGrid> = [];
-  newDynamic: any = {};
+  feedbackRows: Array<FeedbackRow> = [];
 
   //disable check boxes when no csv is imported
   isCheckDisabled: boolean = true;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
-    this.newDynamic = {feedback: "", deduction:"", selected:""};
-    this.dynamicArray.push(this.newDynamic);
+    const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
+    this.feedbackRows.push(newRow);
     this.feedbackService.feedbackCreate(null, null);
 
     this.chartOptions = {
@@ -237,19 +241,18 @@ export class AppComponent {
   }
 
   addRow(): void {
-    this.newDynamic = {feedback: "", deduction:"", selected:""};
-    this.dynamicArray.push(this.newDynamic);
-    // create another feedback object
-    this.feedbackService.feedbackCreate(null, null)
-    console.log(this.dynamicArray);
+    const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
+    this.feedbackRows.push(newRow);
+    this.feedbackService.feedbackCreate(null, null);
+    // console.log(this.feedbackRows);
   }
 
   deleteRow(index: number) {
     // add row so there will never be 0 rows
-    if (this.dynamicArray.length == 1) {
+    if (this.feedbackRows.length == 1) {
       this.addRow();
     }
-    this.dynamicArray.splice(index, 1);
+    this.feedbackRows.splice(index, 1);
     this.feedbackService.feedbackDelete(index);
 
     // update students' feedback string display
@@ -310,12 +313,12 @@ export class AppComponent {
   }
 
   // To Do: Delete Later! Useful for Debugging!
-  tempFunction() {
-    this.feedback = this.feedbackService.feedbackRead();
-    console.log(this.feedback);
-    console.log(this.feedbackCount);
-    console.log(this.csvRecords);
-  }
+  // tempFunction() {
+  //   this.feedback = this.feedbackService.feedbackRead();
+  //   console.log(this.feedback);
+  //   console.log(this.feedbackCount);
+  //   console.log(this.csvRecords);
+  // }
 
   updateSeries() {
     let chartData: Array<number> = this.feedbackService.updateChartData();
@@ -326,12 +329,12 @@ export class AppComponent {
     this.feedbackCount = this.feedbackService.updateFeedbackCount();
     this.averageScore = this.feedbackService.updateAverageStat();
     [this.minScore, this.maxScoreStat] = this.feedbackService.updateMinMaxStats();
-    console.log("update chart data!")
+    // console.log("update chart data!")
   }
 
   exportCSV(): void {
     this.feedbackService.exportCSV();
-    console.log("Export CSV!")
+    // console.log("Export CSV!")
   }
 
   // Warn user if reloading, closing, navigating away from page.
