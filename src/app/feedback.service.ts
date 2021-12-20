@@ -158,7 +158,7 @@ export class FeedbackService {
   }
 
   private createCSVFeedbackString(feedback: Array<boolean>): string {
-    let feedbackStringArray = []
+    let feedbackStringArray = [];
     for (let n = 0; n < this.feedbacks.length; n++) {
       if (feedback[n]) {
         // if the feedback string has a double quote in it, add an extra one.
@@ -308,16 +308,21 @@ export class FeedbackService {
     }
   }
 
-  getFeedbackStrings(): string[][] {
+  // Return an array of arrays of strings -- outer array is per student, inner array is feedback strings
+  // for that student.
+  getFeedbackStrings(): string[] {
     let res = [];
     for (let i = 0; i < this.students.length; i++) {
-      res.push([]);
+      let strs = [];
       for (let n = 0; n < this.feedbacks.length; n++) {
         if (this.students[i].feedbackBoolean[n]) {
-          res[i].push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
+          strs.push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
         }
       }
+      // join all deduction strings together with semi-colon separator.
+      res.push(strs.join('; '));
     }
+    console.log('getFeedbackStrings: returning ', res);
     return res;
   }
 

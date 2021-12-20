@@ -129,6 +129,14 @@
 
       __webpack_require__.d(__webpack_exports__, {
         /* harmony export */
+        "FeedbackRow": function FeedbackRow() {
+          return (
+            /* binding */
+            _FeedbackRow
+          );
+        },
+
+        /* harmony export */
         "AppComponent": function AppComponent() {
           return (
             /* binding */
@@ -177,7 +185,7 @@
 
       var _c0 = ["chart"];
 
-      function AppComponent_tr_58_Template(rf, ctx) {
+      function AppComponent_tr_54_Template(rf, ctx) {
         if (rf & 1) {
           var _r9 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
 
@@ -185,7 +193,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "td", 39);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_tr_58_Template_td_click_1_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_tr_54_Template_td_click_1_listener() {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
 
             var i_r7 = restoredCtx.index;
@@ -207,15 +215,10 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "textarea", 42);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_58_Template_textarea_ngModelChange_5_listener($event) {
-            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
-
-            var i_r7 = restoredCtx.index;
-
-            var ctx_r10 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-
-            return ctx_r10.dynamicArray[i_r7].feedback = $event;
-          })("ngModelChange", function AppComponent_tr_58_Template_textarea_ngModelChange_5_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_54_Template_textarea_ngModelChange_5_listener($event) {
+            var row_r6 = ctx.$implicit;
+            return row_r6.feedback = $event;
+          })("ngModelChange", function AppComponent_tr_54_Template_textarea_ngModelChange_5_listener($event) {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
 
             var i_r7 = restoredCtx.index;
@@ -235,15 +238,10 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "input", 43);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_58_Template_input_ngModelChange_8_listener($event) {
-            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
-
-            var i_r7 = restoredCtx.index;
-
-            var ctx_r12 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-
-            return ctx_r12.dynamicArray[i_r7].deduction = $event;
-          })("ngModelChange", function AppComponent_tr_58_Template_input_ngModelChange_8_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_54_Template_input_ngModelChange_8_listener($event) {
+            var row_r6 = ctx.$implicit;
+            return row_r6.deduction = $event;
+          })("ngModelChange", function AppComponent_tr_54_Template_input_ngModelChange_8_listener($event) {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
 
             var i_r7 = restoredCtx.index;
@@ -261,15 +259,10 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "input", 44);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_58_Template_input_ngModelChange_10_listener($event) {
-            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
-
-            var i_r7 = restoredCtx.index;
-
-            var ctx_r14 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
-
-            return ctx_r14.dynamicArray[i_r7].selected = $event;
-          })("ngModelChange", function AppComponent_tr_58_Template_input_ngModelChange_10_listener($event) {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function AppComponent_tr_54_Template_input_ngModelChange_10_listener($event) {
+            var row_r6 = ctx.$implicit;
+            return row_r6.selected = $event;
+          })("ngModelChange", function AppComponent_tr_54_Template_input_ngModelChange_10_listener($event) {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r9);
 
             var i_r7 = restoredCtx.index;
@@ -287,29 +280,30 @@
         }
 
         if (rf & 2) {
+          var row_r6 = ctx.$implicit;
           var i_r7 = ctx.index;
 
           var ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx_r0.dynamicArray[i_r7].feedback);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", row_r6.feedback);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx_r0.dynamicArray[i_r7].deduction);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", row_r6.deduction);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("id", "checkbox", i_r7, "");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx_r0.dynamicArray[i_r7].selected);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", row_r6.selected);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵattribute"]("disabled", ctx_r0.isCheckDisabled ? true : null);
         }
       }
 
-      function AppComponent_div_64_tr_6_Template(rf, ctx) {
+      function AppComponent_div_60_tr_6_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "tr");
 
@@ -341,7 +335,7 @@
         }
       }
 
-      function AppComponent_div_64_Template(rf, ctx) {
+      function AppComponent_div_60_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 45);
 
@@ -357,7 +351,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "tbody");
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, AppComponent_div_64_tr_6_Template, 5, 2, "tr", 24);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, AppComponent_div_60_tr_6_Template, 5, 2, "tr", 24);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -435,7 +429,7 @@
         }
       }
 
-      function AppComponent_p_72_Template(rf, ctx) {
+      function AppComponent_p_68_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "p", 54);
 
@@ -445,7 +439,7 @@
         }
       }
 
-      function AppComponent_thead_77_Template(rf, ctx) {
+      function AppComponent_thead_73_Template(rf, ctx) {
         if (rf & 1) {
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "thead");
 
@@ -493,13 +487,13 @@
         }
       }
 
-      function AppComponent_tr_79_Template(rf, ctx) {
+      function AppComponent_tr_75_Template(rf, ctx) {
         if (rf & 1) {
           var _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "tr", 57);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_tr_79_Template_tr_click_0_listener() {
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_tr_75_Template_tr_click_0_listener() {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r21);
 
             var i_r18 = restoredCtx.index;
@@ -507,7 +501,7 @@
             var ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
             return ctx_r20.rowSelected(i_r18);
-          })("click", function AppComponent_tr_79_Template_tr_click_0_listener() {
+          })("click", function AppComponent_tr_75_Template_tr_click_0_listener() {
             var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r21);
 
             var i_r18 = restoredCtx.index;
@@ -584,9 +578,13 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r5.feedbackStrings[i_r18].strings.join("; "));
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r5.feedbackStrings[i_r18]);
         }
       }
+
+      var _FeedbackRow = function _FeedbackRow() {
+        _classCallCheck(this, _FeedbackRow);
+      };
 
       var _AppComponent = /*#__PURE__*/function () {
         function _AppComponent(fb, feedbackService) {
@@ -608,16 +606,15 @@
           this.feedbackCount = [];
           this.feedbackStrings = [];
           this.header = false;
-          this.dynamicArray = [];
-          this.newDynamic = {}; //disable check boxes when no csv is imported
+          this.feedbackRows = []; //disable check boxes when no csv is imported
 
           this.isCheckDisabled = true;
-          this.newDynamic = {
+          var newRow = {
             feedback: "",
-            deduction: "",
-            selected: ""
+            deduction: 0,
+            selected: false
           };
-          this.dynamicArray.push(this.newDynamic);
+          this.feedbackRows.push(newRow);
           this.feedbackService.feedbackCreate(null, null);
           this.chartOptions = {
             series: [{
@@ -750,7 +747,7 @@
             // add 'selected' class to tr element
             var trs = document.querySelectorAll("tr.csv-data");
 
-            if (this.isRowSelected === false) {
+            if (!this.isRowSelected) {
               this.isRowSelected = true;
             } else {
               trs[this.previousRow].classList.remove("selected");
@@ -771,7 +768,12 @@
         }, {
           key: "updateCheckboxState",
           value: function updateCheckboxState() {
+            if (this.currentStudentIndex === -1) {
+              return;
+            }
+
             console.log("Update Check Boxes");
+            console.log('student feedbackBoolean array = ', this.csvRecords[this.currentStudentIndex].feedbackBoolean);
 
             for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
               var checkbox = document.getElementById("checkbox" + i.toString());
@@ -810,26 +812,23 @@
         }, {
           key: "addRow",
           value: function addRow() {
-            this.newDynamic = {
+            var newRow = {
               feedback: "",
-              deduction: "",
-              selected: ""
+              deduction: 0,
+              selected: false
             };
-            this.dynamicArray.push(this.newDynamic); // create another feedback object
-
-            this.feedbackService.feedbackCreate(null, null);
-            console.log(this.dynamicArray);
-            return;
+            this.feedbackRows.push(newRow);
+            this.feedbackService.feedbackCreate(null, null); // console.log(this.feedbackRows);
           }
         }, {
           key: "deleteRow",
           value: function deleteRow(index) {
             // add row so there will never be 0 rows
-            if (this.dynamicArray.length == 1) {
+            if (this.feedbackRows.length == 1) {
               this.addRow();
             }
 
-            this.dynamicArray.splice(index, 1);
+            this.feedbackRows.splice(index, 1);
             this.feedbackService.feedbackDelete(index); // update students' feedback string display
 
             this.updateCheckboxState();
@@ -895,15 +894,13 @@
             console.log(this.feedbackCount);
             this.updateSeries();
           } // To Do: Delete Later! Useful for Debugging!
+          // tempFunction() {
+          //   this.feedback = this.feedbackService.feedbackRead();
+          //   console.log(this.feedback);
+          //   console.log(this.feedbackCount);
+          //   console.log(this.csvRecords);
+          // }
 
-        }, {
-          key: "tempFunction",
-          value: function tempFunction() {
-            this.feedback = this.feedbackService.feedbackRead();
-            console.log(this.feedback);
-            console.log(this.feedbackCount);
-            console.log(this.csvRecords);
-          }
         }, {
           key: "updateSeries",
           value: function updateSeries() {
@@ -921,13 +918,11 @@
 
             this.minScore = _this$feedbackService2[0];
             this.maxScoreStat = _this$feedbackService2[1];
-            console.log("update chart data!");
           }
         }, {
           key: "exportCSV",
           value: function exportCSV() {
-            this.feedbackService.exportCSV();
-            console.log("Export CSV!");
+            this.feedbackService.exportCSV(); // console.log("Export CSV!")
           } // Warn user if reloading, closing, navigating away from page.
 
         }, {
@@ -965,44 +960,32 @@
             }, false, _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵresolveWindow"]);
           }
         },
-        decls: 80,
+        decls: 76,
         vars: 8,
-        consts: [["rel", "stylesheet", "href", "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"], ["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head"], [1, "wide", "csv-table-head"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
+        consts: [["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head"], [1, "wide", "csv-table-head"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "head");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "title");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Grading Assistant");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Developed by: Emily Costa & Michael Sisko");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "br");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "link", 0);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div", 1);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "p");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Developed by: Emily Costa & Michael Sisko");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](7, "br");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](8, "Advised by: Victor Norman");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "Advised by: Victor Norman");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "h1", 2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "h1", 1);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10, " Grading Assistant ");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, " Grading Assistant ");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "span", 3);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "span", 2);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "a", 4);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "a", 3);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](13, "See demo");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "See demo");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -1010,33 +993,33 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 5);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "div", 4);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "div", 6);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "div", 5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "div", 7);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "div", 6);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "div", 8);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "div", 7);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](18, "div", 9);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 8);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](19, "div", 10);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "div", 9);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](20, "label", 11);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "label", 10);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](21, "Assignment Name:\xA0");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](22, "input", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](17, "Assignment Name:\xA0");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](23, "div", 13);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](18, "input", 11);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "label", 14);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](25);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](19, "div", 12);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](20, "label", 13);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](21);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -1044,33 +1027,47 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](26, "div", 15);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](22, "div", 14);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](27, "button", 16);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](23, "button", 15);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_27_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_23_listener() {
               return ctx.previousStudent();
             });
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](28, "Prev Student");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](24, "Prev Student");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](29, "button", 17);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](25, "button", 16);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_29_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_25_listener() {
               return ctx.nextStudent();
             });
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](30, "Next Student");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](26, "Next Student");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](31, "button", 18);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](27, "button", 17);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_31_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_27_listener() {
               return ctx.showChart = !ctx.showChart;
             });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](28);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](29, "div", 7);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](30, "div");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](31, "label", 18);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](32);
 
@@ -1078,85 +1075,67 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](33, "div", 14);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](33, "div", 8);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](34, "button", 19);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](34, "div");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](35, "label", 19);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](36);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](35, "Save Progress");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](36, "button", 20);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](37, "div", 15);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_36_listener() {
+              return ctx.perfectScore();
+            });
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](37, "Perfect Score");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](38, "button", 20);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_38_listener() {
-              return ctx.tempFunction();
-            });
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](39, "Save Progress");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](40, "button", 20);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_40_listener() {
-              return ctx.perfectScore();
-            });
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](41, "Perfect Score");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](42, "button", 20);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_42_listener() {
               return ctx.clearScore();
             });
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](43, "Clear Score");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](39, "Clear Score");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](44, "br");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](40, "br");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](45, "div", 21);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](41, "div", 21);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](46, "table", 22);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](42, "table", 22);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](47, "thead");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](43, "thead");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](48, "tr");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](44, "tr");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](49, "th", 23);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](45, "th", 23);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](50, "Delete");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](46, "Delete");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](47, "th");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](48, "Feedback");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](49, "th");
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](50, "Deduction");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](51, "th");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](52, "Feedback");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](53, "th");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](54, "Deduction");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](55, "th");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](56, "Apply");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](52, "Apply");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -1164,83 +1143,83 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](57, "tbody");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](53, "tbody");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](58, AppComponent_tr_58_Template, 11, 5, "tr", 24);
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](54, AppComponent_tr_54_Template, 11, 5, "tr", 24);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](59, "br");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](60, "button", 25);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](55, "br");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_60_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](56, "button", 25);
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_56_listener() {
               return ctx.addRow();
             });
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](61, "Add Feedback");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](57, "Add Feedback");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](62, "br");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](58, "br");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](63, "br");
-
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](59, "br");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](64, AppComponent_div_64_Template, 20, 9, "div", 26);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](60, AppComponent_div_60_Template, 20, 9, "div", 26);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](65, "div", 27);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](61, "div", 27);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](66, "div", 28);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](62, "div", 28);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](67, "div", 29);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](63, "div", 29);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](68, "label", 30);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](64, "label", 30);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](69, "Import Table");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](65, "Import Table");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](70, "input", 31, 32);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](66, "input", 31, 32);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function AppComponent_Template_input_change_70_listener($event) {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("change", function AppComponent_Template_input_change_66_listener($event) {
               return ctx.fileChangeListener($event);
             });
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](72, AppComponent_p_72_Template, 2, 0, "p", 33);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](68, AppComponent_p_68_Template, 2, 0, "p", 33);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](73, "button", 34);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](69, "button", 34);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_73_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_Template_button_click_69_listener() {
               return ctx.exportCSV();
             });
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](74, "Export Table");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](70, "Export Table");
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](75, "div", 35);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](71, "div", 35);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](76, "table", 36);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](72, "table", 36);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](77, AppComponent_thead_77_Template, 14, 0, "thead", 37);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](73, AppComponent_thead_73_Template, 14, 0, "thead", 37);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](78, "tbody");
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](74, "tbody");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](79, AppComponent_tr_79_Template, 13, 6, "tr", 38);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](75, AppComponent_tr_75_Template, 13, 6, "tr", 38);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -1258,7 +1237,7 @@
           }
 
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](25);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](21);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Max Points: ", ctx.maxScore, "");
 
@@ -1272,7 +1251,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](22);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.dynamicArray);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.feedbackRows);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](6);
 
@@ -1284,7 +1263,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.validFile == true);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.validFile);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
@@ -1459,12 +1438,10 @@
           this.ngxCsvParser = ngxCsvParser;
           this.students = []; // store this in temp storage
 
-          this.feedback = []; // store this in temp storage
+          this.feedbacks = []; // store this in temp storage
 
-          this.feedbackCount = [];
-          this.feedbackStrings = [];
-        } // csvRecords: Array<string>[] = [];
-
+          this.feedbackCounts = [];
+        }
 
         _createClass(_FeedbackService, [{
           key: "parseFile",
@@ -1490,7 +1467,6 @@
           key: "parseCSV",
           value: function parseCSV(csvRecords) {
             // console.log('Parser Result', result);
-            // this.csvRecords = csvRecords;
             // check headers if correct CSV file
             if (csvRecords[0] === undefined || csvRecords[0]["Identifier"] === undefined || csvRecords[0]["Email address"] === undefined || csvRecords[0]["Feedback comments"] === undefined || csvRecords[0]["Full name"] === undefined || csvRecords[0]["Grade"] === undefined || csvRecords[0]["Grade can be changed"] === undefined || csvRecords[0]["Identifier"] === undefined || csvRecords[0]["Last modified (grade)"] === undefined || csvRecords[0]["Last modified (submission)"] === undefined || csvRecords[0]["Maximum Grade"] === undefined || csvRecords[0]["Online text"] === undefined || csvRecords[0]["Status"] === undefined) {
               console.log("Wrong CSV File!");
@@ -1578,11 +1554,11 @@
           value: function createCSVFeedbackString(feedback) {
             var feedbackStringArray = [];
 
-            for (var n = 0; n < this.feedback.length; n++) {
+            for (var n = 0; n < this.feedbacks.length; n++) {
               if (feedback[n]) {
                 // if the feedback string has a double quote in it, add an extra one.
-                var res = this.feedback[n].feedback.replace(/"/g, '""');
-                feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + res);
+                var res = this.feedbacks[n].feedback.replace(/"/g, '""');
+                feedbackStringArray.push("-" + this.feedbacks[n].deduction + ": " + res);
               }
             }
 
@@ -1607,16 +1583,12 @@
                 submissionLastModified: csvRecords[i]["Last modified (submission)"],
                 onlineText: csvRecords[i]["Online text"],
                 gradeLastModified: csvRecords[i]["Last modified (grade)"],
-                feedbackBoolean: [false]
+                // Could be that the user added multiple feedbacks before loading the csv file
+                // (seems unlikely but could be done). So, we need to initialize feedbackBoolean array
+                // to have false for each feedback in existence already.
+                feedbackBoolean: new Array(this.feedbacks.length).fill(false)
               };
-              this.students.push(newStudent); // initialize each students' feedback strings
-              // vtn2 -- just initialized to a list of emtpy objects... then computed below in
-              // getFeedbackStrings().  Probably don't need this at all.
-
-              var newFeedbackString = {
-                strings: []
-              };
-              this.feedbackStrings.push(newFeedbackString);
+              this.students.push(newStudent);
             } // set assignment max score
 
 
@@ -1642,7 +1614,7 @@
               feedback: feedbackString,
               deduction: points
             };
-            this.feedback.push(newFeedback); // add this feedback to the student feedback array as false
+            this.feedbacks.push(newFeedback); // add this feedback to the student feedback array as false
 
             for (var i = 0; i < this.students.length; i++) {
               this.students[i].feedbackBoolean.push(false);
@@ -1651,18 +1623,18 @@
         }, {
           key: "feedbackRead",
           value: function feedbackRead() {
-            return this.feedback;
+            return this.feedbacks;
           }
         }, {
           key: "feedbackStringUpdate",
           value: function feedbackStringUpdate(index, feedbackString) {
             // update values in feedback array
-            this.feedback[index].feedback = feedbackString;
+            this.feedbacks[index].feedback = feedbackString;
           }
         }, {
           key: "feedbackDeductionUpdate",
           value: function feedbackDeductionUpdate(index, points) {
-            this.feedback[index].deduction = points;
+            this.feedbacks[index].deduction = points;
 
             for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].feedbackBoolean[index]) {
@@ -1679,7 +1651,7 @@
             for (var i = 0; i < this.students.length; i++) {
               if (this.students[i].feedbackBoolean[index]) {
                 // add deduction value to student grade before delete
-                var newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction;
+                var newGrade = parseFloat(this.students[i].grade) + this.feedbacks[index].deduction;
                 this.students[i].grade = newGrade.toString();
               }
 
@@ -1687,7 +1659,7 @@
             } // remove 1 element at index
 
 
-            this.feedback.splice(index, 1); // }
+            this.feedbacks.splice(index, 1); // }
           }
         }, {
           key: "feedbackApply",
@@ -1707,9 +1679,9 @@
           value: function gradeUpdate(studentIndex) {
             var totalDeductions = 0;
 
-            for (var n = 0; n < this.feedback.length; n++) {
+            for (var n = 0; n < this.feedbacks.length; n++) {
               if (this.students[studentIndex].feedbackBoolean[n]) {
-                totalDeductions = totalDeductions + this.feedback[n].deduction;
+                totalDeductions = totalDeductions + this.feedbacks[n].deduction;
               }
             }
 
@@ -1728,7 +1700,7 @@
           value: function perfectGrade(studentIndex) {
             this.students[studentIndex].grade = this.maxScore; // set all boolean feedback to false
 
-            for (var n = 0; n < this.feedback.length; n++) {
+            for (var n = 0; n < this.feedbacks.length; n++) {
               this.students[studentIndex].feedbackBoolean[n] = false;
             }
           }
@@ -1737,26 +1709,32 @@
           value: function clearGrade(studentIndex) {
             this.students[studentIndex].grade = ""; // set all boolean feedback to false
 
-            for (var n = 0; n < this.feedback.length; n++) {
+            for (var n = 0; n < this.feedbacks.length; n++) {
               this.students[studentIndex].feedbackBoolean[n] = false;
             }
-          }
+          } // Return an array of arrays of strings -- outer array is per student, inner array is feedback strings
+          // for that student.
+
         }, {
           key: "getFeedbackStrings",
           value: function getFeedbackStrings() {
-            // todo: csvRecrods.length should be students.length, imo.
-            for (var i = 0; i < this.students.length; i++) {
-              // this.feedbackStrings[i].strings.splice(0, this.feedbackStrings[i].strings.length);
-              this.feedbackStrings[i].strings = [];
+            var res = [];
 
-              for (var n = 0; n < this.feedback.length; n++) {
+            for (var i = 0; i < this.students.length; i++) {
+              for (var n = 0; n < this.feedbacks.length; n++) {
+                var strs = [];
+
                 if (this.students[i].feedbackBoolean[n]) {
-                  this.feedbackStrings[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
-                }
+                  strs.push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
+                } // join all deduction strings together with semi-colon separator.
+
+
+                res.push(strs.join('; '));
               }
             }
 
-            return this.feedbackStrings;
+            console.log('getFeedbackStrings: returning ', res);
+            return res;
           }
         }, {
           key: "updateChartData",
@@ -1812,25 +1790,25 @@
           value: function updateFeedbackCount() {
             // count the number of times each feedback is applied
             // the deduction value is the count vlaue
-            this.feedbackCount = [];
+            this.feedbackCounts = [];
 
-            for (var n = 0; n < this.feedback.length; n++) {
-              if (this.feedback[n].feedback != "") {
+            for (var n = 0; n < this.feedbacks.length; n++) {
+              if (this.feedbacks[n].feedback != "") {
                 var newFeedback = {
-                  feedback: this.feedback[n].feedback,
+                  feedback: this.feedbacks[n].feedback,
                   deduction: 0
                 };
-                this.feedbackCount.push(newFeedback);
+                this.feedbackCounts.push(newFeedback);
               }
 
               for (var i = 0; i < this.students.length; i++) {
                 if (this.students[i].feedbackBoolean[n]) {
-                  this.feedbackCount[n].deduction += 1;
+                  this.feedbackCounts[n].deduction += 1;
                 }
               }
             }
 
-            return this.feedbackCount;
+            return this.feedbackCounts;
           }
         }, {
           key: "updateAverageStat",

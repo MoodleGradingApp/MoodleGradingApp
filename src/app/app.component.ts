@@ -72,7 +72,7 @@ export class AppComponent {
   csvRecords: StudentInfo[];
   feedback: HomeworkFeedback[];
   feedbackCount: HomeworkFeedback[] = [];
-  feedbackStrings: string[][] = [];
+  feedbackStrings: string[] = [];
   header: boolean = false;
 
   feedbackRows: Array<FeedbackRow> = [];
