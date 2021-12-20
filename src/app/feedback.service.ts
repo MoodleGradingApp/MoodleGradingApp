@@ -5,7 +5,6 @@ import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
   email: string,
-  feedbackBoolean: Array<boolean>,
   fullName: string,
   grade: string,
   gradeChange: string,
@@ -14,16 +13,13 @@ export interface StudentInfo {
   submissionLastModified: string,
   maxGrade: string,
   onlineText: string,
-  status: string
+  status: string,
+  feedbackBoolean: Array<boolean>,
 }
 
 export interface HomeworkFeedback {
   feedback: string,
   deduction: number
-}
-
-export interface FeedbackStrings {
-  strings: Array<string>
 }
 
 @Injectable({
@@ -34,14 +30,11 @@ export class FeedbackService {
   constructor(private ngxCsvParser: NgxCsvParser) { }
 
   private students: StudentInfo[] = [];                    // store this in temp storage
-  private feedback: HomeworkFeedback[] = [];               // store this in temp storage
-  private feedbackCount: HomeworkFeedback[] = [];
-  private feedbackStrings: FeedbackStrings[] = [];
+  private feedbacks: HomeworkFeedback[] = [];               // store this in temp storage
+  private feedbackCounts: HomeworkFeedback[] = [];
 
   public correctFile: boolean;
   public maxScore: string;
-
-  // csvRecords: Array<string>[] = [];
 
   parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
@@ -61,7 +54,6 @@ export class FeedbackService {
 
   parseCSV(csvRecords: Array<any>): void {
     // console.log('Parser Result', result);
-    // this.csvRecords = csvRecords;
 
     // check headers if correct CSV file
     if (
@@ -167,11 +159,11 @@ export class FeedbackService {
 
   private createCSVFeedbackString(feedback: Array<boolean>): string {
     let feedbackStringArray = []
-    for (let n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedbacks.length; n++) {
       if (feedback[n]) {
         // if the feedback string has a double quote in it, add an extra one.
-        const res = this.feedback[n].feedback.replace(/"/g, '""');
-        feedbackStringArray.push("-" + this.feedback[n].deduction + ": " + res)
+        const res = this.feedbacks[n].feedback.replace(/"/g, '""');
+        feedbackStringArray.push("-" + this.feedbacks[n].deduction + ": " + res)
       }
     }
     const feedbackString = feedbackStringArray.join('; ')
@@ -199,17 +191,9 @@ export class FeedbackService {
         // Could be that the user added multiple feedbacks before loading the csv file
         // (seems unlikely but could be done). So, we need to initialize feedbackBoolean array
         // to have false for each feedback in existence already.
-        feedbackBoolean: new Array(this.feedback.length).fill(false),
+        feedbackBoolean: new Array(this.feedbacks.length).fill(false),
       }
       this.students.push(newStudent);
-
-      // initialize each students' feedback strings
-      // vtn2 -- just initialized to a list of empty objects... then computed below in
-      // getFeedbackStrings().  Probably don't need this at all.
-      const newFeedbackString: FeedbackStrings = {
-        strings: []
-      }
-      this.feedbackStrings.push(newFeedbackString);
     }
 
     // set assignment max score
@@ -235,7 +219,7 @@ export class FeedbackService {
       feedback: feedbackString,
       deduction: points
     }
-    this.feedback.push(newFeedback);
+    this.feedbacks.push(newFeedback);
 
     // add this feedback to the student feedback array as false
     for (let i = 0; i < this.students.length; i++) {
@@ -244,16 +228,16 @@ export class FeedbackService {
   }
 
   feedbackRead(): HomeworkFeedback[] {
-    return this.feedback;
+    return this.feedbacks;
   }
 
   feedbackStringUpdate(index: number, feedbackString: string): void {
     // update values in feedback array
-    this.feedback[index].feedback = feedbackString;
+    this.feedbacks[index].feedback = feedbackString;
   }
 
   feedbackDeductionUpdate(index: number, points: number): void {
-    this.feedback[index].deduction = points;
+    this.feedbacks[index].deduction = points;
     for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].feedbackBoolean[index]) {
         this.gradeUpdate(i);
@@ -268,14 +252,14 @@ export class FeedbackService {
     for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].feedbackBoolean[index]) {
         // add deduction value to student grade before delete
-        const newGrade = parseFloat(this.students[i].grade) + this.feedback[index].deduction
+        const newGrade = parseFloat(this.students[i].grade) + this.feedbacks[index].deduction
         this.students[i].grade = newGrade.toString();
       }
       this.students[i].feedbackBoolean.splice(index,1);
     }
 
     // remove 1 element at index
-    this.feedback.splice(index,1);
+    this.feedbacks.splice(index,1);
     // }
   }
 
@@ -292,9 +276,9 @@ export class FeedbackService {
 
   gradeUpdate(studentIndex: number): void {
     let totalDeductions = 0;
-    for (let n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedbacks.length; n++) {
       if (this.students[studentIndex].feedbackBoolean[n]) {
-        totalDeductions = totalDeductions + this.feedback[n].deduction;
+        totalDeductions = totalDeductions + this.feedbacks[n].deduction;
       }
     }
 
@@ -311,7 +295,7 @@ export class FeedbackService {
   perfectGrade(studentIndex: number): void {
     this.students[studentIndex].grade = this.maxScore;
     // set all boolean feedback to false
-    for (let n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedbacks.length; n++) {
       this.students[studentIndex].feedbackBoolean[n] = false;
     }
   }
@@ -319,23 +303,22 @@ export class FeedbackService {
   clearGrade(studentIndex:number): void {
     this.students[studentIndex].grade = "";
     // set all boolean feedback to false
-    for (let n = 0; n < this.feedback.length; n++) {
+    for (let n = 0; n < this.feedbacks.length; n++) {
       this.students[studentIndex].feedbackBoolean[n] = false;
     }
   }
 
-  getFeedbackStrings(): FeedbackStrings[] {
-    // todo: csvRecrods.length should be students.length, imo.
+  getFeedbackStrings(): string[][] {
+    let res = [];
     for (let i = 0; i < this.students.length; i++) {
-      // this.feedbackStrings[i].strings.splice(0, this.feedbackStrings[i].strings.length);
-      this.feedbackStrings[i].strings = [];
-      for (let n = 0; n < this.feedback.length; n++) {
+      res.push([]);
+      for (let n = 0; n < this.feedbacks.length; n++) {
         if (this.students[i].feedbackBoolean[n]) {
-          this.feedbackStrings[i].strings.push("-" + this.feedback[n].deduction + ": " + this.feedback[n].feedback);
+          res[i].push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
         }
       }
     }
-    return this.feedbackStrings;
+    return res;
   }
 
   updateChartData(): Array<number> {
@@ -389,23 +372,23 @@ export class FeedbackService {
     // count the number of times each feedback is applied
     // the deduction value is the count vlaue
 
-    this.feedbackCount = []
+    this.feedbackCounts = []
 
-    for (let n = 0; n < this.feedback.length; n++) {
-      if (this.feedback[n].feedback != "") {
+    for (let n = 0; n < this.feedbacks.length; n++) {
+      if (this.feedbacks[n].feedback != "") {
         const newFeedback: HomeworkFeedback = {
-          feedback: this.feedback[n].feedback,
+          feedback: this.feedbacks[n].feedback,
           deduction: 0
         }
-        this.feedbackCount.push(newFeedback);
+        this.feedbackCounts.push(newFeedback);
       }
       for (let i = 0; i < this.students.length; i++) {
         if (this.students[i].feedbackBoolean[n]) {
-          this.feedbackCount[n].deduction += 1;
+          this.feedbackCounts[n].deduction += 1;
         }
       }
     }
-    return this.feedbackCount;
+    return this.feedbackCounts;
   }
 
   updateAverageStat(): number {

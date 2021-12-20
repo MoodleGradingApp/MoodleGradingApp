@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { ViewChild } from '@angular/core';
-import { FeedbackService, FeedbackStrings, HomeworkFeedback, StudentInfo } from './feedback.service';
+import { FeedbackService, HomeworkFeedback, StudentInfo } from './feedback.service';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -72,7 +72,7 @@ export class AppComponent {
   csvRecords: StudentInfo[];
   feedback: HomeworkFeedback[];
   feedbackCount: HomeworkFeedback[] = [];
-  feedbackStrings: FeedbackStrings[] = [];
+  feedbackStrings: string[][] = [];
   header: boolean = false;
 
   feedbackRows: Array<FeedbackRow> = [];

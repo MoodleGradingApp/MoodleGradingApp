@@ -6,10 +6,6 @@
 --
 -->
 
-<head>
-    <title>Grading Assistant</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
 
 <div class="panel panel-default hide-outline" id="master-panel">
     <p>Developed by: Emily Costa & Michael Sisko<br>Advised by: Victor Norman</p>
@@ -113,11 +109,11 @@
                     </div>
                     <br>
                     <button
-                    type="button"
-                    id="addFeedbackBtn"
-                    class="btn-primary-blue"
-                    (click)="addRow()"
-                    data-testid="addFeedbackBtn"
+                        type="button"
+                        id="addFeedbackBtn"
+                        class="btn-primary-blue"
+                        (click)="addRow()"
+                        data-testid="addFeedbackBtn"
                     >Add Feedback</button>
                     <br><br>
                 </div>
@@ -182,7 +178,7 @@
     </div>
     <div class="panel panel-default tight hide-outline csv-result-table">
         <table class="csvTable">
-            <thead *ngIf="validFile == true">
+            <thead *ngIf="validFile">
                 <tr>
                     <th class="narrow csv-table-head">#</th>
                     <th class="narrow csv-table-head">Name</th>
@@ -201,7 +197,7 @@
                     <td class="narrow">{{csvData.email}}</td>
                     <td class="narrow">{{csvData.gradeLastModified}}</td>
                     <td>{{csvData.grade}}</td>
-                    <td class="wide" id="feedback-column">{{feedbackStrings[i].strings.join('; ')}}</td>
+                    <td class="wide" id="feedback-column">{{feedbackStrings[i].join('; ')}}</td>
                 </tr>
             </tbody>
         </table>
