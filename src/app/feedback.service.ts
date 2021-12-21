@@ -29,8 +29,8 @@ export class FeedbackService {
 
   constructor(private ngxCsvParser: NgxCsvParser) { }
 
-  private students: StudentInfo[] = [];                    // store this in temp storage
-  private feedbacks: HomeworkFeedback[] = [];               // store this in temp storage
+  private students: StudentInfo[] = [];
+  private feedbacks: HomeworkFeedback[] = [];
   private feedbackCounts: HomeworkFeedback[] = [];
 
   public correctFile: boolean;
@@ -81,18 +81,10 @@ export class FeedbackService {
   }
 
   // Make a download button
-  public exportCSV() {
-    // Get the assignment title
-    let title = (<HTMLInputElement>document.getElementById('title')).value;
+  public exportCSV(assignmentName: string) {
 
     // Remove forbidden characters from assignment title
-    title = title.replace(/[#<>^\-~$%!&*,.;\\"?'\/{}:@+`|=\[\]]/g, '')
-    title = title.replace('=', '');
-
-    // If title is not provided assign default title 'assignment'
-    if (title === '') {
-      title = "assignment";
-    }
+    const title = this.cleanUpAssignmentTitle(assignmentName);
 
     // Get current date and time
     const currentDateTime = dayjs().format('_YYYY-MM-DD');
@@ -109,10 +101,7 @@ export class FeedbackService {
     const blob = new Blob([my_data_string], { type: 'text/csv' });
     const url = window.URL.createObjectURL(blob);
 
-    // Pass URL to hyper-reference csv onclick
     a.href = url;
-
-    // Apply custom name to file download
     a.download = title + currentDateTime + '.csv';
     a.click();
   }
@@ -205,8 +194,41 @@ export class FeedbackService {
   }
 
   sortStudentsOnEmail(ascending: boolean) {
+  }
 
+  private cleanUpAssignmentTitle(assignmentName: string): string {
+    // Remove forbidden characters from assignment title
+    assignmentName = assignmentName.replace(/[#<>^\-~$%!&*,.;\\"?'\/{}:@+`|=\[\]]/g, '')
+    assignmentName = assignmentName.replace(/' '/g, '_');
+    if (assignmentName === '') {
+      assignmentName = "assignment";
+    }
+    return assignmentName;
+  }
 
+  exportDataAsJson(assignmentName: string) {
+    // const jsonStudents = JSON.stringify(this.students);
+    // const jsonFeedbacks = JSON.stringify(this.feedbacks);
+    // const jsonAssignmentName = JSON.stringify(assignmentName);  // not sure this is necessary.
+    const wholeThing = {
+      "students": this.students,
+      "feedbacks": this.feedbacks,
+      "assignmentName": assignmentName,
+    };
+    const jsonWholeThing = JSON.stringify(wholeThing);
+
+    const title = this.cleanUpAssignmentTitle(assignmentName) + ".json";
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(wholeThing));
+
+    // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
+    let a = document.createElement("a");
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    a.setAttribute("href", dataStr);
+    a.setAttribute("download", title);
+    a.click();
+    a.remove();
   }
 
 
@@ -322,7 +344,6 @@ export class FeedbackService {
       // join all deduction strings together with semi-colon separator.
       res.push(strs.join('; '));
     }
-    console.log('getFeedbackStrings: returning ', res);
     return res;
   }
 

@@ -28,6 +28,7 @@
                             name="assignment"
                             placeholder="Ex. Homework 1"
                             data-testid="nameInput"
+                            [(ngModel)]="assignmentName"
                             >
                         </div>
                         <div id="max-pts">
@@ -45,7 +46,7 @@
                         <label for="Student">Student Name: {{currentStudentName}}</label>
                     </div>
                     <div class="panel panel-default hide-outline tight btn-set">
-                        <button type="button" id="save-btn" class="btn-primary-green">Save Progress</button>
+                        <button type="button" id="save-btn" class="btn-primary-green" (click)="saveProgress()">Save Progress</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="perfectScore()">Perfect Score</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="clearScore()">Clear Score</button>
                     </div>

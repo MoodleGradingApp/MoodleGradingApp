@@ -58,6 +58,8 @@ export class AppComponent {
 
   public feedbackText: string = '';
 
+  assignmentName: string = '';
+
   @ViewChild("chart") chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
 
@@ -291,6 +293,10 @@ export class AppComponent {
     }
   }
 
+  saveProgress() {
+    this.feedbackService.exportDataAsJson(this.assignmentName);
+  }
+
   perfectScore() {
     if (this.currentStudentIndex >= 0) {
       this.feedbackService.perfectGrade(this.currentStudentIndex);
@@ -333,8 +339,7 @@ export class AppComponent {
   }
 
   exportCSV(): void {
-    this.feedbackService.exportCSV();
-    // console.log("Export CSV!")
+    this.feedbackService.exportCSV(this.assignmentName);
   }
 
   // Warn user if reloading, closing, navigating away from page.
