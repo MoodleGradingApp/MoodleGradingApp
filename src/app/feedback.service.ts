@@ -33,6 +33,8 @@ export class FeedbackService {
   private feedbacks: HomeworkFeedback[] = [];
   private feedbackCounts: HomeworkFeedback[] = [];
 
+  private assignmentNameFromJSONFile = '';
+
   public correctFile: boolean;
   public maxScore: string;
 
@@ -160,9 +162,7 @@ export class FeedbackService {
   }
 
   private createStudentsFromCsv(csvRecords: Array<{}>) {
-
     // console.log(JSON.stringify(csvRecords, null, 2));
-
     // put csv-parser results into newStudent[]
     for (let i = 0; i < csvRecords.length; i++) {
       // initialize each student object
@@ -184,8 +184,6 @@ export class FeedbackService {
       }
       this.students.push(newStudent);
     }
-
-    // set assignment max score
     this.maxScore = this.students[0].maxGrade;
   }
 
@@ -193,13 +191,18 @@ export class FeedbackService {
     this.students = [];
   }
 
+  clearFeedbacks() {
+    this.feedbacks = [];
+    this.feedbackCounts = [];
+  }
+
   sortStudentsOnEmail(ascending: boolean) {
   }
 
   private cleanUpAssignmentTitle(assignmentName: string): string {
-    // Remove forbidden characters from assignment title
+    // Remove forbidden characters from assignment title and replace spaces with underscores
     assignmentName = assignmentName.replace(/[#<>^\-~$%!&*,.;\\"?'\/{}:@+`|=\[\]]/g, '')
-    assignmentName = assignmentName.replace(/' '/g, '_');
+    assignmentName = assignmentName.replace(/ /g, '_');
     if (assignmentName === '') {
       assignmentName = "assignment";
     }
@@ -207,9 +210,6 @@ export class FeedbackService {
   }
 
   exportDataAsJson(assignmentName: string) {
-    // const jsonStudents = JSON.stringify(this.students);
-    // const jsonFeedbacks = JSON.stringify(this.feedbacks);
-    // const jsonAssignmentName = JSON.stringify(assignmentName);  // not sure this is necessary.
     const wholeThing = {
       "students": this.students,
       "feedbacks": this.feedbacks,
@@ -231,9 +231,35 @@ export class FeedbackService {
     a.remove();
   }
 
+  importDataAsJson(files: File[]): Promise<void> {
+
+    return new Promise((resolve, reject) => {
+      const file = files[0];
+      const fr = new FileReader();
+      fr.onload = (e) => {
+        let lines = e.target.result;
+        const res = JSON.parse(lines as string);
+        // console.log('got json file parsed: res = ', JSON.stringify(res, null, 2));
+        this.students = res["students"];
+        this.feedbacks = res["feedbacks"];
+        this.assignmentNameFromJSONFile = res["assignmentName"];
+        console.log('assignmentNameFromfile = ', this.assignmentNameFromJSONFile);
+        resolve();
+      };
+      fr.readAsText(file);
+    });
+  }
 
   getStudents(): StudentInfo[] {
     return this.students;
+  }
+
+  getFeedbacks(): HomeworkFeedback[] {
+    return this.feedbacks;
+  }
+
+  getAssignmentName(): string {
+    return this.assignmentNameFromJSONFile;
   }
 
   feedbackCreate(feedbackString: string, points: number): void {

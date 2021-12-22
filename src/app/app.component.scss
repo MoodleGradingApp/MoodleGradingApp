@@ -63,7 +63,6 @@ button:focus {
     padding: 3px 6px 3px 6px;
     font-size: 14px;
     color: #fff;
-    width: 112px;
     text-align: center;
 }
 .btn-primary-blue:hover, .btn-primary-green:hover {
@@ -200,21 +199,13 @@ label {
     display: inline-block;
 }
 
-#exportBtn {
-    float: right;
-}
-
 button:focus {
     outline: none;
 }
 
-#csvImportBtn {
+#csvImportBtn, #jsonImportBtn {
     font-weight: 400;
     margin-bottom: 10px;
-}
-
-#csvFileUpload {
-    width: 300px;
 }
 
 input[type=file]::file-selector-button {

@@ -35,7 +35,7 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
 };
 
-export class FeedbackRow{
+export class FeedbackRow {
     feedback: string;
     deduction: number;
     selected: boolean;
@@ -72,7 +72,6 @@ export class AppComponent {
   studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
   csvRecords: StudentInfo[];
-  feedback: HomeworkFeedback[];
   feedbackCount: HomeworkFeedback[] = [];
   feedbackStrings: string[] = [];
   header: boolean = false;
@@ -129,11 +128,11 @@ export class AppComponent {
     };
   }
 
-  async fileChangeListener ($event: any) {
+  async importCsvFileListener($event: any) {
     // clear current table
     // display warning if student table is not empty
-    console.log(this.csvRecords);
-    console.log(this.csvRecords != undefined);
+    // console.log(this.csvRecords);
+    // console.log(this.csvRecords != undefined);
     if (this.csvRecords != undefined) {
       if (confirm("Are you sure you want to upload another CSV file? Your current work will be deleted!")) {
         // do nothing
@@ -173,12 +172,31 @@ export class AppComponent {
         } else {
           // handle empty CSV
           this.maxScore = null;
-          this.validFile = false;
           this.csvRecords = [];
           console.log('Error', result);
         }
       }
     )
+  }
+
+  async importJsonFileListener($event: any) {
+    await this.feedbackService.importDataAsJson($event.srcElement.files);
+    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.csvRecords = this.feedbackService.getStudents();
+    this.validFile = true;
+    this.currentStudentIndex = -1;
+    this.maxScore = this.feedbackService.maxScore;
+    this.isCheckDisabled = null;
+
+    // build feedbackRows
+    const feedbackData: HomeworkFeedback[] = this.feedbackService.getFeedbacks();
+    this.feedbackRows = [];
+    feedbackData.forEach(row => {
+      this.feedbackRows.push({ feedback: row.feedback,
+                               deduction: row.deduction,
+                               selected: false });
+    });
+    this.assignmentName = this.feedbackService.getAssignmentName();
   }
 
   ngOnInit(): void {

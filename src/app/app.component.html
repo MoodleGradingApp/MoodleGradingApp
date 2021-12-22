@@ -46,7 +46,6 @@
                         <label for="Student">Student Name: {{currentStudentName}}</label>
                     </div>
                     <div class="panel panel-default hide-outline tight btn-set">
-                        <button type="button" id="save-btn" class="btn-primary-green" (click)="saveProgress()">Save Progress</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="perfectScore()">Perfect Score</button>
                         <button type="button" id="save-btn" class="btn-primary-green" (click)="clearScore()">Clear Score</button>
                     </div>
@@ -159,7 +158,7 @@
             for="csvFileUpload"
             id="csvImportBtn"
             class="btn-primary-blue inner-nowrap"
-        >Import Table</label>
+        >Import File (exported from Moodle)</label>
         <input
             id="csvFileUpload"
             data-testid="importCSV"
@@ -168,14 +167,29 @@
             #fileImportInput
             name="File Upload"
             accept=".csv"
-            (change)="fileChangeListener($event)"/>
+            (change)="importCsvFileListener($event)"/>
         <p *ngIf="!validFile" class="file-warning inner-nowrap">*Invalid CSV File</p>
         <button
             type="button"
             class="btn-primary-blue"
             id="exportBtn"
             (click)="exportCSV()"
-        >Export Table</button>
+        >Export for Moodle</button>
+
+        <button type="button" id="save-btn" class="btn-primary-blue"
+            (click)="saveProgress()"
+        >Save Progress</button>
+        <label for="jsonFileUpload" id="jsonImportBtn" class="btn-primary-blue inner-nowrap">
+            Load Progress</label>
+        <input
+            id="jsonFileUpload"
+            data-testid="importJSON"
+            class="inner-nowrap sticky"
+            type="file"
+            #fileImportInput
+            name="File Upload"
+            accept=".json"
+            (change)="importJsonFileListener($event)"/>
     </div>
     <div class="panel panel-default tight hide-outline csv-result-table">
         <table class="csvTable">
