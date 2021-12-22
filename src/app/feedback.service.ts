@@ -232,7 +232,6 @@ export class FeedbackService {
   }
 
   importDataAsJson(files: File[]): Promise<void> {
-
     return new Promise((resolve, reject) => {
       const file = files[0];
       const fr = new FileReader();
@@ -243,7 +242,8 @@ export class FeedbackService {
         this.students = res["students"];
         this.feedbacks = res["feedbacks"];
         this.assignmentNameFromJSONFile = res["assignmentName"];
-        console.log('assignmentNameFromfile = ', this.assignmentNameFromJSONFile);
+        this.maxScore = this.students[0].maxGrade;
+        this.correctFile = true;
         resolve();
       };
       fr.readAsText(file);

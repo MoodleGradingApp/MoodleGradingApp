@@ -247,7 +247,7 @@ export class AppComponent {
     this.currentStudentIndex += incriment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
-    this.validFile = this.feedbackService.correctFile
+    this.validFile = this.feedbackService.correctFile;
   }
 
   nextStudent(): void {
