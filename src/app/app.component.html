@@ -196,11 +196,27 @@
             <thead *ngIf="validFile">
                 <tr>
                     <!-- <th class="narrow csv-table-head">#</th> -->
-                    <th class="narrow csv-table-head" (click)="sortOnName()">Name</th>
-                    <th class="narrow csv-table-head" (click)="sortOnEmail()">Email</th>
-                    <th class="narrow csv-table-head" (click)="sortOnTimestamp()">Timestamp</th>
-                    <th class="narrow csv-table-head" (click)="sortOnGrade()">Grade</th>
-                    <th class="wide csv-table-head"   (click)="sortOnFeedback()">Feedback</th>
+                    <th class="narrow csv-table-head" (click)="sortOnName()">
+                        Name
+                        <span [ngClass]="displaySortArrow('name')"></span>
+                    </th>
+                    <th class="narrow csv-table-head" (click)="sortOnEmail()">
+                        Email
+                        <span [ngClass]="displaySortArrow('email')"></span>
+
+                    </th>
+                    <th class="narrow csv-table-head" (click)="sortOnTimestamp()">
+                        Timestamp
+                        <span [ngClass]="displaySortArrow('timestamp')"></span>
+                    </th>
+                    <th class="narrow csv-table-head" (click)="sortOnGrade()">
+                        Grade
+                        <span [ngClass]="displaySortArrow('grade')"></span>
+                    </th>
+                    <th class="wide csv-table-head" (click)="sortOnFeedback()">
+                        Feedback
+                        <span [ngClass]="displaySortArrow('feedback')"></span>
+                    </th>
                 </tr>
             </thead>
             <tbody>

@@ -42,7 +42,7 @@ export class FeedbackRow {
 }
 
 // These two enums are for sorting student info.
-enum SortColumn {
+export enum SortColumn {
   ID,
   NAME,
   EMAIL,
@@ -51,7 +51,7 @@ enum SortColumn {
   FEEDBACK,
 };
 
-enum SortDir {
+export enum SortDir {
   ASC,
   DESC,
 };
@@ -95,8 +95,8 @@ export class AppComponent {
   // disable check boxes when no csv is imported
   isCheckDisabled: boolean = true;
 
-  private studentsSortedOn = SortColumn.ID;
-  private studentsSortedAscOrDsc = SortDir.ASC;
+  studentsSortedOn = SortColumn.ID;
+  studentsSortedAscOrDsc = SortDir.ASC;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
     const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
@@ -357,14 +357,18 @@ export class AppComponent {
     this.updateSeries();
   }
 
-  sortOnName() {
-    if (this.studentsSortedOn !== SortColumn.NAME) {
-      this.studentsSortedOn = SortColumn.NAME;
+  private setSortingState(column: SortColumn) {
+    if (this.studentsSortedOn !== column) {
+      this.studentsSortedOn = column;
       this.studentsSortedAscOrDsc = SortDir.ASC;
     } else {
       // already sorted on this column, so switch direction
       this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
     }
+  }
+
+  sortOnName() {
+    this.setSortingState(SortColumn.NAME);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.fullName.localeCompare(s2.fullName) : s2.fullName.localeCompare(s1.fullName);
@@ -372,13 +376,7 @@ export class AppComponent {
   }
 
   sortOnEmail() {
-    if (this.studentsSortedOn !== SortColumn.EMAIL) {
-      this.studentsSortedOn = SortColumn.EMAIL;
-      this.studentsSortedAscOrDsc = SortDir.ASC;
-    } else {
-      // already sorted on this column, so switch direction
-      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
-    }
+    this.setSortingState(SortColumn.EMAIL);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.email.localeCompare(s2.email) : s2.email.localeCompare(s1.email);
@@ -386,27 +384,16 @@ export class AppComponent {
   }
 
   sortOnTimestamp() {
-    if (this.studentsSortedOn !== SortColumn.TIMESTAMP) {
-      this.studentsSortedOn = SortColumn.TIMESTAMP;
-      this.studentsSortedAscOrDsc = SortDir.ASC;
-    }else {
-      // already sorted on this column, so switch direction
-      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
-    }
+    this.setSortingState(SortColumn.TIMESTAMP);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
-        s1.gradeLastModified.localeCompare(s2.gradeLastModified) : s2.gradeLastModified.localeCompare(s1.gradeLastModified);
+        s1.gradeLastModified.localeCompare(s2.gradeLastModified) :
+        s2.gradeLastModified.localeCompare(s1.gradeLastModified);
     });
   }
 
   sortOnGrade() {
-    if (this.studentsSortedOn !== SortColumn.GRADE) {
-      this.studentsSortedOn = SortColumn.GRADE;
-      this.studentsSortedAscOrDsc = SortDir.ASC;
-    } else {
-      // already sorted on this column, so switch direction
-      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
-    }
+    this.setSortingState(SortColumn.GRADE);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.grade.localeCompare(s2.grade) : s2.grade.localeCompare(s1.grade);
@@ -414,27 +401,13 @@ export class AppComponent {
   }
 
   sortOnFeedback() {
-    if (this.studentsSortedOn !== SortColumn.FEEDBACK) {
-      this.studentsSortedOn = SortColumn.FEEDBACK;
-      this.studentsSortedAscOrDsc = SortDir.ASC;
-    } else {
-      // already sorted on this column, so switch direction
-      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
-    }
+    this.setSortingState(SortColumn.FEEDBACK);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         this.feedbackStrings[s1.num].localeCompare(this.feedbackStrings[s2.num]) :
         this.feedbackStrings[s2.num].localeCompare(this.feedbackStrings[s1.num]);
     });
   }
-
-  // To Do: Delete Later! Useful for Debugging!
-  // tempFunction() {
-  //   this.feedback = this.feedbackService.feedbackRead();
-  //   console.log(this.feedback);
-  //   console.log(this.feedbackCount);
-  //   console.log(this.csvRecords);
-  // }
 
   updateSeries() {
     let chartData: Array<number> = this.feedbackService.updateChartData();
@@ -457,4 +430,25 @@ export class AppComponent {
   unloadHandler(event: Event) {
     window.opener.location.reload();
   }
+
+  // given the student table column name, figure out if the table is sorted on that
+  // column and whether ascending or descending. Return the string of class names
+  // to be displayed appropriately: if not sorted on this column, return ''. Else,
+  // return the fontawesome up-caret or down-caret classes.
+  displaySortArrow(columnName: string) {
+    const nameToColumnMap = {
+      "email": SortColumn.EMAIL,
+      "name": SortColumn.NAME,
+      "timestamp": SortColumn.TIMESTAMP,
+      "grade": SortColumn.GRADE,
+      "feedback": SortColumn.FEEDBACK
+    };
+    if (this.studentsSortedOn === nameToColumnMap[columnName]) {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ? "fa fa-caret-down" : "fa fa-caret-up";
+    } else {
+      return '';
+    }
+  }
+
+
 }
