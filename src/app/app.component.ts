@@ -99,9 +99,7 @@ export class AppComponent {
   studentsSortedAscOrDsc = SortDir.ASC;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
-    const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
-    this.feedbackRows.push(newRow);
-    this.feedbackService.feedbackCreate(null, null);
+    this.addEmptyFeedbackRow();
 
     this.chartOptions = {
       series: [
@@ -281,17 +279,17 @@ export class AppComponent {
     }
   }
 
-  addRow(): void {
+  addEmptyFeedbackRow(): void {
     const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
     this.feedbackRows.push(newRow);
-    this.feedbackService.feedbackCreate(null, null);
+    this.feedbackService.feedbackCreate("", 0);
     // console.log(this.feedbackRows);
   }
 
-  deleteRow(index: number) {
+  deleteFeedbackRow(index: number) {
     // add row so there will never be 0 rows
     if (this.feedbackRows.length === 1) {
-      this.addRow();
+      this.addEmptyFeedbackRow();
     }
     this.feedbackRows.splice(index, 1);
     this.feedbackService.feedbackDelete(index);

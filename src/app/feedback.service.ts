@@ -299,14 +299,14 @@ export class FeedbackService {
     for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].feedbackBoolean[index]) {
         // add deduction value to student grade before delete
-        const newGrade = parseFloat(this.students[i].grade) + this.feedbacks[index].deduction
+        const newGrade = parseFloat(this.students[i].grade) + this.feedbacks[index].deduction;
         this.students[i].grade = newGrade.toString();
       }
-      this.students[i].feedbackBoolean.splice(index,1);
+      this.students[i].feedbackBoolean.splice(index, 1);
     }
 
     // remove 1 element at index
-    this.feedbacks.splice(index,1);
+    this.feedbacks.splice(index, 1);
     // }
   }
 

@@ -62,7 +62,7 @@
                             </thead>
                             <tbody>
                                 <tr *ngFor="let row of feedbackRows; let i = index;">
-                                    <td (click)="deleteRow(i)">
+                                    <td (click)="deleteFeedbackRow(i)">
                                         <button
                                             id="trash"
                                             data-testid="trashBtn">
@@ -112,7 +112,7 @@
                         type="button"
                         id="addFeedbackBtn"
                         class="btn-primary-blue"
-                        (click)="addRow()"
+                        (click)="addEmptyFeedbackRow()"
                         data-testid="addFeedbackBtn"
                     >Add Feedback</button>
                     <br><br>
