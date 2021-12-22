@@ -441,43 +441,79 @@
 
       function AppComponent_thead_77_Template(rf, ctx) {
         if (rf & 1) {
+          var _r20 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "thead");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "tr");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "th", 57);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "#");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_thead_77_Template_th_click_2_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r20);
+
+            var ctx_r19 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+            return ctx_r19.sortOnName();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Name");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "th", 57);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "Name");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_thead_77_Template_th_click_4_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r20);
+
+            var ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+            return ctx_r21.sortOnEmail();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "Email");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "th", 57);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "Email");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_thead_77_Template_th_click_6_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r20);
+
+            var ctx_r22 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+            return ctx_r22.sortOnTimestamp();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "Timestamp");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "th", 57);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "Timestamp");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_thead_77_Template_th_click_8_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r20);
+
+            var ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+
+            return ctx_r23.sortOnGrade();
+          });
+
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "Grade");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "th", 57);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "th", 58);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](11, "Grade");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_thead_77_Template_th_click_10_listener() {
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r20);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            var ctx_r24 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "th", 58);
+            return ctx_r24.sortOnFeedback();
+          });
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](13, "Feedback");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](11, "Feedback");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -489,26 +525,26 @@
 
       function AppComponent_tr_79_Template(rf, ctx) {
         if (rf & 1) {
-          var _r22 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+          var _r28 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "tr", 59);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function AppComponent_tr_79_Template_tr_click_0_listener() {
-            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r22);
+            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r28);
 
-            var i_r19 = restoredCtx.index;
+            var i_r25 = restoredCtx.index;
 
-            var ctx_r21 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+            var ctx_r27 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
-            return ctx_r21.rowSelected(i_r19);
+            return ctx_r27.rowSelected(i_r25);
           })("click", function AppComponent_tr_79_Template_tr_click_0_listener() {
-            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r22);
+            var restoredCtx = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r28);
 
-            var i_r19 = restoredCtx.index;
+            var i_r25 = restoredCtx.index;
 
-            var ctx_r23 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+            var ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
-            return ctx_r23.highlightRow(i_r19);
+            return ctx_r29.highlightRow(i_r25);
           });
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "td", 60);
@@ -529,21 +565,15 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "td", 60);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "td");
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](8);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "td");
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "td", 61);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "td", 61);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](12);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -551,40 +581,57 @@
         }
 
         if (rf & 2) {
-          var i_r19 = ctx.index;
-          var csvData_r20 = ctx.$implicit;
+          var stud_r26 = ctx.$implicit;
 
           var ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](i_r19 + 1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](stud_r26.fullName);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](csvData_r20.fullName);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](stud_r26.email);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](csvData_r20.email);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](stud_r26.gradeLastModified);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](csvData_r20.gradeLastModified);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](stud_r26.grade);
 
           _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](csvData_r20.grade);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r6.feedbackStrings[i_r19]);
+          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r6.feedbackStrings[stud_r26.num]);
         }
       }
 
       var _FeedbackRow = function _FeedbackRow() {
         _classCallCheck(this, _FeedbackRow);
-      };
+      }; // These two enums are for sorting student info.
+
+
+      var SortColumn;
+
+      (function (SortColumn) {
+        SortColumn[SortColumn["ID"] = 0] = "ID";
+        SortColumn[SortColumn["NAME"] = 1] = "NAME";
+        SortColumn[SortColumn["EMAIL"] = 2] = "EMAIL";
+        SortColumn[SortColumn["TIMESTAMP"] = 3] = "TIMESTAMP";
+        SortColumn[SortColumn["GRADE"] = 4] = "GRADE";
+        SortColumn[SortColumn["FEEDBACK"] = 5] = "FEEDBACK";
+      })(SortColumn || (SortColumn = {}));
+
+      ;
+      var SortDir;
+
+      (function (SortDir) {
+        SortDir[SortDir["ASC"] = 0] = "ASC";
+        SortDir[SortDir["DESC"] = 1] = "DESC";
+      })(SortDir || (SortDir = {}));
+
+      ;
 
       var _AppComponent = /*#__PURE__*/function () {
         function _AppComponent(fb, feedbackService) {
@@ -603,13 +650,14 @@
           this.isRowSelected = false;
           this.previousRow = 2;
           this.selectedUser = [];
-          this.studentRow = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
           this.feedbackCount = [];
           this.feedbackStrings = [];
           this.header = false;
-          this.feedbackRows = []; //disable check boxes when no csv is imported
+          this.feedbackRows = []; // disable check boxes when no csv is imported
 
           this.isCheckDisabled = true;
+          this.studentsSortedOn = SortColumn.ID;
+          this.studentsSortedAscOrDsc = SortDir.ASC;
           var newRow = {
             feedback: "",
             deduction: 0,
@@ -668,7 +716,7 @@
                 while (1) {
                   switch (_context.prev = _context.next) {
                     case 0:
-                      if (!(this.csvRecords != undefined)) {
+                      if (!(this.students !== undefined)) {
                         _context.next = 7;
                         break;
                       }
@@ -696,7 +744,9 @@
                         if (result instanceof Array) {
                           _this.feedbackService.parseCSV(result);
 
-                          _this.csvRecords = _this.feedbackService.getStudents();
+                          _this.students = _this.feedbackService.getStudents();
+                          _this.studentsSortedAscOrDsc = SortDir.ASC;
+                          _this.studentsSortedOn = SortColumn.ID;
                           _this.validFile = _this.feedbackService.correctFile;
 
                           if (_this.validFile) {
@@ -719,7 +769,7 @@
                         } else {
                           // handle empty CSV
                           _this.maxScore = null;
-                          _this.csvRecords = [];
+                          _this.students = [];
                           console.log('Error', result);
                         }
                       });
@@ -748,18 +798,16 @@
 
                     case 2:
                       this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-                      this.csvRecords = this.feedbackService.getStudents();
-                      this.validFile = true; // select and highlight first student
-
-                      this.currentStudentIndex = 0;
+                      this.students = this.feedbackService.getStudents();
+                      this.studentsSortedAscOrDsc = SortDir.ASC;
+                      this.studentsSortedOn = SortColumn.ID;
+                      this.validFile = true;
+                      this.currentStudentIndex = -1;
                       this.maxScore = this.feedbackService.maxScore;
-                      this.isCheckDisabled = null; // uncheck check boxes
-
-                      this.updateCheckboxState(); // reset chart data
-
-                      this.updateSeries(); // build feedbackRows
+                      this.isCheckDisabled = null; // build feedbackRows
 
                       feedbackData = this.feedbackService.getFeedbacks();
+                      this.feedbackRows = [];
                       feedbackData.forEach(function (row) {
                         _this2.feedbackRows.push({
                           feedback: row.feedback,
@@ -767,8 +815,9 @@
                           selected: false
                         });
                       });
+                      this.assignmentName = this.feedbackService.getAssignmentName();
 
-                    case 12:
+                    case 14:
                     case "end":
                       return _context2.stop();
                   }
@@ -799,8 +848,8 @@
           key: "rowSelected",
           value: function rowSelected(index) {
             this.currentStudentIndex = index;
-            this.currentStudentName = this.csvRecords[index].fullName;
-            this.maxScore = this.csvRecords[0].maxGrade; // code to check boxes off when on a certain student
+            this.currentStudentName = this.students[index].fullName;
+            this.maxScore = this.students[0].maxGrade; // code to check boxes off when on a certain student
 
             this.updateCheckboxState(); // console.log(this.csvRecords);
           }
@@ -809,15 +858,14 @@
           value: function updateCheckboxState() {
             if (this.currentStudentIndex === -1) {
               return;
-            }
+            } // console.log("Update Check Boxes");
+            // console.log('student feedbackBoolean array = ', this.students[this.currentStudentIndex].feedbackBoolean);
 
-            console.log("Update Check Boxes");
-            console.log('student feedbackBoolean array = ', this.csvRecords[this.currentStudentIndex].feedbackBoolean);
 
-            for (var i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
+            for (var i = 0; i < this.students[this.currentStudentIndex].feedbackBoolean.length; i++) {
               var checkbox = document.getElementById("checkbox" + i.toString());
 
-              if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i]) {
+              if (this.students[this.currentStudentIndex].feedbackBoolean[i]) {
                 checkbox.checked = true;
               } else {
                 checkbox.checked = false;
@@ -826,12 +874,12 @@
           }
         }, {
           key: "studentParser",
-          value: function studentParser(incriment) {
-            if (this.currentStudentIndex === 0 && incriment === -1 || this.currentStudentIndex === this.csvRecords.length - 1 && incriment === 1) {
+          value: function studentParser(increment) {
+            if (this.currentStudentIndex === 0 && increment === -1 || this.currentStudentIndex === this.students.length - 1 && increment === 1) {
               return;
             }
 
-            this.currentStudentIndex += incriment;
+            this.currentStudentIndex += increment;
             this.rowSelected(this.currentStudentIndex);
             this.highlightRow(this.currentStudentIndex);
             this.validFile = this.feedbackService.correctFile;
@@ -863,7 +911,7 @@
           key: "deleteRow",
           value: function deleteRow(index) {
             // add row so there will never be 0 rows
-            if (this.feedbackRows.length == 1) {
+            if (this.feedbackRows.length === 1) {
               this.addRow();
             }
 
@@ -892,7 +940,7 @@
         }, {
           key: "onSelectedChange",
           value: function onSelectedChange(newValue, feedbackIndex) {
-            if (this.currentStudentIndex == 0) {
+            if (this.currentStudentIndex === 0) {
               this.highlightRow(this.currentStudentIndex);
             }
 
@@ -912,21 +960,6 @@
           key: "saveProgress",
           value: function saveProgress() {
             this.feedbackService.exportDataAsJson(this.assignmentName);
-          }
-        }, {
-          key: "loadProgress",
-          value: function loadProgress() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_2__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-              return regeneratorRuntime.wrap(function _callee3$(_context3) {
-                while (1) {
-                  switch (_context3.prev = _context3.next) {
-                    case 0:
-                    case "end":
-                      return _context3.stop();
-                  }
-                }
-              }, _callee3);
-            }));
           }
         }, {
           key: "perfectScore",
@@ -952,6 +985,77 @@
             this.feedbackStrings = this.feedbackService.getFeedbackStrings();
             console.log(this.feedbackCount);
             this.updateSeries();
+          }
+        }, {
+          key: "sortOnName",
+          value: function sortOnName() {
+            console.log("hi from sort on name");
+
+            if (this.studentsSortedOn !== SortColumn.NAME) {
+              this.studentsSortedOn = SortColumn.NAME;
+              this.studentsSortedAscOrDsc = SortDir.ASC;
+            } else {
+              // already sorted on this column, so switch direction
+              this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+            }
+          }
+        }, {
+          key: "sortOnEmail",
+          value: function sortOnEmail() {
+            var _this3 = this;
+
+            console.log("hi from sort on email");
+
+            if (this.studentsSortedOn !== SortColumn.EMAIL) {
+              this.studentsSortedOn = SortColumn.EMAIL;
+              this.studentsSortedAscOrDsc = SortDir.ASC;
+            } else {
+              // already sorted on this column, so switch direction
+              this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+            }
+
+            this.students = this.students.sort(function (s1, s2) {
+              return _this3.studentsSortedAscOrDsc === SortDir.ASC ? s2.email.localeCompare(s1.email) : s1.email.localeCompare(s2.email);
+            });
+          }
+        }, {
+          key: "sortOnTimestamp",
+          value: function sortOnTimestamp() {
+            console.log("hi from sort on timestamp");
+
+            if (this.studentsSortedOn !== SortColumn.TIMESTAMP) {
+              this.studentsSortedOn = SortColumn.TIMESTAMP;
+              this.studentsSortedAscOrDsc = SortDir.ASC;
+            } else {
+              // already sorted on this column, so switch direction
+              this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+            }
+          }
+        }, {
+          key: "sortOnGrade",
+          value: function sortOnGrade() {
+            console.log("hi from sort on grade");
+
+            if (this.studentsSortedOn !== SortColumn.GRADE) {
+              this.studentsSortedOn = SortColumn.GRADE;
+              this.studentsSortedAscOrDsc = SortDir.ASC;
+            } else {
+              // already sorted on this column, so switch direction
+              this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+            }
+          }
+        }, {
+          key: "sortOnFeedback",
+          value: function sortOnFeedback() {
+            console.log("hi from sort on feedback");
+
+            if (this.studentsSortedOn !== SortColumn.FEEDBACK) {
+              this.studentsSortedOn = SortColumn.FEEDBACK;
+              this.studentsSortedAscOrDsc = SortDir.ASC;
+            } else {
+              // already sorted on this column, so switch direction
+              this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+            }
           } // To Do: Delete Later! Useful for Debugging!
           // tempFunction() {
           //   this.feedback = this.feedbackService.feedbackRead();
@@ -1021,7 +1125,7 @@
         },
         decls: 80,
         vars: 9,
-        consts: [["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "id", "save-btn", 1, "btn-primary-blue", 3, "click"], ["for", "jsonFileUpload", "id", "jsonImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "jsonFileUpload", "data-testid", "importJSON", "type", "file", "name", "File Upload", "accept", ".json", 1, "inner-nowrap", "sticky", 3, "change"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head"], [1, "wide", "csv-table-head"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
+        consts: [["id", "master-panel", 1, "panel", "panel-default", "hide-outline"], [1, "title"], [1, "demo-text"], ["href", "assets/demo_full.mp4"], [1, "row"], ["id", "main-left-panel", 1, "col", "fixed-panel"], [1, "panel", "panel-default", "hide-outline", "tight"], [1, "panel", "panel-default"], ["id", "item-info", 1, "panel", "panel-default", "hide-outline", "tight"], ["id", "assignment"], ["for", "assignment"], ["type", "text", "id", "title", "name", "assignment", "placeholder", "Ex. Homework 1", "data-testid", "nameInput", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "max-pts"], ["for", "max-pts"], [1, "panel", "panel-default", "hide-outline", "tight", "btn-set"], ["type", "button", "data-testid", "prevStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "data-testid", "nextStudentBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", 1, "btn-primary-blue", 3, "click"], ["for", "Student"], ["type", "button", "id", "save-btn", 1, "btn-primary-green", 3, "click"], [1, "feedback-table-container"], ["id", "feedback-table"], ["id", "trash-header"], [4, "ngFor", "ngForOf"], ["type", "button", "id", "addFeedbackBtn", "data-testid", "addFeedbackBtn", 1, "btn-primary-blue", 3, "click"], ["class", "grade-stats", 4, "ngIf"], ["id", "main-right-panel", 1, "panel", "panel-default"], [1, "csv-import-btn"], [1, "panel", "panel-default", "tight", "hide-outline", "sticky", "outer-nowrap"], ["for", "csvFileUpload", "id", "csvImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "csvFileUpload", "data-testid", "importCSV", "type", "file", "name", "File Upload", "accept", ".csv", 1, "inner-nowrap", "sticky", 3, "change"], ["fileImportInput", ""], ["class", "file-warning inner-nowrap", 4, "ngIf"], ["type", "button", "id", "exportBtn", 1, "btn-primary-blue", 3, "click"], ["type", "button", "id", "save-btn", 1, "btn-primary-blue", 3, "click"], ["for", "jsonFileUpload", "id", "jsonImportBtn", 1, "btn-primary-blue", "inner-nowrap"], ["id", "jsonFileUpload", "data-testid", "importJSON", "type", "file", "name", "File Upload", "accept", ".json", 1, "inner-nowrap", "sticky", 3, "change"], [1, "panel", "panel-default", "tight", "hide-outline", "csv-result-table"], [1, "csvTable"], [4, "ngIf"], ["class", "csv-data", 3, "click", 4, "ngFor", "ngForOf"], [3, "click"], ["id", "trash", "data-testid", "trashBtn"], [1, "fa", "fa-trash"], ["id", "feedback", "data-testid", "feedbackInput", "placeholder", "Say something constructive...", "type", "text", "name", "text", "oninput", "this.style.height = \"\";\n                                            this.style.height = this.scrollHeight + 3 + \"px\"", 1, "input-box", 3, "ngModel", "ngModelChange"], ["id", "deduction", "data-testid", "deductionInput", "placeholder", "0", "type", "number", 1, "input-box", 3, "ngModel", "ngModelChange"], ["data-testid", "applyBtn", "type", "checkbox", 1, "checkbox", 3, "id", "ngModel", "ngModelChange"], [1, "grade-stats"], [3, "series", "chart", "xaxis", "yaxis", "title"], [1, "feedback-stats"], [1, "class-stats"], [1, "average-score"], [1, "min-score"], [1, "max-score"], [1, "feedback-count"], [1, "feedback-string"], [1, "file-warning", "inner-nowrap"], [1, "narrow", "csv-table-head", 3, "click"], [1, "wide", "csv-table-head", 3, "click"], [1, "csv-data", 3, "click"], [1, "narrow"], ["id", "feedback-column", 1, "wide"]],
         template: function AppComponent_Template(rf, ctx) {
           if (rf & 1) {
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
@@ -1298,11 +1402,11 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](76, "table", 38);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](77, AppComponent_thead_77_Template, 14, 0, "thead", 39);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](77, AppComponent_thead_77_Template, 12, 0, "thead", 39);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](78, "tbody");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](79, AppComponent_tr_79_Template, 13, 6, "tr", 40);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](79, AppComponent_tr_79_Template, 11, 5, "tr", 40);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 
@@ -1354,7 +1458,7 @@
 
             _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.csvRecords);
+            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.students);
           }
         },
         directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__.DefaultValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgControlStatus, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NgModel, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgForOf, _angular_common__WEBPACK_IMPORTED_MODULE_4__.NgIf, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.NumberValueAccessor, _angular_forms__WEBPACK_IMPORTED_MODULE_3__.CheckboxControlValueAccessor, ng_apexcharts__WEBPACK_IMPORTED_MODULE_5__.ChartComponent],
@@ -1649,6 +1753,7 @@
             for (var i = 0; i < csvRecords.length; i++) {
               // initialize each student object
               var newStudent = {
+                num: i,
                 identifier: csvRecords[i]["Identifier"],
                 fullName: csvRecords[i]["Full name"],
                 email: csvRecords[i]["Email address"].split("@", 1)[0],
@@ -1680,9 +1785,6 @@
             this.feedbacks = [];
             this.feedbackCounts = [];
           }
-        }, {
-          key: "sortStudentsOnEmail",
-          value: function sortStudentsOnEmail(ascending) {}
         }, {
           key: "cleanUpAssignmentTitle",
           value: function cleanUpAssignmentTitle(assignmentName) {
@@ -1719,7 +1821,7 @@
         }, {
           key: "importDataAsJson",
           value: function importDataAsJson(files) {
-            var _this3 = this;
+            var _this4 = this;
 
             return new Promise(function (resolve, reject) {
               var file = files[0];
@@ -1729,10 +1831,11 @@
                 var lines = e.target.result;
                 var res = JSON.parse(lines); // console.log('got json file parsed: res = ', JSON.stringify(res, null, 2));
 
-                _this3.students = res["students"];
-                _this3.feedbacks = res["feedbacks"];
-                _this3.assignmentNameFromJSONFile = res["assignmentName"];
-                console.log('assignmentNameFromfile = ', _this3.assignmentNameFromJSONFile);
+                _this4.students = res["students"];
+                _this4.feedbacks = res["feedbacks"];
+                _this4.assignmentNameFromJSONFile = res["assignmentName"];
+                _this4.maxScore = _this4.students[0].maxGrade;
+                _this4.correctFile = true;
                 resolve();
               };
 
@@ -1748,6 +1851,11 @@
           key: "getFeedbacks",
           value: function getFeedbacks() {
             return this.feedbacks;
+          }
+        }, {
+          key: "getAssignmentName",
+          value: function getAssignmentName() {
+            return this.assignmentNameFromJSONFile;
           }
         }, {
           key: "feedbackCreate",

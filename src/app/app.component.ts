@@ -41,6 +41,21 @@ export class FeedbackRow {
     selected: boolean;
 }
 
+// These two enums are for sorting student info.
+enum SortColumn {
+  ID,
+  NAME,
+  EMAIL,
+  TIMESTAMP,
+  GRADE,
+  FEEDBACK,
+};
+
+enum SortDir {
+  ASC,
+  DESC,
+};
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -69,17 +84,19 @@ export class AppComponent {
   isRowSelected: boolean =  false;
   previousRow: number = 2;
   selectedUser: Array<string>[] = [];
-  studentRow: string[] = ['i', 'name', 'email', 'timestamp', 'grade', 'feedback'];
 
-  csvRecords: StudentInfo[];
+  students: StudentInfo[];
   feedbackCount: HomeworkFeedback[] = [];
   feedbackStrings: string[] = [];
   header: boolean = false;
 
   feedbackRows: Array<FeedbackRow> = [];
 
-  //disable check boxes when no csv is imported
+  // disable check boxes when no csv is imported
   isCheckDisabled: boolean = true;
+
+  private studentsSortedOn = SortColumn.ID;
+  private studentsSortedAscOrDsc = SortDir.ASC;
 
   constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
     const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
@@ -133,7 +150,7 @@ export class AppComponent {
     // display warning if student table is not empty
     // console.log(this.csvRecords);
     // console.log(this.csvRecords != undefined);
-    if (this.csvRecords != undefined) {
+    if (this.students !== undefined) {
       if (confirm("Are you sure you want to upload another CSV file? Your current work will be deleted!")) {
         // do nothing
         console.log("User pressed Yes!");
@@ -151,7 +168,9 @@ export class AppComponent {
       result => {
         if (result instanceof Array) {
           this.feedbackService.parseCSV(result);
-          this.csvRecords = this.feedbackService.getStudents();
+          this.students = this.feedbackService.getStudents();
+          this.studentsSortedAscOrDsc = SortDir.ASC;
+          this.studentsSortedOn = SortColumn.ID;
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
             // select and highlight first student
@@ -172,7 +191,7 @@ export class AppComponent {
         } else {
           // handle empty CSV
           this.maxScore = null;
-          this.csvRecords = [];
+          this.students = [];
           console.log('Error', result);
         }
       }
@@ -182,7 +201,9 @@ export class AppComponent {
   async importJsonFileListener($event: any) {
     await this.feedbackService.importDataAsJson($event.srcElement.files);
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-    this.csvRecords = this.feedbackService.getStudents();
+    this.students = this.feedbackService.getStudents();
+    this.studentsSortedAscOrDsc = SortDir.ASC;
+    this.studentsSortedOn = SortColumn.ID;
     this.validFile = true;
     this.currentStudentIndex = -1;
     this.maxScore = this.feedbackService.maxScore;
@@ -203,7 +224,7 @@ export class AppComponent {
     // no-op
   }
 
-  highlightRow(row:number) {
+  highlightRow(row: number) {
     // add 'selected' class to tr element
     const trs = document.querySelectorAll("tr.csv-data");
     if (! this.isRowSelected) {
@@ -215,10 +236,10 @@ export class AppComponent {
     this.previousRow = row;
   }
 
-  rowSelected(index:number) {
+  rowSelected(index: number) {
     this.currentStudentIndex = index;
-    this.currentStudentName = this.csvRecords[index].fullName;
-    this.maxScore = this.csvRecords[0].maxGrade;
+    this.currentStudentName = this.students[index].fullName;
+    this.maxScore = this.students[0].maxGrade;
     // code to check boxes off when on a certain student
     this.updateCheckboxState();
     // console.log(this.csvRecords);
@@ -228,11 +249,11 @@ export class AppComponent {
     if (this.currentStudentIndex === -1) {
       return;
     }
-    console.log("Update Check Boxes");
-    console.log('student feedbackBoolean array = ', this.csvRecords[this.currentStudentIndex].feedbackBoolean);
-    for (let i = 0; i < this.csvRecords[this.currentStudentIndex].feedbackBoolean.length; i++) {
+    // console.log("Update Check Boxes");
+    // console.log('student feedbackBoolean array = ', this.students[this.currentStudentIndex].feedbackBoolean);
+    for (let i = 0; i < this.students[this.currentStudentIndex].feedbackBoolean.length; i++) {
       let checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
-      if (this.csvRecords[this.currentStudentIndex].feedbackBoolean[i]) {
+      if (this.students[this.currentStudentIndex].feedbackBoolean[i]) {
         checkbox.checked = true;
       } else {
         checkbox.checked = false;
@@ -240,11 +261,11 @@ export class AppComponent {
     }
   }
 
-  studentParser(incriment: number): void {
-    if (this.currentStudentIndex === 0 && incriment === -1 || this.currentStudentIndex === this.csvRecords.length-1 && incriment === 1) {
+  studentParser(increment: number): void {
+    if (this.currentStudentIndex === 0 && increment === -1 || this.currentStudentIndex === this.students.length-1 && increment === 1) {
       return
     }
-    this.currentStudentIndex += incriment;
+    this.currentStudentIndex += increment;
     this.rowSelected(this.currentStudentIndex);
     this.highlightRow(this.currentStudentIndex);
     this.validFile = this.feedbackService.correctFile;
@@ -269,7 +290,7 @@ export class AppComponent {
 
   deleteRow(index: number) {
     // add row so there will never be 0 rows
-    if (this.feedbackRows.length == 1) {
+    if (this.feedbackRows.length === 1) {
       this.addRow();
     }
     this.feedbackRows.splice(index, 1);
@@ -295,7 +316,7 @@ export class AppComponent {
   }
 
   onSelectedChange(newValue: boolean, feedbackIndex: number) {
-    if (this.currentStudentIndex == 0) {
+    if (this.currentStudentIndex === 0) {
       this.highlightRow(this.currentStudentIndex);
     }
 
@@ -334,6 +355,77 @@ export class AppComponent {
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
     console.log(this.feedbackCount);
     this.updateSeries();
+  }
+
+  sortOnName() {
+    if (this.studentsSortedOn !== SortColumn.NAME) {
+      this.studentsSortedOn = SortColumn.NAME;
+      this.studentsSortedAscOrDsc = SortDir.ASC;
+    } else {
+      // already sorted on this column, so switch direction
+      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+    }
+    this.students = this.students.sort((s1, s2) => {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ?
+        s1.fullName.localeCompare(s2.fullName) : s2.fullName.localeCompare(s1.fullName);
+    });
+  }
+
+  sortOnEmail() {
+    if (this.studentsSortedOn !== SortColumn.EMAIL) {
+      this.studentsSortedOn = SortColumn.EMAIL;
+      this.studentsSortedAscOrDsc = SortDir.ASC;
+    } else {
+      // already sorted on this column, so switch direction
+      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+    }
+    this.students = this.students.sort((s1, s2) => {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ?
+        s1.email.localeCompare(s2.email) : s2.email.localeCompare(s1.email);
+    });
+  }
+
+  sortOnTimestamp() {
+    if (this.studentsSortedOn !== SortColumn.TIMESTAMP) {
+      this.studentsSortedOn = SortColumn.TIMESTAMP;
+      this.studentsSortedAscOrDsc = SortDir.ASC;
+    }else {
+      // already sorted on this column, so switch direction
+      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+    }
+    this.students = this.students.sort((s1, s2) => {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ?
+        s1.gradeLastModified.localeCompare(s2.gradeLastModified) : s2.gradeLastModified.localeCompare(s1.gradeLastModified);
+    });
+  }
+
+  sortOnGrade() {
+    if (this.studentsSortedOn !== SortColumn.GRADE) {
+      this.studentsSortedOn = SortColumn.GRADE;
+      this.studentsSortedAscOrDsc = SortDir.ASC;
+    } else {
+      // already sorted on this column, so switch direction
+      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+    }
+    this.students = this.students.sort((s1, s2) => {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ?
+        s1.grade.localeCompare(s2.grade) : s2.grade.localeCompare(s1.grade);
+    });
+  }
+
+  sortOnFeedback() {
+    if (this.studentsSortedOn !== SortColumn.FEEDBACK) {
+      this.studentsSortedOn = SortColumn.FEEDBACK;
+      this.studentsSortedAscOrDsc = SortDir.ASC;
+    } else {
+      // already sorted on this column, so switch direction
+      this.studentsSortedAscOrDsc = this.studentsSortedAscOrDsc === SortDir.ASC ? SortDir.DESC : SortDir.ASC;
+    }
+    this.students = this.students.sort((s1, s2) => {
+      return this.studentsSortedAscOrDsc === SortDir.ASC ?
+        this.feedbackStrings[s1.num].localeCompare(this.feedbackStrings[s2.num]) :
+        this.feedbackStrings[s2.num].localeCompare(this.feedbackStrings[s1.num]);
+    });
   }
 
   // To Do: Delete Later! Useful for Debugging!

@@ -195,24 +195,23 @@
         <table class="csvTable">
             <thead *ngIf="validFile">
                 <tr>
-                    <th class="narrow csv-table-head">#</th>
-                    <th class="narrow csv-table-head">Name</th>
-                    <th class="narrow csv-table-head">Email</th>
-                    <th class="narrow csv-table-head">Timestamp</th>
-                    <th class="narrow csv-table-head">Grade</th>
-                    <th class="wide csv-table-head">Feedback</th>
+                    <!-- <th class="narrow csv-table-head">#</th> -->
+                    <th class="narrow csv-table-head" (click)="sortOnName()">Name</th>
+                    <th class="narrow csv-table-head" (click)="sortOnEmail()">Email</th>
+                    <th class="narrow csv-table-head" (click)="sortOnTimestamp()">Timestamp</th>
+                    <th class="narrow csv-table-head" (click)="sortOnGrade()">Grade</th>
+                    <th class="wide csv-table-head"   (click)="sortOnFeedback()">Feedback</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="csv-data" *ngFor="let i = index; let csvData of csvRecords;"
-                    (click)="rowSelected(i)" (click)="highlightRow(i)"
-                >
-                    <td class="narrow">{{i+1}}</td>
-                    <td class="narrow">{{csvData.fullName}}</td>
-                    <td class="narrow">{{csvData.email}}</td>
-                    <td class="narrow">{{csvData.gradeLastModified}}</td>
-                    <td>{{csvData.grade}}</td>
-                    <td class="wide" id="feedback-column">{{feedbackStrings[i]}}</td>
+                <tr class="csv-data" *ngFor="let i = index; let stud of students;"
+                    (click)="rowSelected(i)" (click)="highlightRow(i)">
+                    <!-- <td class="narrow">{{i+1}}</td> -->
+                    <td class="narrow">{{stud.fullName}}</td>
+                    <td class="narrow">{{stud.email}}</td>
+                    <td class="narrow">{{stud.gradeLastModified}}</td>
+                    <td>{{stud.grade}}</td>
+                    <td class="wide" id="feedback-column">{{feedbackStrings[stud.num]}}</td>
                 </tr>
             </tbody>
         </table>

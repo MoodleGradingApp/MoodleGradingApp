@@ -4,6 +4,7 @@ import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
+  num: number,        // index of this record.
   email: string,
   fullName: string,
   grade: string,
@@ -167,6 +168,7 @@ export class FeedbackService {
     for (let i = 0; i < csvRecords.length; i++) {
       // initialize each student object
       const newStudent: StudentInfo = {
+        num: i,
         identifier: csvRecords[i]["Identifier"],
         fullName: csvRecords[i]["Full name"],
         email: csvRecords[i]["Email address"].split("@", 1)[0],  // only the username part
@@ -194,9 +196,6 @@ export class FeedbackService {
   clearFeedbacks() {
     this.feedbacks = [];
     this.feedbackCounts = [];
-  }
-
-  sortStudentsOnEmail(ascending: boolean) {
   }
 
   private cleanUpAssignmentTitle(assignmentName: string): string {
