@@ -39,7 +39,7 @@ export class FeedbackService {
   public correctFile: boolean;
   public maxScore: string;
 
-  parseFile(fileName: any) : Observable<any[] | NgxCSVParserError | string> {
+  parseFile(fileName: any): Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
     if (fileName[0]["size"] > 3) {
       this.correctFile = true;
@@ -123,26 +123,26 @@ export class FeedbackService {
 
     // Build and add lines to csv_file
     for (let i = 0; i < my_data.length; i++) {
-        let line = '';
-        for (let index in my_data[i]) {
-          if (line !== '') {
-            line += ','   // do comma-separation
-          }
-          if (index === 'gradeLastModified' || index === 'submissionLastModified') {
-            line += '"' + my_data[i][index] + '"'
-          } else if (index == 'feedbackBoolean') {
-            let feedbackString = this.createCSVFeedbackString(my_data[i][index])
-            // wrap each field in double quotes
-            line += '"' + feedbackString + '"'
-            // console.log("Return from function:" + my_data[i][index])
-          }
-          else {
-            // console.log('mydata[i][index] = ', my_data[i][index])
-            line += my_data[i][index];
-          }
-
+      let line = '';
+      for (let index in my_data[i]) {
+        if (line !== '') {
+          line += ','   // do comma-separation
         }
-        csv_file += line + '\r\n';
+        if (index === 'gradeLastModified' || index === 'submissionLastModified') {
+          line += '"' + my_data[i][index] + '"'
+        } else if (index == 'feedbackBoolean') {
+          let feedbackString = this.createCSVFeedbackString(my_data[i][index])
+          // wrap each field in double quotes
+          line += '"' + feedbackString + '"'
+          // console.log("Return from function:" + my_data[i][index])
+        }
+        else {
+          // console.log('mydata[i][index] = ', my_data[i][index])
+          line += my_data[i][index];
+        }
+
+      }
+      csv_file += line + '\r\n';
     }
 
     // End of file
@@ -312,7 +312,6 @@ export class FeedbackService {
 
   feedbackApply(feedbackIndex: number, studentIndex: number): void {
     this.students[studentIndex].feedbackBoolean[feedbackIndex] = true;
-    // update grade
     this.gradeUpdate(studentIndex);
   }
 
@@ -347,7 +346,7 @@ export class FeedbackService {
     }
   }
 
-  clearGrade(studentIndex:number): void {
+  clearGrade(studentIndex: number): void {
     this.students[studentIndex].grade = "";
     // set all boolean feedback to false
     for (let n = 0; n < this.feedbacks.length; n++) {
@@ -371,6 +370,21 @@ export class FeedbackService {
     }
     return res;
   }
+
+  getFeedbackString(studentIdx: number): string {
+    let strs = [];
+    for (let n = 0; n < this.feedbacks.length; n++) {
+      if (this.students[studentIdx].feedbackBoolean[n]) {
+        strs.push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
+      }
+    }
+    return strs.join(', ');
+  }
+
+  getGrade(studentIdx: number): string {
+    return this.students[studentIdx].grade;
+  }
+
 
   updateChartData(): Array<number> {
     let chartData: Array<number> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -423,7 +437,8 @@ export class FeedbackService {
     // count the number of times each feedback is applied
     // the deduction value is the count vlaue
 
-    this.feedbackCounts = []
+    this.feedbackCounts = [];
+    console.log("feedback lengths = ", this.feedbacks.length)
 
     for (let n = 0; n < this.feedbacks.length; n++) {
       if (this.feedbacks[n].feedback != "") {
@@ -458,7 +473,7 @@ export class FeedbackService {
   updateMinMaxStats(): Array<number> {
     let min: number = 0;
     let max: number = 0;
-    let arrayGrades: Array<number> =[];
+    let arrayGrades: Array<number> = [];
 
     for (let i = 0; i < this.students.length; i++) {
       if (this.students[i].grade != "") {

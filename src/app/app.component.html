@@ -8,7 +8,10 @@
 
 
 <div class="panel panel-default hide-outline" id="master-panel">
-    <p>Developed by: Emily Costa & Michael Sisko<br>Advised by: Victor Norman</p>
+    <p>
+        Developed by: Emily Costa & Michael Sisko   <span class="demo-text">Version 1.1.1</span>
+        <br>Advised by: Victor Norman
+    </p>
     <h1 class="title">
         Grading Assistant
         <span class="demo-text"><a href="assets/demo_full.mp4">See demo</a></span>
@@ -33,6 +36,9 @@
                         </div>
                         <div id="max-pts">
                             <label for="max-pts">Max Points: {{maxScore}}</label>
+                        </div>
+                        <div>
+                            Sel Stud Row Idx: {{selectedStudRowIdx}}
                         </div>
                     </div>
                     <div class="panel panel-default hide-outline tight btn-set">
@@ -101,7 +107,7 @@
                                             [(ngModel)]="row.selected"
                                             (ngModelChange)="onSelectedChange($event, i)"
                                             type="checkbox"
-                                            [attr.disabled]="isCheckDisabled ? true : null"/>
+                                            [attr.disabled]="isApplyCheckBoxDisabled(i) ? true : null"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -222,12 +228,11 @@
             <tbody>
                 <tr class="csv-data" *ngFor="let i = index; let stud of students;"
                     (click)="rowSelected(i)" (click)="highlightRow(i)">
-                    <!-- <td class="narrow">{{i+1}}</td> -->
                     <td class="narrow">{{stud.fullName}}</td>
                     <td class="narrow">{{stud.email}}</td>
                     <td class="narrow">{{stud.gradeLastModified}}</td>
                     <td>{{stud.grade}}</td>
-                    <td class="wide" id="feedback-column">{{feedbackStrings[stud.num]}}</td>
+                    <td class="wide" id="feedback-column">{{stud.feedbackStr}}</td>
                 </tr>
             </tbody>
         </table>

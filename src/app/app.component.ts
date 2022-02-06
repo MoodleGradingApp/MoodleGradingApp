@@ -35,10 +35,14 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
 };
 
-export class FeedbackRow {
-    feedback: string;
-    deduction: number;
-    selected: boolean;
+export interface FeedbackRow {
+  feedback: string;
+  deduction: number;
+  selected: boolean;
+}
+
+interface StudentInfoPlusFeedback extends StudentInfo {
+  feedbackStr: string;
 }
 
 // These two enums are for sorting student info.
@@ -80,12 +84,12 @@ export class AppComponent {
 
   validFile: boolean = true;
   currentStudentName: string;
-  currentStudentIndex: number = -1;
-  isRowSelected: boolean =  false;
-  previousRow: number = 2;
+  selectedRowEmailAddr: string;
+  selectedStudRowIdx: number = -1;
+  isRowSelected: boolean = false;
   selectedUser: Array<string>[] = [];
 
-  students: StudentInfo[];
+  students: StudentInfoPlusFeedback[];
   feedbackCount: HomeworkFeedback[] = [];
   feedbackStrings: string[] = [];
   header: boolean = false;
@@ -93,7 +97,7 @@ export class AppComponent {
   feedbackRows: Array<FeedbackRow> = [];
 
   // disable check boxes when no csv is imported
-  isCheckDisabled: boolean = true;
+  isCheckDisabled = true;
 
   studentsSortedOn = SortColumn.ID;
   studentsSortedAscOrDsc = SortDir.ASC;
@@ -131,7 +135,7 @@ export class AppComponent {
           offsetY: -10,
           offsetX: -20,
         },
-        categories: ["0-9", "10-19",  "20-29",  "30-39",  "40-49",  "50-59",  "60-69",  "70-79", "80-89", "90-100"]
+        categories: ["0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-69", "70-79", "80-89", "90-100"]
       },
       states: {
         hover: {
@@ -166,18 +170,20 @@ export class AppComponent {
       result => {
         if (result instanceof Array) {
           this.feedbackService.parseCSV(result);
-          this.students = this.feedbackService.getStudents();
+          this.students = this.feedbackService.getStudents().map(s => {
+            return { ...s, feedbackStr: '' };
+          });
           this.studentsSortedAscOrDsc = SortDir.ASC;
           this.studentsSortedOn = SortColumn.ID;
           this.validFile = this.feedbackService.correctFile;
           if (this.validFile) {
             // select and highlight first student
-            this.currentStudentIndex = 0;
+            // this.selectedStudRowIdx = 0;
             this.maxScore = this.feedbackService.maxScore;
             // get feedback strings to display
             this.feedbackStrings = this.feedbackService.getFeedbackStrings();
             // enable checkboxes
-            this.isCheckDisabled = null;
+            this.isCheckDisabled = false;
             // uncheck check boxes
             this.updateCheckboxState();
             // reset chart data
@@ -199,11 +205,13 @@ export class AppComponent {
   async importJsonFileListener($event: any) {
     await this.feedbackService.importDataAsJson($event.srcElement.files);
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-    this.students = this.feedbackService.getStudents();
+    this.students = this.feedbackService.getStudents().map(s => {
+      return { ...s, feedbackStr: '' };
+    });
     this.studentsSortedAscOrDsc = SortDir.ASC;
     this.studentsSortedOn = SortColumn.ID;
     this.validFile = true;
-    this.currentStudentIndex = -1;
+    this.selectedStudRowIdx = -1;
     this.maxScore = this.feedbackService.maxScore;
     this.isCheckDisabled = null;
 
@@ -211,9 +219,11 @@ export class AppComponent {
     const feedbackData: HomeworkFeedback[] = this.feedbackService.getFeedbacks();
     this.feedbackRows = [];
     feedbackData.forEach(row => {
-      this.feedbackRows.push({ feedback: row.feedback,
-                               deduction: row.deduction,
-                               selected: false });
+      this.feedbackRows.push({
+        feedback: row.feedback,
+        deduction: row.deduction,
+        selected: false
+      });
     });
     this.assignmentName = this.feedbackService.getAssignmentName();
   }
@@ -223,35 +233,45 @@ export class AppComponent {
   }
 
   highlightRow(row: number) {
+    // remove old highlight
+    this.unhighlightRow();
+
+    // console.log('highlightRow, row = ', row);
     // add 'selected' class to tr element
     const trs = document.querySelectorAll("tr.csv-data");
-    if (! this.isRowSelected) {
-      this.isRowSelected = true;
-    } else {
-      trs[this.previousRow].classList.remove("selected");
-    }
     trs[row].classList.add("selected");
-    this.previousRow = row;
+    for (let i = 0; i < row; i++) {
+      trs[i].id = `${i}`;
+    }
+  }
+
+  unhighlightRow() {
+    const elem = document.querySelector("tr.csv-data.selected");
+    if (elem) {
+      elem.classList.remove("selected");
+    }
   }
 
   rowSelected(index: number) {
-    this.currentStudentIndex = index;
+    this.selectedStudRowIdx = index;
     this.currentStudentName = this.students[index].fullName;
+    // Save this next thing so that when we sort, we can find the selected row again.
+    // The email should be unique.
+    this.selectedRowEmailAddr = this.students[index].email;
     this.maxScore = this.students[0].maxGrade;
     // code to check boxes off when on a certain student
     this.updateCheckboxState();
-    // console.log(this.csvRecords);
   }
 
   updateCheckboxState() {
-    if (this.currentStudentIndex === -1) {
+    if (this.selectedStudRowIdx === -1) {
       return;
     }
     // console.log("Update Check Boxes");
     // console.log('student feedbackBoolean array = ', this.students[this.currentStudentIndex].feedbackBoolean);
-    for (let i = 0; i < this.students[this.currentStudentIndex].feedbackBoolean.length; i++) {
+    for (let i = 0; i < this.students[this.selectedStudRowIdx].feedbackBoolean.length; i++) {
       let checkbox = document.getElementById("checkbox" + i.toString()) as HTMLInputElement;
-      if (this.students[this.currentStudentIndex].feedbackBoolean[i]) {
+      if (this.students[this.selectedStudRowIdx].feedbackBoolean[i]) {
         checkbox.checked = true;
       } else {
         checkbox.checked = false;
@@ -259,28 +279,28 @@ export class AppComponent {
     }
   }
 
-  studentParser(increment: number): void {
-    if (this.currentStudentIndex === 0 && increment === -1 || this.currentStudentIndex === this.students.length-1 && increment === 1) {
+  private changeCurrentStudentSelection(increment: number): void {
+    if (this.selectedStudRowIdx === 0 && increment === -1 || this.selectedStudRowIdx === this.students.length - 1 && increment === 1) {
       return
     }
-    this.currentStudentIndex += increment;
-    this.rowSelected(this.currentStudentIndex);
-    this.highlightRow(this.currentStudentIndex);
+    this.selectedStudRowIdx += increment;
+    this.rowSelected(this.selectedStudRowIdx);
+    this.highlightRow(this.selectedStudRowIdx);
     this.validFile = this.feedbackService.correctFile;
   }
 
   nextStudent(): void {
-    this.studentParser(1);
+    this.changeCurrentStudentSelection(1);
   }
 
   previousStudent(): void {
-    if (this.currentStudentIndex > 0) {
-      this.studentParser(-1);
+    if (this.selectedStudRowIdx > 0) {
+      this.changeCurrentStudentSelection(-1);
     }
   }
 
   addEmptyFeedbackRow(): void {
-    const newRow: FeedbackRow = {feedback: "", deduction: 0, selected: false};
+    const newRow: FeedbackRow = { feedback: "", deduction: 0, selected: false };
     this.feedbackRows.push(newRow);
     this.feedbackService.feedbackCreate("", 0);
     // console.log(this.feedbackRows);
@@ -296,38 +316,61 @@ export class AppComponent {
 
     // update students' feedback string display
     this.updateCheckboxState();
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateFeedbackStrings();
     this.updateSeries();
   }
 
+  isApplyCheckBoxDisabled(index: number): boolean {
+    if (this.isCheckDisabled) {  // all checkboxes are disabled.
+      return true;
+    }
+    // if no feedback string, you can't apply it to a student.
+    return this.feedbackRows[index].feedback === "";
+  }
+
   onFeedbackChange(newValue: string, index: number) {
+    this.feedbackRows[index].feedback = newValue;
+
     this.feedbackService.feedbackStringUpdate(index, newValue);
+
     // update students' feedback string display
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateFeedbackStrings();
     this.updateSeries();
+  }
+
+  updateFeedbackStrings() {   // and update grades
+    for (let i = 0; i < this.students.length; i++) {
+      this.students[i].feedbackStr = this.feedbackService.getFeedbackString(this.students[i].num);
+      this.students[i].grade = this.feedbackService.getGrade(this.students[i].num);
+    }
   }
 
   onDeductionChange(newValue: number, index: number) {
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateFeedbackStrings();
     this.updateSeries();
   }
 
-  onSelectedChange(newValue: boolean, feedbackIndex: number) {
-    if (this.currentStudentIndex === 0) {
-      this.highlightRow(this.currentStudentIndex);
-    }
+  onSelectedChange(wasChecked: boolean, feedbackIndex: number) {
+    // console.log("onSelChange: feedbackIdx = ", feedbackIndex, " currentStudIdx = ", this.selectedStudRowIdx);
 
-    if (this.currentStudentIndex >= 0) {
-      if (newValue === true) {
-        this.feedbackService.feedbackApply(feedbackIndex, this.currentStudentIndex);
-      } else {
-        this.feedbackService.feedbackUnapply(feedbackIndex, this.currentStudentIndex);
-      }
-      // update students' feedback string display
-      this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-      this.updateSeries();
+    // if (this.currentStudentIndex === 0) {
+    //   this.highlightRow(this.currentStudentIndex);
+    // }
+
+    if (this.selectedStudRowIdx === -1) {
+      return;
     }
+    const currStud = this.students[this.selectedStudRowIdx];
+    if (wasChecked) {
+      this.feedbackService.feedbackApply(feedbackIndex, currStud.num);
+    } else {
+      this.feedbackService.feedbackUnapply(feedbackIndex, currStud.num);
+    }
+    currStud.feedbackStr = this.feedbackService.getFeedbackString(currStud.num);
+    currStud.grade = this.feedbackService.getGrade(currStud.num);
+
+    this.updateSeries();
   }
 
   saveProgress() {
@@ -335,23 +378,20 @@ export class AppComponent {
   }
 
   perfectScore() {
-    if (this.currentStudentIndex >= 0) {
-      this.feedbackService.perfectGrade(this.currentStudentIndex);
+    if (this.selectedStudRowIdx >= 0) {
+      this.feedbackService.perfectGrade(this.students[this.selectedStudRowIdx].num);
     }
     this.updateCheckboxState();
-    // update students' feedback string display
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+    this.updateFeedbackStrings();
     this.updateSeries();
   }
 
   clearScore() {
-    if (this.currentStudentIndex >= 0) {
-      this.feedbackService.clearGrade(this.currentStudentIndex);
+    if (this.selectedStudRowIdx >= 0) {
+      this.feedbackService.clearGrade(this.students[this.selectedStudRowIdx].num);
     }
     this.updateCheckboxState();
-    // update students' feedback string display
-    this.feedbackStrings = this.feedbackService.getFeedbackStrings();
-    console.log(this.feedbackCount);
+    this.updateFeedbackStrings();
     this.updateSeries();
   }
 
@@ -371,6 +411,8 @@ export class AppComponent {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.fullName.localeCompare(s2.fullName) : s2.fullName.localeCompare(s1.fullName);
     });
+    // this.selectedStudRowIdx = -1;
+    this.findCurrentRow();
   }
 
   sortOnEmail() {
@@ -379,6 +421,8 @@ export class AppComponent {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.email.localeCompare(s2.email) : s2.email.localeCompare(s1.email);
     });
+    // this.selectedStudRowIdx = -1;
+    this.findCurrentRow();
   }
 
   sortOnTimestamp() {
@@ -388,6 +432,8 @@ export class AppComponent {
         s1.gradeLastModified.localeCompare(s2.gradeLastModified) :
         s2.gradeLastModified.localeCompare(s1.gradeLastModified);
     });
+    // this.selectedStudRowIdx = -1;
+    this.findCurrentRow();
   }
 
   sortOnGrade() {
@@ -396,6 +442,8 @@ export class AppComponent {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.grade.localeCompare(s2.grade) : s2.grade.localeCompare(s1.grade);
     });
+    // this.selectedStudRowIdx = -1;
+    this.findCurrentRow();
   }
 
   sortOnFeedback() {
@@ -405,6 +453,27 @@ export class AppComponent {
         this.feedbackStrings[s1.num].localeCompare(this.feedbackStrings[s2.num]) :
         this.feedbackStrings[s2.num].localeCompare(this.feedbackStrings[s1.num]);
     });
+    // this.selectedStudRowIdx = -1;
+    this.findCurrentRow();
+  }
+
+  // After sorting, the "current" row is moved. The GUI will still display it as highlighted.
+  // We need to rediscover what row it is and set selectedStudRowIdx to that row.
+  // We recorded the email address of the current row, because the email should be a unique
+  // value. So, we'll search for that again in the students array.
+  findCurrentRow() {
+    // Wait for the DOM to update after the sort, then find the row that was selected.
+    setTimeout(() => {
+      for (let i = 0; i < this.students.length; i++) {
+        if (this.students[i].email === this.selectedRowEmailAddr) {
+          // console.log(`found email ${this.selectedRowEmailAddr} at index ${i}`);
+          // this.selectedStudRowIdx = i;
+          this.rowSelected(i);
+          this.highlightRow(i);
+          return;
+        }
+      }
+    }, 500);
   }
 
   updateSeries() {
