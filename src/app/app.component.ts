@@ -180,8 +180,7 @@ export class AppComponent {
             // select and highlight first student
             // this.selectedStudRowIdx = 0;
             this.maxScore = this.feedbackService.maxScore;
-            // get feedback strings to display
-            this.feedbackStrings = this.feedbackService.getFeedbackStrings();
+            this.feedbackStrings = [];
             // enable checkboxes
             this.isCheckDisabled = false;
             // uncheck check boxes
@@ -206,7 +205,10 @@ export class AppComponent {
     await this.feedbackService.importDataAsJson($event.srcElement.files);
     this.feedbackStrings = this.feedbackService.getFeedbackStrings();
     this.students = this.feedbackService.getStudents().map(s => {
-      return { ...s, feedbackStr: '' };
+      return {
+        ...s,
+        feedbackStr: this.feedbackService.getFeedbackString(s.num),
+       };
     });
     this.studentsSortedAscOrDsc = SortDir.ASC;
     this.studentsSortedOn = SortColumn.ID;
@@ -226,6 +228,10 @@ export class AppComponent {
       });
     });
     this.assignmentName = this.feedbackService.getAssignmentName();
+
+    // reset chart data
+    this.updateSeries();
+
   }
 
   ngOnInit(): void {
@@ -411,7 +417,6 @@ export class AppComponent {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.fullName.localeCompare(s2.fullName) : s2.fullName.localeCompare(s1.fullName);
     });
-    // this.selectedStudRowIdx = -1;
     this.findCurrentRow();
   }
 
@@ -421,7 +426,6 @@ export class AppComponent {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
         s1.email.localeCompare(s2.email) : s2.email.localeCompare(s1.email);
     });
-    // this.selectedStudRowIdx = -1;
     this.findCurrentRow();
   }
 
@@ -432,7 +436,6 @@ export class AppComponent {
         s1.gradeLastModified.localeCompare(s2.gradeLastModified) :
         s2.gradeLastModified.localeCompare(s1.gradeLastModified);
     });
-    // this.selectedStudRowIdx = -1;
     this.findCurrentRow();
   }
 
@@ -440,9 +443,8 @@ export class AppComponent {
     this.setSortingState(SortColumn.GRADE);
     this.students = this.students.sort((s1, s2) => {
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
-        s1.grade.localeCompare(s2.grade) : s2.grade.localeCompare(s1.grade);
+        parseFloat(s1.grade) - parseFloat(s2.grade) : parseFloat(s2.grade) - parseFloat(s1.grade)
     });
-    // this.selectedStudRowIdx = -1;
     this.findCurrentRow();
   }
 
@@ -453,7 +455,6 @@ export class AppComponent {
         this.feedbackStrings[s1.num].localeCompare(this.feedbackStrings[s2.num]) :
         this.feedbackStrings[s2.num].localeCompare(this.feedbackStrings[s1.num]);
     });
-    // this.selectedStudRowIdx = -1;
     this.findCurrentRow();
   }
 
@@ -467,7 +468,6 @@ export class AppComponent {
       for (let i = 0; i < this.students.length; i++) {
         if (this.students[i].email === this.selectedRowEmailAddr) {
           // console.log(`found email ${this.selectedRowEmailAddr} at index ${i}`);
-          // this.selectedStudRowIdx = i;
           this.rowSelected(i);
           this.highlightRow(i);
           return;
