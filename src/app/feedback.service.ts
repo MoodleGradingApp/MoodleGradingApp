@@ -438,7 +438,7 @@ export class FeedbackService {
     // the deduction value is the count vlaue
 
     this.feedbackCounts = [];
-    console.log("feedback lengths = ", this.feedbacks.length)
+    // console.log("feedback lengths = ", this.feedbacks.length)
 
     for (let n = 0; n < this.feedbacks.length; n++) {
       if (this.feedbacks[n].feedback != "") {

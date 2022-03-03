@@ -180,6 +180,8 @@
         >Export for Moodle</button>
 
         <button type="button" id="save-btn" class="btn-primary-blue"
+                data-toggle="tooltip" data-placement="top"
+                title="Save progress to a json, so it can be reloaded later."
             (click)="saveProgress()"
         >Save Progress</button>
         <label for="jsonFileUpload" id="jsonImportBtn" class="btn-primary-blue inner-nowrap">

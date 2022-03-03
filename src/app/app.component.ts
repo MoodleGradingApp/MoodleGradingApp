@@ -442,8 +442,11 @@ export class AppComponent {
   sortOnGrade() {
     this.setSortingState(SortColumn.GRADE);
     this.students = this.students.sort((s1, s2) => {
+      // handle empty grades: treat them as 0s.
+      const s1grade = parseFloat(s1.grade) || 0;
+      const s2grade = parseFloat(s2.grade) || 0;
       return this.studentsSortedAscOrDsc === SortDir.ASC ?
-        parseFloat(s1.grade) - parseFloat(s2.grade) : parseFloat(s2.grade) - parseFloat(s1.grade)
+        s1grade - s2grade : s2grade - s1grade
     });
     this.findCurrentRow();
   }
