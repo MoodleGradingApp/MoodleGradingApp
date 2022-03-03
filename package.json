@@ -22,6 +22,8 @@
     "@angular/router": "~12.0.1",
     "@briebug/jest-schematic": "^2.1.1",
     "@ng-bootstrap/ng-bootstrap": "^9.1.1",
+    "@sentry/angular": "^6.18.1",
+    "@sentry/tracing": "^6.18.1",
     "apexcharts": "^3.29.0",
     "bootstrap": "^5.0.1",
     "dayjs": "^1.10.7",
