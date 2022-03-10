@@ -93,7 +93,7 @@ export class FeedbackService {
     const currentDateTime = dayjs().format('_YYYY-MM-DD');
 
     // Pass string into handle for data-table
-    const my_data_string = this.buildCSV(this.students);
+    const my_data_string = this.buildCSV();
 
     // Create an href element in the DOM
     let a = document.createElement("a");
@@ -110,9 +110,8 @@ export class FeedbackService {
   }
 
   // This manually constructs our CSV file string
-  private buildCSV(students: Array<StudentInfo>): string {
+  private buildCSV(): string {
     // console.log(JSON.stringify(students, null, 2));
-    let my_data = students;
     let csv_file = '';
 
     // create header row
@@ -122,23 +121,24 @@ export class FeedbackService {
     csv_file += row + '\r\n';
 
     // Build and add lines to csv_file
-    for (let i = 0; i < my_data.length; i++) {
+    for (let i = 0; i < this.students.length; i++) {
       let line = '';
-      for (let index in my_data[i]) {
+      for (let field in this.students[i]) {
         if (line !== '') {
           line += ','   // do comma-separation
         }
-        if (index === 'gradeLastModified' || index === 'submissionLastModified') {
-          line += '"' + my_data[i][index] + '"'
-        } else if (index == 'feedbackBoolean') {
-          let feedbackString = this.createCSVFeedbackString(my_data[i][index])
+        if (field === 'num') {
+          continue;
+        }
+        if (field === 'gradeLastModified' || field === 'submissionLastModified') {
+          line += '"' + this.students[i][field] + '"'
+        } else if (field == 'feedbackBoolean') {
+          let feedbackString = this.createCSVFeedbackString(this.students[i][field])
           // wrap each field in double quotes
           line += '"' + feedbackString + '"'
-          // console.log("Return from function:" + my_data[i][index])
         }
         else {
-          // console.log('mydata[i][index] = ', my_data[i][index])
-          line += my_data[i][index];
+          line += this.students[i][field];
         }
 
       }
