@@ -9,6 +9,7 @@ npm-debug.*
 *.orig.*
 web-build/
 dist/
+.angular/*
 
 # macOS
 .DS_Store
