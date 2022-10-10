@@ -8,13 +8,13 @@ export interface StudentInfo {
   email: string,          // displayed on screen
   fullName: string,       // displayed on screen
   grade: string,          // displayed on screen
-  gradeChange: string,
-  identifier: string,
+  gradeChange: string,    // not needed for moodle upload
+  identifier: string,     // required for moodle upload
   gradeLastModified: string,    // displayed on screen as Timestamp
-  submissionLastModified: string,
+  submissionLastModified: string,   // not needed for moodle upload
   maxGrade: string,       // displayed on screen
-  onlineText: string,
-  status: string,
+  onlineText: string,     // not needed for moodle upload
+  status: string,         // not needed for moodle upload
   feedbackBoolean: Array<boolean>,
 }
 
@@ -23,12 +23,23 @@ export interface HomeworkFeedback {
   deduction: number
 }
 
+interface CSVField {
+  name: string;
+  required: boolean;
+  seenInInputFile: boolean;
+  studentInfoFieldName: string;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class FeedbackService {
 
-  constructor(private ngxCsvParser: NgxCsvParser) { }
+  constructor(private ngxCsvParser: NgxCsvParser) {
+
+
+  }
 
   private students: StudentInfo[] = [];
   private feedbacks: HomeworkFeedback[] = [];
@@ -36,15 +47,18 @@ export class FeedbackService {
 
   private assignmentNameFromJSONFile = '';
 
-  public correctFile = false;
+  public wellFormattedFile = false;
   public maxScore = '';
+
+  // all seenInInputFile fields marked as false, initially.
+  private fieldsInInputFile: CSVField[] = [];
 
   parseFile(fileName: any): Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
     if (fileName[0]["size"] > 3) {
-      this.correctFile = true;
+      this.wellFormattedFile = true;
     } else {
-      this.correctFile = false;
+      this.wellFormattedFile = false;
       this.clearStudents()
       return of("File is empty");
     }
@@ -57,19 +71,18 @@ export class FeedbackService {
 
   parseCSV(csvRecords: Array<any>): void {
     // console.log('Parser Result', result);
-
-    const reqdFields = [
-      "Identifier",
-      "Email address",
-      "Feedback comments",
-      "Full name",
-      "Grade",
-      "Grade can be changed",
-      "Last modified (grade)",
-      "Last modified (submission)",
-      "Maximum Grade",
-      "Online text",
-      "Status",
+    this.fieldsInInputFile = [
+      { name: "Identifier", required: true, seenInInputFile: false, studentInfoFieldName: 'identifier' },
+      { name: "Full name", required: true, seenInInputFile: false, studentInfoFieldName: 'fullName' },
+      { name: "Email address", required: true, seenInInputFile: false, studentInfoFieldName: 'email' },
+      { name: "Status", required: false, seenInInputFile: false, studentInfoFieldName: 'status' },
+      { name: "Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'grade' },
+      { name: "Maximum Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'maxGrade' },
+      { name: "Grade can be changed", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeChange' },
+      { name: "Last modified (submission)", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
+      { name: "Online text", required: false, seenInInputFile: false, studentInfoFieldName: 'onlineText' },
+      { name: "Last modified (grade)", required: true, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
+      { name: "Feedback comments", required: true, seenInInputFile: false, studentInfoFieldName: 'feedbackBoolean' },
     ];
 
     // check headers to make sure it is a well-formed CSV file
@@ -77,21 +90,27 @@ export class FeedbackService {
     if (csvRecords[0] === undefined) {
       errorMsg = "No records in CSV file";
     } else {
-      for (const field of reqdFields) {
-        console.log('Checking field', field);
-        if (csvRecords[0][field] === undefined) {
-          errorMsg = `CSV is missing required field: ${field}`;
+      for (const field of this.fieldsInInputFile) {
+        if (field.required && csvRecords[0][field.name] === undefined) {
+          errorMsg = `CSV is missing required field: ${field.name}`;
+          console.log('Missing required field', field.name);
           break;
+        } else {
+          // mark the field as having been seen in the input
+          // file. This is so we an export with the same fields.
+          if (csvRecords[0][field.name] !== undefined) {
+            field.seenInInputFile = true;
+          }
         }
       }
     }
 
     if (errorMsg !== '') {
       console.log(errorMsg);
-      this.correctFile = false;
+      this.wellFormattedFile = false;
       this.clearStudents();
     } else {
-      this.correctFile = true;
+      this.wellFormattedFile = true;
       this.createStudentsFromCsv(csvRecords);
     }
   }
@@ -124,42 +143,49 @@ export class FeedbackService {
 
   // This manually constructs our CSV file string
   private buildCSV(): string {
-    // console.log(JSON.stringify(students, null, 2));
     let csv_file = '';
 
     // create header row
-    const row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,Last modified (submission),Online text,Last modified (grade),Feedback comments'
+    // const row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,
+    //                Last modified(submission), Online text, Last modified(grade), Feedback comments';
+    const row = this.fieldsInInputFile.filter(f => f.seenInInputFile).map(f => f.name).join(',');
+
 
     // Add row and newline + carriage-return
     csv_file += row + '\r\n';
 
+
     // Build and add lines to csv_file
     for (let i = 0; i < this.students.length; i++) {
       let line = '';
-      for (let field in this.students[i]) {
+      for (const field of this.fieldsInInputFile) {
+        // if it wasn't in the input file, skip it for the output file.
+        if (!field.seenInInputFile) {
+          continue;
+        }
         if (line !== '') {
           line += ','   // do comma-separation
         }
-        if (field === 'num') {
-          continue;
-        }
-        if (field === 'gradeLastModified' || field === 'submissionLastModified') {
-          line += '"' + this.students[i][field] + '"'
-        } else if (field == 'feedbackBoolean') {
-          let feedbackString = this.createCSVFeedbackString(this.students[i][field])
-          // wrap each field in double quotes
-          line += '"' + feedbackString + '"'
+        if (field.studentInfoFieldName === 'gradeLastModified' || field.studentInfoFieldName === 'submissionLastModified') {
+          // @ts-ignore
+          line += '"' + this.students[i][field.studentInfoFieldName] + '"';
+        } else if (field.name === 'Feedback comments') {
+          // @ts-ignore
+          const feedbackString = this.createCSVFeedbackString(this.students[i].feedbackBoolean);
+
+          // wrap in double quotes
+          line += '"' + feedbackString + '"';
         }
         else {
           // @ts-ignore
-          line += this.students[i][field];
+          line += this.students[i][field.studentInfoFieldName];
         }
 
       }
+
       csv_file += line + '\r\n';
     }
 
-    // End of file
     return csv_file;
   }
 
@@ -172,8 +198,7 @@ export class FeedbackService {
         feedbackStringArray.push("-" + this.feedbacks[n].deduction + ": " + res)
       }
     }
-    const feedbackString = feedbackStringArray.join('; ')
-    return feedbackString;
+    return feedbackStringArray.join('; ');
   }
 
   private createStudentsFromCsv(csvRecords: Array<{}>) {
@@ -257,7 +282,7 @@ export class FeedbackService {
         this.feedbacks = res["feedbacks"];
         this.assignmentNameFromJSONFile = res["assignmentName"];
         this.maxScore = this.students[0].maxGrade;
-        this.correctFile = true;
+        this.wellFormattedFile = true;
         resolve();
       };
       fr.readAsText(file);

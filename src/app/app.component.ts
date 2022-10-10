@@ -177,7 +177,7 @@ export class AppComponent {
           });
           this.studentsSortedAscOrDsc = SortDir.ASC;
           this.studentsSortedOn = SortColumn.ID;
-          this.validFile = this.feedbackService.correctFile;
+          this.validFile = this.feedbackService.wellFormattedFile;
           if (this.validFile) {
             // select and highlight first student
             // this.selectedStudRowIdx = 0;
@@ -320,7 +320,7 @@ export class AppComponent {
     this.selectedStudRowIdx += increment;
     this.rowSelected(this.selectedStudRowIdx);
     this.highlightRow(this.selectedStudRowIdx);
-    this.validFile = this.feedbackService.correctFile;
+    this.validFile = this.feedbackService.wellFormattedFile;
   }
 
   nextStudent(): void {

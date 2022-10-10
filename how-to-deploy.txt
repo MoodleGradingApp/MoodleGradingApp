@@ -5,12 +5,12 @@ ng build --configuration production
 
 cd dist
 tar cvf GradingApp.tar GradingApp
-scp GradingApp.tar cs-ssh.calvin.edu:/tmp
+scp GradingApp.tar cs-ssh.calvin.edu:~/tmp
 
-ssh to cs-ssh.calvin.edu and then cs.calvin.edu
+ssh to cs-ssh.calvin.edu and then csweb.cs.calvin.edu
 cd www/apps/
 rm -rf GradingApp   (or move it to a bak directory)
-scp cs-ssh.calvin.edu:/tmp/GradingApp.tar .
+scp cs-ssh.calvin.edu:~/tmp/GradingApp.tar .
 tar xvf GradingApp.tar
 
 cd GradingApp
