@@ -4,15 +4,15 @@ import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
 import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
-  num: number,        // index of this record.
-  email: string,
-  fullName: string,
-  grade: string,
+  num: number,            // index of this record.
+  email: string,          // displayed on screen
+  fullName: string,       // displayed on screen
+  grade: string,          // displayed on screen
   gradeChange: string,
   identifier: string,
-  gradeLastModified: string,
+  gradeLastModified: string,    // displayed on screen as Timestamp
   submissionLastModified: string,
-  maxGrade: string,
+  maxGrade: string,       // displayed on screen
   onlineText: string,
   status: string,
   feedbackBoolean: Array<boolean>,
