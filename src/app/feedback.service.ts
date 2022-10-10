@@ -335,6 +335,11 @@ export class FeedbackService {
     this.gradeUpdate(studentIndex);
   }
 
+  isFeedbackApplied(studentIndex: number, feedbackIndex: number): boolean {
+    return this.students[studentIndex].feedbackBoolean[feedbackIndex];
+
+  }
+
   gradeUpdate(studentIndex: number): void {
     let totalDeductions = 0;
     for (let n = 0; n < this.feedbacks.length; n++) {

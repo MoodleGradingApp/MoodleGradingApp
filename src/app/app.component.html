@@ -9,7 +9,7 @@
 
 <div class="panel panel-default hide-outline" id="master-panel">
     <p>
-        Developed by: Emily Costa & Michael Sisko   <span class="demo-text">Version 1.2.3</span>
+        Developed by: Emily Costa & Michael Sisko   <span class="demo-text">Version 1.3.0</span>
         <br>Advised by: Victor Norman
     </p>
     <h1 class="title">
@@ -83,7 +83,8 @@
                                             type="text"
                                             name="text"
                                             oninput='this.style.height = "";
-                                            this.style.height = this.scrollHeight + 3 + "px"'>
+                                                this.style.height = this.scrollHeight + 3 + "px"'
+                                            (focus)="onFeedbackRowFocus(i)">
                                         </textarea>
                                     </td>
                                     <td>
@@ -94,6 +95,7 @@
                                             placeholder="0"
                                             [(ngModel)]="row.deduction"
                                             (ngModelChange)="onDeductionChange($event, i)"
+                                            (focus)="onFeedbackRowFocus(i)"
                                             type="number"/>
                                     </td>
                                     <td>

@@ -270,13 +270,13 @@ export class AppComponent {
     // remove old highlight
     this.unhighlightRow();
 
-    // console.log('highlightRow, row = ', row);
     // add 'selected' class to tr element
     const trs = document.querySelectorAll("tr.csv-data");
     trs[row].classList.add("selected");
-    for (let i = 0; i < row; i++) {
-      trs[i].id = `${i}`;
-    }
+    // I don't know what this is about...
+    // for (let i = 0; i < row; i++) {
+    //   trs[i].id = `${i}`;
+    // }
   }
 
   unhighlightRow() {
@@ -363,7 +363,6 @@ export class AppComponent {
   }
 
   onFeedbackChange(newValue: string, index: number) {
-    console.log('onFeedbackChange: newValue = ', newValue);
     this.feedbackRows[index].feedback = newValue;
 
     this.feedbackService.feedbackStringUpdate(index, newValue);
@@ -384,6 +383,21 @@ export class AppComponent {
     this.feedbackService.feedbackDeductionUpdate(index, newValue);
     this.updateFeedbackStrings();
     this.updateSeries();
+  }
+
+  // When the user selects a feedback row, add a new class to the
+  // student rows that have that feedback applied to them.
+  onFeedbackRowFocus(feedbackRowIndex: number) {
+    // clear all other student row highlights.
+    const oldTrs = document.querySelectorAll("tr.csv-data.matchSelectedFeedbackRow");
+    oldTrs.forEach(tr => tr.classList.toggle("matchSelectedFeedbackRow"));
+
+    const trs = document.querySelectorAll("tr.csv-data");
+    this.students.forEach((stud: StudentInfoPlusFeedback, studentIndex: number) => {
+      if (this.feedbackService.isFeedbackApplied(studentIndex, feedbackRowIndex)) {
+        trs[studentIndex].classList.toggle("matchSelectedFeedbackRow");
+      }
+    });
   }
 
   onSelectedChange(wasChecked: boolean, feedbackIndex: number) {
