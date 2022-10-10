@@ -123,11 +123,11 @@
             </div>
             <div *ngIf="showChart" class="grade-stats">
                 <apx-chart
-                    [series]="chartOptions.series"
-                    [chart]="chartOptions.chart"
-                    [xaxis]="chartOptions.xaxis"
-                    [yaxis]="chartOptions.yaxis"
-                    [title]="chartOptions.title"
+                    [series]="chartOptions.series!"
+                    [chart]="chartOptions.chart!"
+                    [xaxis]="chartOptions.xaxis!"
+                    [yaxis]="chartOptions.yaxis!"
+                    [title]="chartOptions.title!"
                 ></apx-chart>
                 <div class="feedback-stats">
                     <h4>Feedback Count:</h4>

@@ -67,9 +67,10 @@ export enum SortDir {
 })
 
 export class AppComponent {
+  // @ts-ignore
   public feedbackArray: FormArray;
-  public maxScore: string;
-  public feedbackInputText: string;
+  public maxScore = '';
+  public feedbackInputText = '';
   public showChart: boolean = false;
   public averageScore: number = 0;
   public minScore: number = 0;
@@ -79,17 +80,17 @@ export class AppComponent {
 
   assignmentName: string = '';
 
-  @ViewChild("chart") chart: ChartComponent;
+  @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
 
   validFile: boolean = true;
-  currentStudentName: string;
-  selectedRowEmailAddr: string;
+  currentStudentName = '';
+  selectedRowEmailAddr = '';
   selectedStudRowIdx: number = -1;
   isRowSelected: boolean = false;
   selectedUser: Array<string>[] = [];
 
-  students: StudentInfoPlusFeedback[];
+  students: StudentInfoPlusFeedback[] = [];
   feedbackCount: HomeworkFeedback[] = [];
   feedbackStrings: string[] = [];
   header: boolean = false;
@@ -188,12 +189,12 @@ export class AppComponent {
             // reset chart data
             this.updateSeries();
           } else {
-            this.maxScore = null;
+            this.maxScore = '';
             console.log('Error Bad CSV');
           }
         } else {
           // handle empty CSV
-          this.maxScore = null;
+          this.maxScore = '';
           this.students = [];
           console.log('Error', result);
         }
@@ -215,7 +216,7 @@ export class AppComponent {
     this.validFile = true;
     this.selectedStudRowIdx = -1;
     this.maxScore = this.feedbackService.maxScore;
-    this.isCheckDisabled = null;
+    this.isCheckDisabled = false;
 
     // build feedbackRows
     const feedbackData: HomeworkFeedback[] = this.feedbackService.getFeedbacks();
@@ -513,6 +514,7 @@ export class AppComponent {
       "grade": SortColumn.GRADE,
       "feedback": SortColumn.FEEDBACK
     };
+    // @ts-ignore
     if (this.studentsSortedOn === nameToColumnMap[columnName]) {
       return this.studentsSortedAscOrDsc === SortDir.ASC ? "fa fa-caret-down" : "fa fa-caret-up";
     } else {

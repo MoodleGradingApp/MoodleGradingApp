@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxCsvParserModule } from 'ngx-csv-parser';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     BrowserAnimationsModule,
     FormsModule,
     NgxCsvParserModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgbModule
   ],
   providers: [
     {

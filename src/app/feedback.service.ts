@@ -36,8 +36,8 @@ export class FeedbackService {
 
   private assignmentNameFromJSONFile = '';
 
-  public correctFile: boolean;
-  public maxScore: string;
+  public correctFile = false;
+  public maxScore = '';
 
   parseFile(fileName: any): Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
@@ -58,26 +58,39 @@ export class FeedbackService {
   parseCSV(csvRecords: Array<any>): void {
     // console.log('Parser Result', result);
 
-    // check headers if correct CSV file
-    if (
-      csvRecords[0] === undefined ||
-      csvRecords[0]["Identifier"] === undefined ||
-      csvRecords[0]["Email address"] === undefined ||
-      csvRecords[0]["Feedback comments"] === undefined ||
-      csvRecords[0]["Full name"] === undefined ||
-      csvRecords[0]["Grade"] === undefined ||
-      csvRecords[0]["Grade can be changed"] === undefined ||
-      csvRecords[0]["Identifier"] === undefined ||
-      csvRecords[0]["Last modified (grade)"] === undefined ||
-      csvRecords[0]["Last modified (submission)"] === undefined ||
-      csvRecords[0]["Maximum Grade"] === undefined ||
-      csvRecords[0]["Online text"] === undefined ||
-      csvRecords[0]["Status"] === undefined) {
-      console.log("Wrong CSV File!");
+    const reqdFields = [
+      "Identifier",
+      "Email address",
+      "Feedback comments",
+      "Full name",
+      "Grade",
+      "Grade can be changed",
+      "Last modified (grade)",
+      "Last modified (submission)",
+      "Maximum Grade",
+      "Online text",
+      "Status",
+    ];
+
+    // check headers to make sure it is a well-formed CSV file
+    let errorMsg = '';
+    if (csvRecords[0] === undefined) {
+      errorMsg = "No records in CSV file";
+    } else {
+      for (const field of reqdFields) {
+        console.log('Checking field', field);
+        if (csvRecords[0][field] === undefined) {
+          errorMsg = `CSV is missing required field: ${field}`;
+          break;
+        }
+      }
+    }
+
+    if (errorMsg !== '') {
+      console.log(errorMsg);
       this.correctFile = false;
       this.clearStudents();
     } else {
-      console.log("Correct CSV File!");
       this.correctFile = true;
       this.createStudentsFromCsv(csvRecords);
     }
@@ -138,6 +151,7 @@ export class FeedbackService {
           line += '"' + feedbackString + '"'
         }
         else {
+          // @ts-ignore
           line += this.students[i][field];
         }
 
@@ -169,16 +183,17 @@ export class FeedbackService {
       // initialize each student object
       const newStudent: StudentInfo = {
         num: i,
-        identifier: csvRecords[i]["Identifier"],
-        fullName: csvRecords[i]["Full name"],
+        identifier: csvRecords[i]["Identifier" as keyof {}],
+        fullName: csvRecords[i]["Full name" as keyof {}],
+        // @ts-ignore
         email: csvRecords[i]["Email address"].split("@", 1)[0],  // only the username part
-        status: csvRecords[i]["Status"],
-        grade: csvRecords[i]["Grade"],
-        maxGrade: csvRecords[i]["Maximum Grade"],
-        gradeChange: csvRecords[i]["Grade can be changed"],
-        submissionLastModified: csvRecords[i]["Last modified (submission)"],
-        onlineText: csvRecords[i]["Online text"],
-        gradeLastModified: csvRecords[i]["Last modified (grade)"],
+        status: csvRecords[i]["Status" as keyof {}],
+        grade: csvRecords[i]["Grade" as keyof {}],
+        maxGrade: csvRecords[i]["Maximum Grade" as keyof {}],
+        gradeChange: csvRecords[i]["Grade can be changed" as keyof {}],
+        submissionLastModified: csvRecords[i]["Last modified (submission)" as keyof {}],
+        onlineText: csvRecords[i]["Online text" as keyof {}],
+        gradeLastModified: csvRecords[i]["Last modified (grade)" as keyof {}],
         // Could be that the user added multiple feedbacks before loading the csv file
         // (seems unlikely but could be done). So, we need to initialize feedbackBoolean array
         // to have false for each feedback in existence already.
@@ -235,7 +250,7 @@ export class FeedbackService {
       const file = files[0];
       const fr = new FileReader();
       fr.onload = (e) => {
-        let lines = e.target.result;
+        let lines = e.target!.result;
         const res = JSON.parse(lines as string);
         // console.log('got json file parsed: res = ', JSON.stringify(res, null, 2));
         this.students = res["students"];
