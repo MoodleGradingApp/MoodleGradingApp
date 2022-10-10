@@ -73,9 +73,9 @@
                                         </button>
                                     </td>
                                     <td>
-                                        <textarea
-                                            class="input-box"
-                                            id="feedback"
+                                        <textarea #feedback
+                                            class="input-box feedback"
+                                            id="feedback{{i}}"
                                             data-testid="feedbackInput"
                                             placeholder="Say something constructive..."
                                             [(ngModel)]="row.feedback"
@@ -88,8 +88,8 @@
                                     </td>
                                     <td>
                                         <input
-                                            class="input-box"
-                                            id="deduction"
+                                            class="input-box deduction"
+                                            id="deduction{{i}}"
                                             data-testid="deductionInput"
                                             placeholder="0"
                                             [(ngModel)]="row.deduction"

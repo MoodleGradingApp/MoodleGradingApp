@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { FeedbackService, HomeworkFeedback, StudentInfo } from './feedback.service';
@@ -82,6 +82,7 @@ export class AppComponent {
 
   @ViewChild("chart") chart: ChartComponent | undefined;
   public chartOptions: Partial<ChartOptions>;
+  @ViewChildren('feedback', { read: ElementRef }) feedbackElems: QueryList<ElementRef> | undefined;
 
   validFile: boolean = true;
   currentStudentName = '';
@@ -209,7 +210,7 @@ export class AppComponent {
       return {
         ...s,
         feedbackStr: this.feedbackService.getFeedbackString(s.num),
-       };
+      };
     });
     this.studentsSortedAscOrDsc = SortDir.ASC;
     this.studentsSortedOn = SortColumn.ID;
@@ -221,7 +222,7 @@ export class AppComponent {
     // build feedbackRows
     const feedbackData: HomeworkFeedback[] = this.feedbackService.getFeedbacks();
     this.feedbackRows = [];
-    feedbackData.forEach(row => {
+    feedbackData.forEach((row, index) => {
       this.feedbackRows.push({
         feedback: row.feedback,
         deduction: row.deduction,
@@ -237,6 +238,32 @@ export class AppComponent {
 
   ngOnInit(): void {
     // no-op
+  }
+
+
+  ngAfterViewInit() {
+    // all this is to fix the heights of the feedback text so that multiple lines are
+    // used when the user does "Load Progress"
+    if (this.feedbackElems) {
+      this.feedbackElems.changes.subscribe(children => {
+        this.numFeedbackRowsChanged(children);
+      });
+    };
+  }
+
+  // Make feedback textarea big enough to show multiline feedbacks.
+  // Have to use this kludgy setTimeout thing so that the textareas have time to
+  // compute the scrollHeight and clientHeight values. I don't like it, but it works.
+  numFeedbackRowsChanged(feedbackRows: ElementRef[]) {
+    const adjustHeight = (elem: ElementRef) => {
+      if (elem.nativeElement.scrollHeight > elem.nativeElement.clientHeight) {
+        elem.nativeElement.style.height = "";
+        elem.nativeElement.style.height = elem.nativeElement.scrollHeight + 3 + "px";
+      }
+    };
+    feedbackRows.forEach((elem) => {
+      setTimeout(() => adjustHeight(elem), 0);
+    });
   }
 
   highlightRow(row: number) {
@@ -336,6 +363,7 @@ export class AppComponent {
   }
 
   onFeedbackChange(newValue: string, index: number) {
+    console.log('onFeedbackChange: newValue = ', newValue);
     this.feedbackRows[index].feedback = newValue;
 
     this.feedbackService.feedbackStringUpdate(index, newValue);
