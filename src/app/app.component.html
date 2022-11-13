@@ -9,7 +9,7 @@
 
 <div class="panel panel-default hide-outline" id="master-panel">
     <p>
-        Developed by: Emily Costa & Michael Sisko   <span class="demo-text">Version 1.3.1</span>
+        Developed by: Emily Costa & Michael Sisko   <span class="demo-text">Version 1.4.0</span>
         <br>Advised by: Victor Norman
     </p>
     <h1 class="title">
@@ -228,7 +228,7 @@
             </thead>
             <tbody>
                 <tr class="csv-data" *ngFor="let i = index; let stud of students;"
-                    (click)="rowSelected(i)" (click)="highlightRow(i)">
+                    (click)="rowSelected(i)">
                     <td class="narrow">{{stud.fullName}}</td>
                     <td class="narrow">{{stud.email}}</td>
                     <td class="narrow">{{stud.gradeLastModified}}</td>

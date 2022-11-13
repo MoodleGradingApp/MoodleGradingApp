@@ -37,8 +37,6 @@ interface CSVField {
 export class FeedbackService {
 
   constructor(private ngxCsvParser: NgxCsvParser) {
-
-
   }
 
   private students: StudentInfo[] = [];
@@ -52,6 +50,22 @@ export class FeedbackService {
 
   // all seenInInputFile fields marked as false, initially.
   private fieldsInInputFile: CSVField[] = [];
+
+  initializeFieldsInInputFile() {
+    this.fieldsInInputFile = [
+      { name: "Identifier", required: true, seenInInputFile: false, studentInfoFieldName: 'identifier' },
+      { name: "Full name", required: true, seenInInputFile: false, studentInfoFieldName: 'fullName' },
+      { name: "Email address", required: true, seenInInputFile: false, studentInfoFieldName: 'email' },
+      { name: "Status", required: false, seenInInputFile: false, studentInfoFieldName: 'status' },
+      { name: "Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'grade' },
+      { name: "Maximum Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'maxGrade' },
+      { name: "Grade can be changed", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeChange' },
+      { name: "Last modified (submission)", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
+      { name: "Online text", required: false, seenInInputFile: false, studentInfoFieldName: 'onlineText' },
+      { name: "Last modified (grade)", required: true, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
+      { name: "Feedback comments", required: true, seenInInputFile: false, studentInfoFieldName: 'feedbackBoolean' },
+    ];
+  }
 
   parseFile(fileName: any): Observable<any[] | NgxCSVParserError | string> {
     // Check for empty CSV file
@@ -71,19 +85,7 @@ export class FeedbackService {
 
   parseCSV(csvRecords: Array<any>): void {
     // console.log('Parser Result', result);
-    this.fieldsInInputFile = [
-      { name: "Identifier", required: true, seenInInputFile: false, studentInfoFieldName: 'identifier' },
-      { name: "Full name", required: true, seenInInputFile: false, studentInfoFieldName: 'fullName' },
-      { name: "Email address", required: true, seenInInputFile: false, studentInfoFieldName: 'email' },
-      { name: "Status", required: false, seenInInputFile: false, studentInfoFieldName: 'status' },
-      { name: "Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'grade' },
-      { name: "Maximum Grade", required: true, seenInInputFile: false, studentInfoFieldName: 'maxGrade' },
-      { name: "Grade can be changed", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeChange' },
-      { name: "Last modified (submission)", required: false, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
-      { name: "Online text", required: false, seenInInputFile: false, studentInfoFieldName: 'onlineText' },
-      { name: "Last modified (grade)", required: true, seenInInputFile: false, studentInfoFieldName: 'gradeLastModified' },
-      { name: "Feedback comments", required: true, seenInInputFile: false, studentInfoFieldName: 'feedbackBoolean' },
-    ];
+    this.initializeFieldsInInputFile();
 
     // check headers to make sure it is a well-formed CSV file
     let errorMsg = '';
@@ -195,7 +197,7 @@ export class FeedbackService {
       if (feedback[n]) {
         // if the feedback string has a double quote in it, add an extra one.
         const res = this.feedbacks[n].feedback.replace(/"/g, '""');
-        feedbackStringArray.push("-" + this.feedbacks[n].deduction + ": " + res)
+        feedbackStringArray.push(this.formatDeductionString(this.feedbacks[n].deduction, res));
       }
     }
     return feedbackStringArray.join('; ');
@@ -258,7 +260,7 @@ export class FeedbackService {
 
     const title = this.cleanUpAssignmentTitle(assignmentName) + ".json";
 
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(wholeThing));
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(jsonWholeThing);
 
     // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
     let a = document.createElement("a");
@@ -283,6 +285,17 @@ export class FeedbackService {
         this.assignmentNameFromJSONFile = res["assignmentName"];
         this.maxScore = this.students[0].maxGrade;
         this.wellFormattedFile = true;
+
+        this.initializeFieldsInInputFile();
+        // go through res to figure out what fields were written to the json file.
+        // for each field, set seenInInputFile to true .
+        for (const field of this.fieldsInInputFile) {
+          if (res["students"][0][field.studentInfoFieldName] !== undefined) {
+            field.seenInInputFile = true;
+          }
+        }
+        console.log('fieldsInInputFile = ', JSON.stringify(this.fieldsInInputFile, null, 2));
+
         resolve();
       };
       fr.readAsText(file);
@@ -362,7 +375,6 @@ export class FeedbackService {
 
   isFeedbackApplied(studentIndex: number, feedbackIndex: number): boolean {
     return this.students[studentIndex].feedbackBoolean[feedbackIndex];
-
   }
 
   gradeUpdate(studentIndex: number): void {
@@ -404,26 +416,29 @@ export class FeedbackService {
   getFeedbackStrings(): string[] {
     let res = [];
     for (let i = 0; i < this.students.length; i++) {
-      let strs = [];
-      for (let n = 0; n < this.feedbacks.length; n++) {
-        if (this.students[i].feedbackBoolean[n]) {
-          strs.push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
-        }
-      }
-      // join all deduction strings together with semi-colon separator.
-      res.push(strs.join('; '));
+      res.push(this.getFeedbackString(i));
     }
     return res;
   }
 
+  formatDeductionString(deduction: number, feedback: string): string {
+    if (deduction >= 0) {
+      return "-" + deduction + ": " + feedback;
+    } else {
+      // the "deduction" is negative, so put +3, not --3 (e.g.).
+      return "+" + -(deduction) + ": " + feedback;
+    }
+  }
+
   getFeedbackString(studentIdx: number): string {
+
     let strs = [];
     for (let n = 0; n < this.feedbacks.length; n++) {
       if (this.students[studentIdx].feedbackBoolean[n]) {
-        strs.push("-" + this.feedbacks[n].deduction + ": " + this.feedbacks[n].feedback);
+        strs.push(this.formatDeductionString(this.feedbacks[n].deduction, this.feedbacks[n].feedback));
       }
     }
-    return strs.join(', ');
+    return strs.join('; ');
   }
 
   getGrade(studentIdx: number): string {
