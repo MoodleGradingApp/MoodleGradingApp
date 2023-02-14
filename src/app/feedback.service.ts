@@ -168,8 +168,8 @@ export class FeedbackService {
       
       data.push(datum);
     }
-    // The type definition in the package is wrong here.
-    return stringify(data, { columns: columns, header: true}) as unknown as string;
+  
+    return stringify(data, { columns: columns, header: true});
   }
 
   private createCSVFeedbackString(feedback: Array<boolean>): string {
