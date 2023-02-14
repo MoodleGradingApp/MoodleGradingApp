@@ -25,6 +25,7 @@
     "@sentry/tracing": "^7.13.0",
     "apexcharts": "^3.35.5",
     "bootstrap": "^5.2.1",
+    "csv-stringify": "^6.2.4",
     "dayjs": "^1.11.5",
     "ng-apexcharts": "^1.7.1",
     "ngx-csv-parser": "^1.2.0",
