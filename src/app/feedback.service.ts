@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { NgxCSVParserError, NgxCsvParser } from 'ngx-csv-parser';
+import {stringify} from 'csv-stringify/browser/esm/sync';
 import * as dayjs from 'dayjs';
 
 export interface StudentInfo {
@@ -145,50 +146,30 @@ export class FeedbackService {
 
   // This manually constructs our CSV file string
   private buildCSV(): string {
-    let csv_file = '';
+    const columns = this.fieldsInInputFile.filter(f => f.seenInInputFile).map(f => ({key: f.name}));
 
-    // create header row
-    // const row = 'Identifier,Full name,Email address,Status,Grade,Maximum Grade,Grade can be changed,
-    //                Last modified(submission), Online text, Last modified(grade), Feedback comments';
-    const row = this.fieldsInInputFile.filter(f => f.seenInInputFile).map(f => f.name).join(',');
-
-
-    // Add row and newline + carriage-return
-    csv_file += row + '\r\n';
-
+    const data = [];
 
     // Build and add lines to csv_file
     for (let i = 0; i < this.students.length; i++) {
-      let line = '';
+      const datum: any = {};
+      // get the student info, cast to any so we can reference named fields.
+      const studentInfo : any = this.students[i];
       for (const field of this.fieldsInInputFile) {
         // if it wasn't in the input file, skip it for the output file.
         if (!field.seenInInputFile) {
           continue;
         }
-        if (line !== '') {
-          line += ','   // do comma-separation
-        }
-        if (field.studentInfoFieldName === 'gradeLastModified' || field.studentInfoFieldName === 'submissionLastModified') {
-          // @ts-ignore
-          line += '"' + this.students[i][field.studentInfoFieldName] + '"';
-        } else if (field.name === 'Feedback comments') {
-          // @ts-ignore
-          const feedbackString = this.createCSVFeedbackString(this.students[i].feedbackBoolean);
-
-          // wrap in double quotes
-          line += '"' + feedbackString + '"';
-        }
-        else {
-          // @ts-ignore
-          line += this.students[i][field.studentInfoFieldName];
-        }
-
+        // Generate feedback comments
+        datum[field.name] = (field.name === 'Feedback comments') ?
+          this.createCSVFeedbackString(studentInfo.feedbackBoolean) :
+          studentInfo[field.studentInfoFieldName];        
       }
-
-      csv_file += line + '\r\n';
+      
+      data.push(datum);
     }
-
-    return csv_file;
+  
+    return stringify(data, { columns: columns, header: true});
   }
 
   private createCSVFeedbackString(feedback: Array<boolean>): string {
